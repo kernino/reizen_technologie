@@ -1,4 +1,4 @@
-import 'package:reizen_technologie/Model/DatabaseTable.dart';
+import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 
 class User implements DatabaseTable {
   final int id;

@@ -1,5 +1,7 @@
-import 'package:reizen_technologie/Model/HelloYouModel.dart';
 
+import 'package:flutter/material.dart';
+import 'package:reizen_technologie/Model/HelloYouModel.dart';
+import 'package:reizen_technologie/Model/globals.dart' as globals;
 
 class HelloYouViewModel implements HelloYouModel {
 
@@ -11,8 +13,8 @@ class HelloYouViewModel implements HelloYouModel {
     print("Name: " + name);
   }
 
+  Scaffold checkLoggedIn(BuildContext context) {
 
-
-
+  }
 
 }

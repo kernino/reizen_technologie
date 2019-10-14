@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:reizen_technologie/ViewModel/HelloYouViewModel.dart';
 
+import 'appbar.dart';
+import 'hello_you2.dart';
 
 class HelloYou extends StatefulWidget {
   @override
@@ -15,36 +17,41 @@ class _HelloYouState extends State<HelloYou> {
     HelloYouViewModel viewModel = new HelloYouViewModel();
     final nameController = TextEditingController();
 
-    return Container(
-        padding: EdgeInsets.all(15.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 30),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: TextFormField(
-                style: TextStyle(color: Colors.black),
-                keyboardType: TextInputType.text,
-                controller: nameController,
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: RaisedButton(
-                color: Colors.blueAccent,
-                onPressed: () {
-                  viewModel.setName(nameController.text.trim());
-                  Navigator.of(context).pushReplacementNamed('/screen2');
-                },
-                child: Text("Login"),
-              ),
-            )
-          ],
-        ));
+    return Scaffold(
+        appBar: AppbarTest.getAppbar(),
+        body: new Container(
+            padding: EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.black),
+                    keyboardType: TextInputType.text,
+                    controller: nameController,
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: RaisedButton(
+                    color: Colors.blueAccent,
+                    onPressed: () {
+                      viewModel.setName(nameController.text.trim());
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HelloYou2()),
+                      );
+                    },
+                    child: Text("Login"),
+                  ),
+                )
+              ],
+            )));
   }
 }

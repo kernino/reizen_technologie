@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:path/path.dart';
-import 'package:reizen_technologie/Model/DatabaseTable.dart';
+import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:reizen_technologie/Model/globals.dart' as globals;
+
 
 class DatabaseHelper {
 
@@ -11,14 +13,40 @@ class DatabaseHelper {
   void initializeDatabase() async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'reizentechnologie.data'),
+      join(await getDatabasesPath(), 'db.reizentechnologie'),
       onCreate: (db, version) {
-        return db.execute(
-          "CREATE TABLE users(id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, accepted_conditions INTEGER, token TEXT)",
+        db.rawQuery(
+            "CREATE TABLE users("
+                "id INTEGER PRIMARY KEY, "
+                "first_name TEXT, "
+                "last_name TEXT, "
+                "accepted_conditions INTEGER, "
+                "token TEXT)"
+        );
+
+        db.rawQuery(
+            "CREATE TABLE emergency_numbers("
+                "id INTEGER PRIMARY KEY,"
+                "user_id INTEGER,"
+                "number TEXT,"
+                "FOREIGN KEY(user_id) REFERENCES users(id))"
         );
       },
-      version: 2,
+      version: 1,
     );
+
+    globals.database = db;
+  }
+
+  Future<bool> GetLoggedInUser() async {
+    List<Map<String, dynamic>> maps = await db.rawQuery("SELECT * FROM users WHERE token IS NOT NULL AND accepted_conditions = '0'");
+
+    if(maps != null) {
+      globals.loggedInUser = maps[0];
+    }
+    else {
+        return false;
+      }
   }
 
   Future<void> insert(DatabaseTable model) async {
