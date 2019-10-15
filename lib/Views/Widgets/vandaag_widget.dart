@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class Vandaag extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -17,21 +16,21 @@ class MyApp extends StatelessWidget {
         //Color.fromRGBO(255, g, b, opacity),
         //Colors.red,
       ),
-      home: MyHomePage(title: 'Today'),
+      home: VandaagPage(title: 'Today'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class VandaagPage extends StatefulWidget {
+  VandaagPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _VandaagPageState createState() => _VandaagPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _VandaagPageState extends State<VandaagPage> {
   //the countdown
   dynamic _counter = DateTime(2020, 5, 17).difference(DateTime.now()).inDays;
 

@@ -8,7 +8,6 @@ import 'package:reizen_technologie/Model/Database/database_helpers.dart';
 import 'ViewModel/HelloYouViewModel.dart';
 import 'Views/Widgets/appbar.dart';
 import 'Views/Widgets/hello_you.dart';
-import 'Views/Widgets/hello_you2.dart';
 import 'Model/globals.dart' as globals;
 import 'Views/Widgets/vandaag_widget.dart';
 
@@ -35,7 +34,7 @@ class MainDart extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<void> snapshot){
           if (globals.loggedInUser != null)
             {
-              return new MyHomePage();
+              return new Vandaag();
             }
           else
             {

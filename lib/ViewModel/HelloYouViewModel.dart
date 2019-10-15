@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Model/HelloYouModel.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
-import 'package:reizen_technologie/Views/Widgets/hello_you2.dart';
+import 'package:reizen_technologie/Views/Widgets/hello_you.dart';
+import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 
 class HelloYouViewModel implements HelloYouModel {
 
@@ -19,7 +20,7 @@ class HelloYouViewModel implements HelloYouModel {
   void navigate(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HelloYou2()),
+      MaterialPageRoute(builder: (context) => Voorwaarden()),
     );
   }
 

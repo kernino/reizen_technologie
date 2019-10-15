@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:reizen_technologie/ViewModel/HelloYouViewModel.dart';
 
 import 'appbar.dart';
-import 'hello_you2.dart';
 
 class HelloYou extends StatefulWidget {
   @override
