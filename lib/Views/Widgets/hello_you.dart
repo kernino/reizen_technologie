@@ -14,11 +14,13 @@ class HelloYou extends StatefulWidget {
 class _HelloYouState extends State<HelloYou> {
   @override
   Widget build(BuildContext context) {
+
     HelloYouViewModel viewModel = new HelloYouViewModel();
+
     final nameController = TextEditingController();
 
     return Scaffold(
-        appBar: AppbarTest.getAppbar(),
+        appBar: AppbarTest.getAppbar("test"),
         body: new Container(
             padding: EdgeInsets.all(15.0),
             child: Column(
@@ -43,10 +45,7 @@ class _HelloYouState extends State<HelloYou> {
                     color: Colors.blueAccent,
                     onPressed: () {
                       viewModel.setName(nameController.text.trim());
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HelloYou2()),
-                      );
+                      viewModel.navigate(context);
                     },
                     child: Text("Login"),
                   ),

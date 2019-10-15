@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppbarTest{
-  static getAppbar() {
+  static getAppbar(String title) {
 
       return AppBar(
         title: Text(
-            'Test',
+            title,
             style: TextStyle(color: Colors.white)
         ),
         backgroundColor: Colors.red,

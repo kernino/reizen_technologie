@@ -9,7 +9,7 @@ class HelloYou2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppbarTest.getAppbar(),
+        appBar: AppbarTest.getAppbar("test"),
         body: Text("Logged in! ")
     );
   }
