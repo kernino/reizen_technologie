@@ -10,6 +10,7 @@ import 'Views/Widgets/appbar.dart';
 import 'Views/Widgets/hello_you.dart';
 import 'Views/Widgets/hello_you2.dart';
 import 'Model/globals.dart' as globals;
+import 'Views/Widgets/vandaag_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,7 +35,7 @@ class MainDart extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<void> snapshot){
           if (globals.loggedInUser != null)
             {
-              return new HelloYou2();
+              return new MyHomePage();
             }
           else
             {
