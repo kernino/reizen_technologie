@@ -39,10 +39,11 @@ class DatabaseHelper {
   }
 
   Future<bool> GetLoggedInUser() async {
-    List<Map<String, dynamic>> maps = await db.rawQuery("SELECT * FROM users WHERE token IS NOT NULL AND accepted_conditions = '0'");
+    List<Map<String, dynamic>> maps = await db.rawQuery("SELECT * FROM users WHERE token IS NOT NULL");
 
     if(maps != null) {
       globals.loggedInUser = maps[0];
+      return true;
     }
     else {
         return false;

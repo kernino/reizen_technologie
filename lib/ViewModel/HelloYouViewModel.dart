@@ -14,7 +14,9 @@ class HelloYouViewModel implements HelloYouModel {
   }
 
   Scaffold checkLoggedIn(BuildContext context) {
+    if(globals.loggedInUser != null){
 
+    }
   }
 
 }
