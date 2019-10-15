@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:reizen_technologie/ViewModel/HelloYouViewModel.dart';
+import 'package:reizen_technologie/ViewModel/InlogViewModel.dart';
 import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
 
 import 'appbar.dart';
@@ -13,7 +13,7 @@ class Voorwaarden extends StatefulWidget {
 class _VoorwaardenState extends State<Voorwaarden> {
   @override
   Widget build(BuildContext context) {
-    HelloYouViewModel viewModel = new HelloYouViewModel();
+    InlogViewModel viewModel = new InlogViewModel();
     final nameController = TextEditingController();
 
     return Scaffold(
@@ -37,7 +37,6 @@ class _VoorwaardenState extends State<Voorwaarden> {
         padding: EdgeInsets.all(8.0),
         child: RaisedButton(
           onPressed: () {
-            viewModel.setName(nameController.text.trim());
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Vandaag()),

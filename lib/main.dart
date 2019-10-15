@@ -5,10 +5,9 @@ import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
 
-import 'ViewModel/HelloYouViewModel.dart';
 import 'Views/Widgets/appbar.dart';
-import 'Views/Widgets/hello_you.dart';
 import 'Model/globals.dart' as globals;
+import 'Views/Widgets/inlog_widget.dart';
 import 'Views/Widgets/vandaag_widget.dart';
 
 void main() => runApp(MyApp());
@@ -38,7 +37,7 @@ class MainDart extends StatelessWidget {
             }
           else
             {
-              return new HelloYou();
+              return new Inlog();
             }
     });
 
