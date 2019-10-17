@@ -4,7 +4,6 @@ import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:reizen_technologie/ViewModel/AlgemeneInfoViewModel.dart';
 
-
 class VoorwaardenConnection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -31,13 +30,10 @@ class Voorwaarden extends StatefulWidget {
 class _VoorwaardenState extends State<Voorwaarden> {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
-        title:Text(
-            "Algemene voorwaarden",
-            style: TextStyle(color: Colors.white)
-        ),
+        title:
+            Text("Algemene voorwaarden", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.red,
       ),
       body: Scrollbar(
@@ -48,7 +44,10 @@ class _VoorwaardenState extends State<Voorwaarden> {
                 child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                getData(),
+                SizedBox(
+                    height: MediaQuery.of(context).size.height -200,
+                    child: getData()),
+
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: RaisedButton(
@@ -61,8 +60,8 @@ class _VoorwaardenState extends State<Voorwaarden> {
                     },
                     color: Colors.red,
                     textColor: Colors.white,
-                    child: Text('Ik ga akkoord',
-                        style: TextStyle(fontSize: 20)),
+                    child:
+                        Text('Ik ga akkoord', style: TextStyle(fontSize: 20)),
                   ),
                 )
               ],

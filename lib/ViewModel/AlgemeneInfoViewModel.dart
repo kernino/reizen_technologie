@@ -38,6 +38,7 @@ Query getData(){
             return Text(result.data['info'][index]['info_value']);
           },
           itemCount: result.data['info'].length,
+          scrollDirection: Axis.vertical,
         );
       });
   return a;
