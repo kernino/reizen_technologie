@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Model/InlogModel.dart';
-import 'dart:async';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:reizen_technologie/Views/Widgets/inlog_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
+
+import '../Views/Widgets/voorwaarden_widget.dart';
 
 
 class InlogViewModel implements InlogModel {
@@ -75,7 +75,7 @@ class InlogViewModel implements InlogModel {
             context,
             new MaterialPageRoute(
                 builder: (BuildContext context) =>
-                new Voorwaarden()));
+                new VoorwaardenConnection()));
       }
       else if (status != null && api_token == null && message != null){
         showAlertDialog(context, "Onjuiste inloggegevens gebruikt.");
@@ -88,7 +88,7 @@ class InlogViewModel implements InlogModel {
   void navigate(BuildContext context) {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => Voorwaarden()),
+      MaterialPageRoute(builder: (context) => VoorwaardenConnection()),
     );
   }
 }

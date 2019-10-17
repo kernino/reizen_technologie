@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reizen_technologie/Model/globals.dart';
 import 'package:reizen_technologie/ViewModel/InlogViewModel.dart';
 
+
+//login = u0598673 met ww stefan
 class Inlog extends StatefulWidget {
   @override
   _Inlog createState() => new _Inlog();
