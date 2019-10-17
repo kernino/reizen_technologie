@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:reizen_technologie/Views/Widgets/appbar.dart';
 
 
 class Vandaag extends StatelessWidget {
@@ -37,7 +35,7 @@ class _VandaagPageState extends State<VandaagPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title), leading: _noodnummersPopup(),),
+      appBar: Appbar.getAppbar("Vandaag"),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,44 +52,6 @@ class _VandaagPageState extends State<VandaagPage> {
       ),
     );
   }
-
-  Widget _noodnummersPopup() => PopupMenuButton<String>(
-    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-      PopupMenuItem<String>(
-        value: 'Noodnummers',
-        child: Text('Noodnummers',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-      ),
-      PopupMenuItem<String>(
-          value: 'phone1',
-          child: ListTile(
-            trailing: Icon(Icons.call),
-            title: Text('McDonald\'s '),
-            subtitle: Text('011 87 33 88'),
-            onTap: () => launch("tel://011873388"),
-          )),
-      const PopupMenuDivider(),
-      PopupMenuItem<String>(
-          value: 'phone2',
-          child: ListTile(
-            trailing: Icon(Icons.call),
-            title: Text('Burger King: '),
-            subtitle: Text('011 29 86 02'),
-            onTap: () => launch("tel://011298602"),
-          )),
-      const PopupMenuDivider(),
-      PopupMenuItem<String>(
-        value: 'phone3',
-        child: ListTile(
-          trailing: Icon(Icons.call),
-          title: Text('Stefan Segers: '),
-          subtitle: Text('+32 494 08 20 31'),
-          onTap: () => launch("tel://+32494082031"),
-        ),
-      )
-    ],
-    icon: Icon(Icons.error),
-  );
 } //+32 494 08 20 31
 
 
