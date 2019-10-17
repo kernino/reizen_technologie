@@ -1,11 +1,11 @@
-//test
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
+import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
+import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 
-import 'Views/Widgets/appbar.dart';
 import 'Model/globals.dart' as globals;
 import 'Views/Widgets/inlog_widget.dart';
 import 'Views/Widgets/vandaag_widget.dart';
@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
 
 
     return new MaterialApp(
-        title: 'Hello you',
-        theme: new ThemeData(primarySwatch: Colors.blue),
+        title: 'Log in',
+        theme: new ThemeData(primarySwatch: Colors.red),
         home: new MainDart());
   }
 }
