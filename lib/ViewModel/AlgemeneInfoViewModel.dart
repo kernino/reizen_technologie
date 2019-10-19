@@ -18,7 +18,7 @@ Link setConnection(){
   var bearer = globals.loggedInUser;
   print(bearer);
   final HttpLink httpLink =  HttpLink(uri: "http://171.25.229.102:8222/graphql?query=");
-  final AuthLink authLink = AuthLink(getToken: () async => 'Bearer UkDSHeJHscD3wU5zmnSjXWQKLWZkWAz4vzs4TSuKAQrRXILDSL7iB9qy5Qhy');
+  final AuthLink authLink = AuthLink(getToken: () async => 'Bearer ' + globals.loggedInUser[0]["token"]);
   final Link link = authLink.concat(httpLink);
   return link;
 }

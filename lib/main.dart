@@ -37,7 +37,15 @@ class MainDart extends StatelessWidget {
             }
           else
             {
-              return new Vandaag();
+              if (globals.loggedInUser[0]["accepted_conditions"] == 0)
+                {
+                  return new VoorwaardenConnection();
+                }
+              else
+                {
+                  return new Vandaag();
+                }
+
             }
     });
 
