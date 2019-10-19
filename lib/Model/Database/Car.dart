@@ -5,7 +5,7 @@ class Car implements DatabaseTable {
   final String car_number;
   final String size;
 
-  Room({this.id, this.car_number, this.size});
+  Car({this.id, this.car_number, this.size});
 
   @override
   int get field_id => this.id;
@@ -27,7 +27,7 @@ class Car implements DatabaseTable {
 
     // Convert the List<Map<String, dynamic> into a List<User>.
     return List.generate(maps.length, (i) {
-      return Room(
+      return Car(
           id: maps[i]['id'],
           car_number: maps[i]['car_number'],
           size: maps[i]['size']
