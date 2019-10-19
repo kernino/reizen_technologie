@@ -1,28 +1,29 @@
+import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 
-class Hotel implements DatabaseTable {
+class DayPlanning implements DatabaseTable {
   final int id;
   final String name;
+  final String date;
+  final String highlight;
   final String description;
-  final String location;
-  final String photoUrl;
 
-  Hotel({this.id, this.name, this.description, this.location, this.photoUrl});
+  DayPlanning({this.id, this.name, this.date, this.highlight, this.description});
 
   @override
   int get field_id => this.id;
 
   @override
-  String get table => "hotels";
+  String get table => "day_planning";
 
   @override
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
-      'description': description,
-      'location': location,
-      'photoUrl': photoUrl,
+      'date': date,
+      'highlight': highlight,
+      'description': description
     };
   }
 
@@ -31,19 +32,19 @@ class Hotel implements DatabaseTable {
 
     // Convert the List<Map<String, dynamic> into a List<User>.
     return List.generate(maps.length, (i) {
-      return Hotel(
+      return DayPlanning(
         id: maps[i]['id'],
         name: maps[i]['name'],
-        description: maps[i]['description'],
-        location: maps[i]['location'],
-        photoUrl: maps[i]['photoUrl'],
+        date: maps[i]['date'],
+        highlight: maps[i]['highlight'],
+        description: maps[i]['description']
       );
     });
   }
 
   @override
   String toString() {
-    return 'Hotel{id: $id, name: $name, description: $description, '
-        'location: $location, photo: $photoUrl}';
+    return 'DayPlanning{id: $id, name: $name, description: $description, '
+        'date: $date, highlight: $highlight}';
   }
 }

@@ -10,44 +10,96 @@ class DatabaseHelper {
 
   Database db;
 
-  void initializeDatabase() async {
+  Future initializeDatabase() async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'db.reizentechnologie'),
-      onCreate: (db, version) {
-        db.rawQuery(
-            "CREATE TABLE users("
+      join(await getDatabasesPath(), 'database.reizentechnologie'),
+      onCreate: (db, version) async {
+        await db.execute(
+          "CREATE TABLE trips ("
+              "id INTEGER PRIMARY KEY,"
+              "name TEXT,"
+              "start_date TEXT,"
+              "end_date TEXT,"
+              "destination TEXT,"
+              "transportation_info TEXT)"
+        );
+
+        await db.execute(
+          "CREATE TABLE day_planning ("
+              "id INTEGER PRIMARY KEY,"
+              "name TEXT,"
+              "date TEXT,"
+              "highlight TEXT,"
+              "description TEXT)"
+        );
+
+        await db.execute(
+          "CREATE TABLE hotels ("
+              "id INTEGER PRIMARY KEY,"
+              "name TEXT,"
+              "description TEXT,"
+              "location TEXT,"
+              "photoUrl TEXT)"
+        );
+
+        await db.execute(
+          "CREATE TABLE cars ("
+              "id INTEGER PRIMARY KEY,"
+              "car_number TEXT,"
+              "size TEXT)"
+        );
+
+        await db.execute(
+          "CREATE TABLE rooms ("
+              "id INTEGER PRIMARY KEY,"
+              "room_number TEXT,"
+              "size TEXT)"
+        );
+
+        await db.execute(
+          "CREATE TABLE travellers ("
+              "id INTEGER PRIMARY KEY,"
+              "first_name TEXT,"
+              "last_name TEXT,"
+              "major_name TEXT,"
+              "phone TEXT,"
+              "room_id INTEGER,"
+              "car_id INTEGER,"
+              "FOREIGN KEY(room_id) REFERENCES rooms(id),"
+              "FOREIGN KEY(car_id) REFERENCES cars(id))"
+        );
+
+        await db.execute(
+            "CREATE TABLE users ("
                 "id INTEGER PRIMARY KEY, "
                 "first_name TEXT, "
                 "last_name TEXT, "
                 "accepted_conditions INTEGER, "
-                "token TEXT)"
+                "token TEXT,"
+                "traveller_id INTEGER,"
+                "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
         );
 
-        db.rawQuery(
-            "CREATE TABLE emergency_numbers("
+        await db.execute(
+            "CREATE TABLE emergency_numbers ("
                 "id INTEGER PRIMARY KEY,"
                 "user_id INTEGER,"
                 "number TEXT,"
                 "FOREIGN KEY(user_id) REFERENCES users(id))"
         );
       },
-      version: 1,
+      version: 5,
     );
 
     globals.database = db;
   }
 
-  Future<bool> GetLoggedInUser() async {
-    List<Map<String, dynamic>> maps = await db.rawQuery("SELECT * FROM users WHERE token IS NOT NULL");
-
-    if(maps != null) {
-      globals.loggedInUser = maps[0];
-      return true;
+  Future GetLoggedInUser() async {
+    List<Map> result = await db.query("users", columns: ["first_name", "last_name", "accepted_conditions", "token", "traveller_id"], where: "token IS NOT NULL");
+    if(result != null) {
+      globals.loggedInUser = result;
     }
-    else {
-        return false;
-      }
   }
 
   Future<void> insert(DatabaseTable model) async {

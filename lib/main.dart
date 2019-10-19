@@ -1,15 +1,13 @@
-//test
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
+import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
+import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 
-import 'ViewModel/HelloYouViewModel.dart';
-import 'Views/Widgets/appbar.dart';
-import 'Views/Widgets/hello_you.dart';
-import 'Views/Widgets/hello_you2.dart';
 import 'Model/globals.dart' as globals;
+import 'Views/Widgets/inlog_widget.dart';
 import 'Views/Widgets/vandaag_widget.dart';
 
 void main() => runApp(MyApp());
@@ -21,8 +19,8 @@ class MyApp extends StatelessWidget {
 
 
     return new MaterialApp(
-        title: 'Hello you',
-        theme: new ThemeData(primarySwatch: Colors.blue),
+        title: 'Log in',
+        theme: new ThemeData(primarySwatch: Colors.red),
         home: new MainDart());
   }
 }
@@ -33,13 +31,13 @@ class MainDart extends StatelessWidget {
     return FutureBuilder<void>(
         future: db(),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-          if (globals.loggedInUser != null)
+          if (globals.loggedInUser == null)
             {
-              return new MyHomePage();
+              return new Inlog();
             }
           else
             {
-              return new HelloYou();
+              return new Vandaag();
             }
     });
 
@@ -51,6 +49,7 @@ Future db() async {
 
   await db.initializeDatabase();
   await db.GetLoggedInUser();
+
   var user1 = User(
       id: 1,
       firstName: 'test',
@@ -65,6 +64,8 @@ Future db() async {
 
   List<DatabaseTable> usersList = await db.getAll(user1);
 
+
   print(usersList);
   print(await globals.emergencyNumbers);
+  print(await globals.loggedInUser[0]["token"]);
 }

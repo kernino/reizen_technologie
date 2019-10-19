@@ -1,18 +1,15 @@
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 
-class Hotel implements DatabaseTable {
+class Traveller implements DatabaseTable {
   final int id;
   final String first_name;
   final String last_name;
   final String major_name;
-  final String email;
-  final String country;
-  final String address;
-  final String gender;
   final String phone;
-  final String birthdate;
+  final int room_id;
+  final int car_id;
 
-  Hotel({this.id, this.first_name, this.last_name, this.major_name, this.email, this.country, this.address, this.gender, this.phone, this.birthdate});
+  Traveller({this.id, this.first_name, this.last_name, this.major_name, this.phone, this.room_id, this.car_id});
 
   @override
   int get field_id => this.id;
@@ -27,12 +24,9 @@ class Hotel implements DatabaseTable {
       'first_name': first_name,
       'last_name': last_name,
       'major_name': major_name,
-      'email': email,
-      'country': country,
-      'address': address,
-      'gender': gender,
       'phone': phone,
-      'birthdate': birthdate
+      'room_id': room_id,
+      'car_id': car_id
     };
   }
 
@@ -41,25 +35,21 @@ class Hotel implements DatabaseTable {
 
     // Convert the List<Map<String, dynamic> into a List<User>.
     return List.generate(maps.length, (i) {
-      return Hotel(
+      return Traveller(
           id: maps[i]['id'],
           first_name: maps[i]['first_name'],
           last_name: maps[i]['last_name'],
           major_name: maps[i]['major_name'],
-          email: maps[i]['email'],
-          country: maps[i]['country'],
-          address: maps[i]['address'],
-          gender: maps[i]['gender'],
           phone: maps[i]['phone'],
-          birthdate: maps[i]['birthdate']
+          room_id: maps[i]['room_id'],
+          car_id: maps[i]['car_id']
       );
     });
   }
 
   @override
   String toString() {
-    return 'Hotel{id: $id, first_name: $first_name, last_name: $last_name, major: $major_name, '
-        'email: $email, country: $country, address: $address, '
-        'gender: $gender, phone: $phone, birthdate: $birthdate}';
+    return 'Traveller{id: $id, first_name: $first_name, last_name: $last_name, '
+           'major: $major_name, phone: $phone, room: $room_id, car: $car_id}';
   }
 }

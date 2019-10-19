@@ -1,24 +1,24 @@
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 
-class Traveller_Trip implements DatabaseTable {
+class Car implements DatabaseTable {
   final int id;
-  final int trip_id;
-  final int traveller_id;
+  final String car_number;
+  final String size;
 
-  Traveller_Trip({this.id, this.trip_id, this.traveller_id});
+  Room({this.id, this.car_number, this.size});
 
   @override
   int get field_id => this.id;
 
   @override
-  String get table => "traveller_trip";
+  String get table => "cars";
 
   @override
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'trip_id': trip_id,
-      'traveller_id': traveller_id
+      'car_number': car_number,
+      'size': size
     };
   }
 
@@ -27,16 +27,16 @@ class Traveller_Trip implements DatabaseTable {
 
     // Convert the List<Map<String, dynamic> into a List<User>.
     return List.generate(maps.length, (i) {
-      return Traveller_Trip(
+      return Room(
           id: maps[i]['id'],
-          trip_id: maps[i]['trip_id'],
-          traveller_id: maps[i]['traveller_id']
+          car_number: maps[i]['car_number'],
+          size: maps[i]['size']
       );
     });
   }
 
   @override
   String toString() {
-    return 'TravellerTrip{id: $id, trip_id: $trip_id, traveller: $traveller_id}';
+    return 'Car{id: $id, car: $car_number, size: $size}';
   }
 }

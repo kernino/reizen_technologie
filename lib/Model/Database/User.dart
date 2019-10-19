@@ -6,8 +6,9 @@ class User implements DatabaseTable {
   final String lastName;
   final int acceptedConditions;
   final String token;
+  final int traveller_id;
 
-  User({this.id, this.firstName, this.lastName, this.acceptedConditions, this.token});
+  User({this.id, this.firstName, this.lastName, this.acceptedConditions, this.token, this.traveller_id});
 
   @override
   int get field_id => this.id;
@@ -22,7 +23,8 @@ class User implements DatabaseTable {
       'first_name': firstName,
       'last_name': lastName,
       'accepted_conditions': acceptedConditions,
-      'token': token
+      'token': token,
+      'traveller_id': traveller_id
     };
   }
 
@@ -37,12 +39,13 @@ class User implements DatabaseTable {
           lastName: maps[i]['last_name'],
           acceptedConditions: maps[i]['accepted_conditions'],
           token: maps[i]['token'],
+          traveller_id: maps[i]['traveller_id']
       );
     });
   }
 
   @override
   String toString() {
-    return 'User{id: $id, first_name: $firstName, last_name: $lastName, accepted_conditions: $acceptedConditions, token: $token}';
+    return 'User{id: $id, first_name: $firstName, last_name: $lastName, accepted_conditions: $acceptedConditions, token: $token, traveller: $traveller_id}';
   }
 }
