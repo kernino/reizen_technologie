@@ -12,6 +12,7 @@ import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 import 'package:reizen_technologie/ViewModel/CarViewModel.dart';
 
+import 'Model/Database/Traveller.dart';
 import 'Model/globals.dart' as globals;
 import 'Views/Widgets/inlog_widget.dart';
 import 'Views/Widgets/vandaag_widget.dart';
@@ -41,7 +42,7 @@ class MainDart extends StatelessWidget {
           Connection connection = new Connection(context);
           connection.checkConnectivity();
 
-          if (globals.loggedInUser != null)
+          if (globals.loggedInUser == null)
             {
               return new Inlog();
             }
@@ -94,13 +95,50 @@ Future db() async {
       location: 'Schulencity',
       photoUrl: 'hotelPhotoUrl');
 
-  var number = EmergencyNumber(id: 1, user_id: 1, number: "0412345678");
+  var traveller1 = Traveller(
+    id: 1,
+    first_name: "test",
+    last_name: "traveller",
+    major_name: "ICT",
+    phone: "0412345678",
+    room_id: 1,
+    car_id: 1
+  );
+
+  var traveller2 = Traveller(
+      id: 2,
+      first_name: "test2",
+      last_name: "traveller",
+      major_name: "ICT",
+      phone: "0412345678",
+      room_id: 1,
+      car_id: 1
+  );
+
+  var traveller3 = Traveller(
+      id: 3,
+      first_name: "test3",
+      last_name: "traveller",
+      major_name: "ICT",
+      phone: "0412345678",
+      room_id: 1,
+      car_id: 1
+  );
+
+  var number = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
+  var number2 = EmergencyNumber(id:2,traveller_id: 2, number: "0412345678");
+  var number3 = EmergencyNumber(id:3,traveller_id: 3, number: "0412345678");
 
   db.insert(user1);
   db.insert(dayPlanning1);
   db.insert(car1);
   db.insert(hotel1);
   db.insert(number);
+  db.insert(number2);
+  db.insert(number3);
+  db.insert(traveller1);
+  db.insert(traveller2);
+  db.insert(traveller3);
 
   List<DatabaseTable> usersList = await db.getAll(user1);
 

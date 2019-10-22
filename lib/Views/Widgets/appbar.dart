@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:reizen_technologie/Model/globals.dart' as globals;
 
 class Appbar{
 
@@ -22,7 +23,7 @@ class Appbar{
               value: 'phone1',
               child: ListTile(
                 trailing: Icon(Icons.call),
-                title: Text('McDonald\'s '),
+                title: Text(globals.emergencyNumbers[0]['first_name']),
                 subtitle: Text('011 87 33 88'),
                 onTap: () => launch("tel://011873388"),
               )),

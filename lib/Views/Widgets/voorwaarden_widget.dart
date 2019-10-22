@@ -53,10 +53,7 @@ class _VoorwaardenState extends State<Voorwaarden> {
                   child: RaisedButton(
                     padding: const EdgeInsets.all(10.0),
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => Vandaag()),
-                      );
+                      acceptConditions(context);
                     },
                     color: Colors.red,
                     textColor: Colors.white,

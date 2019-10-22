@@ -2,10 +2,10 @@ import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 
 class EmergencyNumber implements DatabaseTable {
   final int id;
-  final int user_id;
+  final int traveller_id;
   final String number;
 
-  EmergencyNumber({this.id,this.user_id,this.number});
+  EmergencyNumber({this.id,this.traveller_id,this.number});
 
   @override
   int get field_id => this.id;
@@ -17,7 +17,7 @@ class EmergencyNumber implements DatabaseTable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'user_id': user_id,
+      'traveller_id': traveller_id,
       'number': number
     };
   }
@@ -29,7 +29,7 @@ class EmergencyNumber implements DatabaseTable {
     return List.generate(maps.length, (i) {
       return EmergencyNumber(
         id: maps[i]['id'],
-        user_id: maps[i]['user_id'],
+        traveller_id: maps[i]['traveller_id'],
         number: maps[i]['number']
       );
     });
@@ -37,6 +37,6 @@ class EmergencyNumber implements DatabaseTable {
 
   @override
   String toString() {
-    return 'EmergencyNumbers{id: $id, user: $user_id, number: $number}';
+    return 'EmergencyNumbers{id: $id, traveller: $traveller_id, number: $number}';
   }
 }
