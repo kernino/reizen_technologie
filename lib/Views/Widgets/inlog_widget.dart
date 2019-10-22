@@ -117,7 +117,7 @@ class _Inlog extends State<Inlog> {
 class UcllImageAsset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AssetImage assetImage = AssetImage('../images/Inlogscherm/ucll.png');
+    AssetImage assetImage = AssetImage('assets/inlogscherm/ucll.png');
     Image image = Image(
       image: assetImage,
       width: 350.0,
