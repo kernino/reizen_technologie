@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Model/Connection.dart';
+import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
+import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
+import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
+import 'package:reizen_technologie/ViewModel/CarViewModel.dart';
 
 import 'Model/globals.dart' as globals;
 import 'Views/Widgets/inlog_widget.dart';
@@ -72,23 +76,39 @@ Future db() async {
       token: 'UkDSHeJHscD3wU5zmnSjXWQKLWZkWAz4vzs4TSuKAQrRXILDSL7iB9qy5Qhy');
 
   var dayPlanning1 = DayPlanning(
+    id: 1,
+    name: 'nameTest',
+    date: 'dateTest',
+    highlight: 'highlightTest',
+    description: 'descriptionTest');
+
+  var car1 = Car(
       id: 1,
-      name: 'nameTest',
-      date: 'dateTest',
-      highlight: 'highlightTest',
-      description: 'descriptionTest');
+      car_number: '69',
+      size: '5');
+
+  var hotel1 = Hotel(
+      id: 1,
+      name: 'hotelName',
+      description: 'hotelDescription',
+      location: 'Schulencity',
+      photoUrl: 'hotelPhotoUrl');
 
   var number = EmergencyNumber(id: 1, user_id: 1, number: "0412345678");
 
   db.insert(user1);
   db.insert(dayPlanning1);
+  db.insert(car1);
+  db.insert(hotel1);
   db.insert(number);
 
   List<DatabaseTable> usersList = await db.getAll(user1);
-  List<DatabaseTable> planningList = await db.getAll(dayPlanning1);
 
   GetDayPlannings();
+  GetCars();
+  GetHotels();
   print(usersList);
-  print(await globals.emergencyNumbers);
+  globals.getEmergencyNumbers();
+  print(globals.emergencyNumbers);
   //print(await globals.loggedInUser[0]["token"]);
 }
