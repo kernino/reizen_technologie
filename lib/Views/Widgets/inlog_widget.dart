@@ -29,7 +29,7 @@ class _Inlog extends State<Inlog> {
             color: Color.fromRGBO(224, 0, 73, 1.0),
             child: Column(
               children: <Widget>[
-                //UcllImageAsset(),
+                UcllImageAsset(),
                 Row(
                   children: <Widget>[
                     Expanded(
