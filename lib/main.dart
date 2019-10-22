@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reizen_technologie/Model/Connection.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
@@ -32,7 +33,11 @@ class MainDart extends StatelessWidget {
     return FutureBuilder<void>(
         future: db(),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-          if (globals.loggedInUser == null)
+
+          Connection connection = new Connection(context);
+          connection.checkConnectivity();
+
+          if (globals.loggedInUser != null)
             {
               return new Inlog();
             }
@@ -80,9 +85,10 @@ Future db() async {
   db.insert(number);
 
   List<DatabaseTable> usersList = await db.getAll(user1);
+  List<DatabaseTable> planningList = await db.getAll(dayPlanning1);
 
   GetDayPlannings();
   print(usersList);
-  //print(await globals.emergencyNumbers);
+  print(await globals.emergencyNumbers);
   //print(await globals.loggedInUser[0]["token"]);
 }
