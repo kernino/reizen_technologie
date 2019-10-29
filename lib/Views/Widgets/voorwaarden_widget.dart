@@ -58,7 +58,7 @@ class _VoorwaardenState extends State<Voorwaarden> {
                         MaterialPageRoute(builder: (context) => Vandaag()),
                       );
                     },
-                    color: Colors.red,
+                    color: Color.fromRGBO(224, 0, 73, 1.0),
                     textColor: Colors.white,
                     child:
                         Text('Ik ga akkoord', style: TextStyle(fontSize: 20)),
