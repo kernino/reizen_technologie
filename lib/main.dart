@@ -7,6 +7,7 @@ import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
+import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
@@ -22,10 +23,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-
     return new MaterialApp(
         title: 'Log in',
+        debugShowCheckedModeBanner: false,
         theme: new ThemeData(primarySwatch: Colors.red),
         home: new MainDart());
   }
@@ -36,29 +36,18 @@ class MainDart extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
         future: db(),
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
           Connection connection = new Connection(context);
           connection.checkConnectivity();
 
-          if (globals.loggedInUser != null)
-            {
-              return new Inlog();
-            }
-          else
-            {
-              if (globals.loggedInUser[0]["accepted_conditions"] == 0)
-                {
-                  return new VoorwaardenConnection();
-                }
-              else
-                {
-                  return new Vandaag();
-                }
-
-            }
-    });
-
+          if (globals.loggedInUser != null) {
+            return new Inlog();
+          }
+          if (globals.loggedInUser[0]["accepted_conditions"] == 0) {
+            return new VoorwaardenConnection();
+          }
+          return new Vandaag();
+        });
   }
 }
 
@@ -76,16 +65,13 @@ Future db() async {
       token: 'UkDSHeJHscD3wU5zmnSjXWQKLWZkWAz4vzs4TSuKAQrRXILDSL7iB9qy5Qhy');
 
   var dayPlanning1 = DayPlanning(
-    id: 1,
-    name: 'nameTest',
-    date: 'dateTest',
-    highlight: 'highlightTest',
-    description: 'descriptionTest');
-
-  var car1 = Car(
       id: 1,
-      car_number: '69',
-      size: '5');
+      name: 'nameTest',
+      date: 'dateTest',
+      highlight: 'highlightTest',
+      description: 'descriptionTest');
+
+  var car1 = Car(id: 1, car_number: '69', size: '5');
 
   var hotel1 = Hotel(
       id: 1,
