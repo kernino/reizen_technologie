@@ -7,7 +7,6 @@ import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
-import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
@@ -62,7 +61,7 @@ Future db() async {
       firstName: 'test',
       lastName: 'user',
       acceptedConditions: 0,
-      token: 'UkDSHeJHscD3wU5zmnSjXWQKLWZkWAz4vzs4TSuKAQrRXILDSL7iB9qy5Qhy');
+      token: 'zi0OLKRpEVVu3o5Gy26lgA2EEUdSJzHpHo6UVlsTxdqfAPW6w8D0yLuNDMMs');
 
   var dayPlanning1 = DayPlanning(
       id: 1,

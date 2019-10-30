@@ -50,9 +50,9 @@ flutter:
   assets:
     - assets/inlogscherm/ucll.png
     - assets/hotels/hotel0.jpg
-    - assets/hotels/hotel1.jpg
-    - assets/hotels/hotel2.jpg
-    - assets/hotels/hotel3.jpg
+#    - assets/hotels/hotel1.jpg
+#    - assets/hotels/hotel2.jpg
+#    - assets/hotels/hotel3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

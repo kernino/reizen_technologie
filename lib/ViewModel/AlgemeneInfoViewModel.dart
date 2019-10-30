@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 
 String getAlgemeneData() {
-  String data =  """
+  String data ="""
     query{
       info{
         info_value
@@ -15,10 +15,10 @@ String getAlgemeneData() {
 
 
 Link setConnection(){
-  var bearer = globals.loggedInUser;
+  var bearer = globals.loggedInUser[0]["token"];
   print(bearer);
   final HttpLink httpLink =  HttpLink(uri: "http://171.25.229.102:8222/graphql?query=");
-  final AuthLink authLink = AuthLink(getToken: () async => 'Bearer ' + globals.loggedInUser[0]["token"]);
+  final AuthLink authLink = AuthLink(getToken: () async => 'Bearer ' + bearer);
   final Link link = authLink.concat(httpLink);
   return link;
 }
@@ -31,7 +31,8 @@ Query getData(){
         FetchMore fetchMore,
       }) {
         if (result.data == null) {
-          return Text("loading...");
+          //return Text("loading...");
+          return Text(result.errors.toString());
         }
         return ListView.builder(
           itemBuilder: (BuildContext context, int index) {
