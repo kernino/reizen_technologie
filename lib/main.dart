@@ -7,6 +7,7 @@ import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
+//import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
@@ -74,9 +75,16 @@ Future db() async {
 
   var hotel1 = Hotel(
       id: 1,
-      name: 'hotelName',
-      description: 'hotelDescription',
+      name: 'Schulen Station',
+      description: 'mooi station',
       location: 'Schulencity',
+      photoUrl: 'hotelPhotoUrl');
+
+  var hotel2 = Hotel(
+      id: 2,
+      name: 'C-mine',
+      description: 'mooie mijn',
+      location: 'Genk',
       photoUrl: 'hotelPhotoUrl');
 
   var number = EmergencyNumber(id: 1, user_id: 1, number: "0412345678");
@@ -84,7 +92,9 @@ Future db() async {
   db.insert(user1);
   db.insert(dayPlanning1);
   db.insert(car1);
+  db.insert(hotel2);
   db.insert(hotel1);
+
   db.insert(number);
 
   List<DatabaseTable> usersList = await db.getAll(user1);
