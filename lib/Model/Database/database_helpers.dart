@@ -13,7 +13,7 @@ class DatabaseHelper {
   Future initializeDatabase() async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'database.reizentechnologie'),
+      join(await getDatabasesPath(), 'reizentechnologie.database'),
       onCreate: (db, version) async {
         await db.execute(
           "CREATE TABLE trips ("
@@ -86,7 +86,7 @@ class DatabaseHelper {
                 "id INTEGER PRIMARY KEY,"
                 "user_id INTEGER,"
                 "number TEXT,"
-                "FOREIGN KEY(user_id) REFERENCES users(id))"
+                "FOREIGN KEY(traveller_id) REFERENCES users(id))"
         );
       },
       version: 5,

@@ -50,11 +50,7 @@ Query getData(){
 }
 
 void acceptConditions(BuildContext context) async {
-  var count = await globals.database.update('users', {'accepted_conditions': '1'}, where: 'token = ?', whereArgs: [await globals.loggedInUser[0]["token"]]);
-  User user = new User();
-  DatabaseHelper db = new DatabaseHelper();
-  var usersList = await globals.database.query('users', columns: ['first_name', 'last_name', 'token', 'accepted_conditions']);
-  print(usersList);
+  await globals.database.update('users', {'accepted_conditions': '1'}, where: 'token = ?', whereArgs: [await globals.loggedInUser[0]["token"]]);
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(builder: (context) => Vandaag()),

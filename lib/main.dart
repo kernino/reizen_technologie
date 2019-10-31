@@ -126,8 +126,8 @@ Future db() async {
   );
 
   var number = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
-  var number2 = EmergencyNumber(id:2,traveller_id: 2, number: "0412345678");
-  var number3 = EmergencyNumber(id:3,traveller_id: 3, number: "0412345678");
+  var number2 = EmergencyNumber(id:2, traveller_id: 2, number: "0412345678");
+  var number3 = EmergencyNumber(id:3, traveller_id: 3, number: "0412345678");
 
   db.insert(user1);
   db.insert(dayPlanning1);

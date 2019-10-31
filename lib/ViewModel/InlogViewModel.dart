@@ -62,6 +62,7 @@ class InlogViewModel implements InlogModel {
         status = responseJSON['status'];
         message = responseJSON['message'];
         api_token = responseJSON['api_token'];
+
         isData = true;
 /*      setState(() {
         print('UI Updated');
