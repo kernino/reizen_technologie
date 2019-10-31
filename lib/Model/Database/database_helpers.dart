@@ -2,8 +2,15 @@ import 'dart:async';
 
 import 'package:path/path.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
+import 'package:reizen_technologie/Model/Database/Room.dart';
+import 'package:reizen_technologie/Model/Database/Traveller.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
+
+import 'Car.dart';
+import 'DayPlanning.dart';
+import 'Emergency Number.dart';
+import 'Hotel.dart';
 
 
 class DatabaseHelper {
@@ -86,7 +93,8 @@ class DatabaseHelper {
                 "id INTEGER PRIMARY KEY,"
                 "user_id INTEGER,"
                 "number TEXT,"
-                "FOREIGN KEY(traveller_id) REFERENCES users(id))"
+                "traveller_id INTEGER,"
+                "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
         );
       },
       version: 5,
@@ -138,5 +146,59 @@ class DatabaseHelper {
       // Pass the User's id as a whereArg to prevent SQL injection.
       whereArgs: [model.field_id],
     );
+  }
+
+  Future Seed() async {
+
+
+
+    var dayPlanning1 = DayPlanning(
+        id: 1,
+        name: 'nameTest',
+        date: 'dateTest',
+        highlight: 'highlightTest',
+        description: 'descriptionTest');
+
+    var car1 = Car(id: 1, car_number: '69', size: '5');
+
+    var hotel1 = Hotel(
+        id: 1,
+        name: 'Schulen Station',
+        description: 'mooi station',
+        location: 'Schulencity',
+        photoUrl: 'hotelPhotoUrl');
+
+    var hotel2 = Hotel(
+        id: 2,
+        name: 'C-mine',
+        description: 'mooie mijn',
+        location: 'Genk',
+        photoUrl: 'hotelPhotoUrl');
+
+    var room1 = Room(
+      id: 1,
+      room_number: "1",
+      size: "4"
+    );
+
+    var traveller = Traveller(
+        id: 1,
+        first_name: "Stefan",
+        last_name: "Segers",
+        major_name: null,
+        room_id: 1,
+        car_id: 1
+    );
+
+    var number = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
+
+    globals.dbHelper.insert(dayPlanning1);
+    globals.dbHelper.insert(car1);
+    globals.dbHelper.insert(hotel2);
+    globals.dbHelper.insert(hotel1);
+    globals.dbHelper.insert(room1);
+    globals.dbHelper.insert(traveller);
+    globals.dbHelper.insert(number);
+    globals.getEmergencyNumbers();
   }
 }

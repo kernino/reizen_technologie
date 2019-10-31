@@ -19,7 +19,7 @@ Future GetDayPlannings() async {
     print("data dayplanning ophalen gelukt: " + result[0].toString());
   }
   else{
-    print("faaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaal");
+    print("error data dayplanning ophalen");
   }
 
 }

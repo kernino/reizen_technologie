@@ -1,14 +1,13 @@
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appbar {
   static getAppbar(String title) {
     return AppBar(
       title: Text(title, style: TextStyle(color: Colors.white)),
-      backgroundColor: Colors.red,
+      backgroundColor: Color.fromRGBO(224, 0, 73, 1.0),
       leading: PopupMenuButton<String>(
         itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
           PopupMenuItem<String>(

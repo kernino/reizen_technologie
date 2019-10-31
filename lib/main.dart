@@ -7,12 +7,12 @@ import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
+//import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 import 'package:reizen_technologie/ViewModel/CarViewModel.dart';
 
-import 'Model/Database/Traveller.dart';
 import 'Model/globals.dart' as globals;
 import 'Views/Widgets/inlog_widget.dart';
 import 'Views/Widgets/vandaag_widget.dart';
@@ -23,10 +23,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-
     return new MaterialApp(
         title: 'Log in',
+        debugShowCheckedModeBanner: false,
         theme: new ThemeData(primarySwatch: Colors.red),
         home: new MainDart());
   }
@@ -37,116 +36,26 @@ class MainDart extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
         future: db(),
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot){
-
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
           Connection connection = new Connection(context);
           connection.checkConnectivity();
 
-          if (globals.loggedInUser == null)
-            {
-              return new Inlog();
-            }
-          else
-            {
-              if (globals.loggedInUser[0]["accepted_conditions"] == 0)
-                {
-                  return new VoorwaardenConnection();
-                }
-              else
-                {
-                  return new Vandaag();
-                }
+          if (globals.loggedInUser == null) {
+            return new Inlog();
+          }
+          else if (globals.loggedInUser[0]["accepted_conditions"] == 0) {
+            return new VoorwaardenConnection();
+          }
+          return new Vandaag();
 
-            }
-    });
-
+        });
   }
 }
 
 Future db() async {
   DatabaseHelper db = new DatabaseHelper();
+  globals.dbHelper = db;
 
   await db.initializeDatabase();
   await db.GetLoggedInUser();
-
-  var user1 = User(
-      id: 1,
-      firstName: 'test',
-      lastName: 'user',
-      acceptedConditions: 0,
-      token: 'UkDSHeJHscD3wU5zmnSjXWQKLWZkWAz4vzs4TSuKAQrRXILDSL7iB9qy5Qhy');
-
-  var dayPlanning1 = DayPlanning(
-    id: 1,
-    name: 'nameTest',
-    date: 'dateTest',
-    highlight: 'highlightTest',
-    description: 'descriptionTest');
-
-  var car1 = Car(
-      id: 1,
-      car_number: '69',
-      size: '5');
-
-  var hotel1 = Hotel(
-      id: 1,
-      name: 'hotelName',
-      description: 'hotelDescription',
-      location: 'Schulencity',
-      photoUrl: 'hotelPhotoUrl');
-
-  var traveller1 = Traveller(
-    id: 1,
-    first_name: "test",
-    last_name: "traveller",
-    major_name: "ICT",
-    phone: "0412345678",
-    room_id: 1,
-    car_id: 1
-  );
-
-  var traveller2 = Traveller(
-      id: 2,
-      first_name: "test2",
-      last_name: "traveller",
-      major_name: "ICT",
-      phone: "0412345678",
-      room_id: 1,
-      car_id: 1
-  );
-
-  var traveller3 = Traveller(
-      id: 3,
-      first_name: "test3",
-      last_name: "traveller",
-      major_name: "ICT",
-      phone: "0412345678",
-      room_id: 1,
-      car_id: 1
-  );
-
-  var number = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
-  var number2 = EmergencyNumber(id:2, traveller_id: 2, number: "0412345678");
-  var number3 = EmergencyNumber(id:3, traveller_id: 3, number: "0412345678");
-
-  db.insert(user1);
-  db.insert(dayPlanning1);
-  db.insert(car1);
-  db.insert(hotel1);
-  db.insert(number);
-  db.insert(number2);
-  db.insert(number3);
-  db.insert(traveller1);
-  db.insert(traveller2);
-  db.insert(traveller3);
-
-  List<DatabaseTable> usersList = await db.getAll(user1);
-
-  GetDayPlannings();
-  GetCars();
-  GetHotels();
-  print(usersList);
-  globals.getEmergencyNumbers();
-  print(globals.emergencyNumbers);
-  //print(await globals.loggedInUser[0]["token"]);
 }

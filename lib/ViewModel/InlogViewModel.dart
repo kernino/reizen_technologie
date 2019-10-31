@@ -2,17 +2,21 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reizen_technologie/Model/Database/User.dart';
+import 'package:reizen_technologie/Model/Database/database_helpers.dart';
 import 'package:reizen_technologie/Model/InlogModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:reizen_technologie/Views/Widgets/inlog_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
+import 'package:reizen_technologie/main.dart';
 
 import '../Views/Widgets/voorwaarden_widget.dart';
-
+import 'package:reizen_technologie/Model/globals.dart' as globals;
 
 class InlogViewModel implements InlogModel {
 
-  String status, message, api_token;
+  String status, message, api_token, first_name, last_name;
+  int traveller_id;
   bool isData = false;
   Inlog view = new Inlog();
 
@@ -59,9 +63,13 @@ class InlogViewModel implements InlogModel {
       if (Response.statusCode == 200) {
         String responseBody = Response.body;
         var responseJSON = jsonDecode(responseBody);
+
         status = responseJSON['status'];
         message = responseJSON['message'];
         api_token = responseJSON['api_token'];
+        first_name = responseJSON['first_name'];
+        last_name = responseJSON['last_name'];
+        traveller_id = responseJSON['traveller_id'];
 
         isData = true;
 /*      setState(() {
@@ -70,13 +78,26 @@ class InlogViewModel implements InlogModel {
       } else {
         print('Something went wrong. \nResponse Code : ${Response.statusCode}');
       }
-      if (status != null && api_token != null && message == null){
+      if (status != null && api_token != null && message == null && first_name != null && last_name != null && traveller_id != null){
         //Navigator.of(context).pushReplacementNamed('/screen2');
+
+        var user = User(
+            id: 1,
+            firstName: first_name,
+            lastName: last_name,
+            acceptedConditions: 0,
+            token: api_token,
+            traveller_id: traveller_id);
+
+
+
+        await globals.dbHelper.insert(user);
+
         Navigator.pushReplacement(
             context,
             new MaterialPageRoute(
                 builder: (BuildContext context) =>
-                new VoorwaardenConnection()));
+                new MainDart()));
       }
       else if (status != null && api_token == null && message != null){
         showAlertDialog(context, "Onjuiste inloggegevens gebruikt.");
