@@ -17,4 +17,6 @@ Future getEmergencyNumbers() async {
 
 
 
-var loggedInUser = null;
+var loggedInUser = [];
+
+bool isLoggedIn = false;

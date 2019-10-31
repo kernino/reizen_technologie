@@ -20,7 +20,7 @@ class DatabaseHelper {
   Future initializeDatabase() async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'reizentechnologie.database'),
+      join(await getDatabasesPath(), 'reizentechnogie.database'),
       onCreate: (db, version) async {
         await db.execute(
           "CREATE TABLE trips ("
@@ -99,14 +99,15 @@ class DatabaseHelper {
       },
       version: 5,
     );
-
+    await GetLoggedInUser();
     globals.database = db;
   }
 
   Future GetLoggedInUser() async {
     List<Map> result = await db.query("users", columns: ["first_name", "last_name", "accepted_conditions", "token", "traveller_id"], where: "token IS NOT NULL");
-    if(result != null) {
+    if(result[0] != null) {
       globals.loggedInUser = result;
+      globals.isLoggedIn = true;
     }
   }
 
@@ -192,13 +193,13 @@ class DatabaseHelper {
 
     var number = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
 
-    globals.dbHelper.insert(dayPlanning1);
-    globals.dbHelper.insert(car1);
-    globals.dbHelper.insert(hotel2);
-    globals.dbHelper.insert(hotel1);
-    globals.dbHelper.insert(room1);
-    globals.dbHelper.insert(traveller);
-    globals.dbHelper.insert(number);
+    insert(dayPlanning1);
+    insert(car1);
+    insert(hotel2);
+    insert(hotel1);
+    insert(room1);
+    insert(traveller);
+    insert(number);
     globals.getEmergencyNumbers();
   }
 }

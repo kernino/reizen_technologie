@@ -34,28 +34,39 @@ class MyApp extends StatelessWidget {
 class MainDart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-        future: db(),
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          Connection connection = new Connection(context);
-          connection.checkConnectivity();
+    Connection connection = new Connection(context);
+    connection.checkConnectivity();
 
-          if (globals.loggedInUser == null) {
-            return new Inlog();
-          }
-          else if (globals.loggedInUser[0]["accepted_conditions"] == 0) {
-            return new VoorwaardenConnection();
-          }
-          return new Vandaag();
 
-        });
+    DatabaseHelper db = new DatabaseHelper();
+    globals.dbHelper = db;
+
+    return FutureBuilder(
+      future: db.initializeDatabase(), // a previously-obtained Future<String> or null
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return new Container();
+          case ConnectionState.active:
+            return new Container();
+          case ConnectionState.waiting:
+            return new Container();
+          case ConnectionState.done:
+            if (globals.isLoggedIn != true) {
+              return new Inlog();
+            }
+            else if (globals.loggedInUser[0]["accepted_conditions"] == 0) {
+              return new VoorwaardenConnection();
+            }
+            else {
+              return new Vandaag();
+            }
+        }
+        return new Container();
+      },
+    );
   }
 }
 
-Future db() async {
-  DatabaseHelper db = new DatabaseHelper();
-  globals.dbHelper = db;
 
-  await db.initializeDatabase();
-  await db.GetLoggedInUser();
-}
+
