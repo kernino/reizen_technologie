@@ -5,6 +5,7 @@ import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
+import 'package:reizen_technologie/Views/Widgets/navbar.dart';
 import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
 
 String getAlgemeneData() {
@@ -54,7 +55,7 @@ void acceptConditions(BuildContext context) async {
   await globals.database.update('users', {'accepted_conditions': '1'}, where: 'token = ?', whereArgs: [await globals.loggedInUser[0]["token"]]);
   Navigator.pushReplacement(
     context,
-    MaterialPageRoute(builder: (context) => Vandaag()),
+    MaterialPageRoute(builder: (context) => Navbar()),
   );
 }
 

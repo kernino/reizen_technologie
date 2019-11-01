@@ -7,6 +7,7 @@ import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
+import 'package:reizen_technologie/Views/Widgets/navbar.dart';
 //import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
@@ -59,7 +60,7 @@ class MainDart extends StatelessWidget {
               return new VoorwaardenConnection();
             }
             else {
-              return new Vandaag();
+              return new Navbar();
             }
         }
         return new Container();
