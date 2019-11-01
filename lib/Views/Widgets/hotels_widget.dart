@@ -3,7 +3,7 @@ import 'package:reizen_technologie/Views/Widgets/hotel_details_widget.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 import 'appbar.dart';
 
-void main() => runApp(Hotels());
+//void main() => runApp(Hotels());
 
 class Hotels extends StatelessWidget {
   @override
@@ -38,7 +38,14 @@ class _HotelsPageState extends State<HotelsPage> {
         body: new FutureBuilder(
             future: GetHotels(),
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-              var content = snapshot.data;
+              var content;
+              if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  content = [];
+                }
+                return CircularProgressIndicator();
+              }
+              content = snapshot.data;
               //return Text(content.toString());
               return new GridView.count(
                 crossAxisCount: 2,

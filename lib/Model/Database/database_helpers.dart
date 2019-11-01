@@ -155,8 +155,22 @@ class DatabaseHelper {
 
     var dayPlanning1 = DayPlanning(
         id: 1,
-        name: 'nameTest',
-        date: 'dateTest',
+        name: 'vertrek naar ...',
+        date: '17/05',
+        highlight: 'highlightTest',
+        description: 'descriptionTest');
+
+    var dayPlanning2 = DayPlanning(
+        id: 2,
+        name: 'bezoeken van ...',
+        date: '18/05',
+        highlight: 'highlightTest',
+        description: 'descriptionTest');
+
+    var dayPlanning3 = DayPlanning(
+        id: 3,
+        name: 'eten bij ...',
+        date: '19/05',
         highlight: 'highlightTest',
         description: 'descriptionTest');
 
@@ -194,6 +208,8 @@ class DatabaseHelper {
     var number = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
 
     insert(dayPlanning1);
+    insert(dayPlanning2);
+    insert(dayPlanning3);
     insert(car1);
     insert(hotel2);
     insert(hotel1);
