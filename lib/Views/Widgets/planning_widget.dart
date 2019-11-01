@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Views/Widgets/appbar.dart';
+import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
 
 class Planning extends StatelessWidget {
   // This widget is the root of your application.
@@ -30,6 +31,56 @@ class PlanningPage extends StatefulWidget {
 
 class _PlanningPageState extends State<PlanningPage> {
   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: Appbar.getAppbar("Hotels"),
+        body: new FutureBuilder(
+            future: GetDayPlannings(),
+            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+              var content;
+              if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  content = [];
+                }
+                return CircularProgressIndicator();
+              }
+              content = snapshot.data;
+              return new Scaffold(
+                  body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: List.generate(content.length, (index) {
+                    return InkWell(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Text(content[index]['id'].toString())),
+                          );
+                        },
+                        child: Center(
+                            child: new Card(
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                               ListTile(
+                                title: Text("day " + (index + 1).toString() + ": " + content[index]['name']),
+                                subtitle: Text(content[index]['date'] + "\n" + content[index]['highlight']),
+
+                              ),
+                            ]))));
+                  }),
+                ),
+              ));
+            }));
+  }
+}
+
+
+//widget met hardcoded data
+/*
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Appbar.getAppbar(widget.title),
@@ -123,5 +174,4 @@ class _PlanningPageState extends State<PlanningPage> {
       ),
     );
   }
-}
-
+ */
