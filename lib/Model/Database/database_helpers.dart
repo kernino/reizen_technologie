@@ -20,7 +20,7 @@ class DatabaseHelper {
   Future initializeDatabase() async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'reizentechnogie.database'),
+      join(await getDatabasesPath(), 'reizentechnogie.data.database'),
       onCreate: (db, version) async {
         await db.execute(
           "CREATE TABLE trips ("
@@ -47,7 +47,9 @@ class DatabaseHelper {
               "name TEXT,"
               "description TEXT,"
               "location TEXT,"
-              "photoUrl TEXT)"
+              "photoUrl TEXT,"
+              "start_date TEXT,"
+              "end_date TEXT)"
         );
 
         await db.execute(
@@ -97,7 +99,7 @@ class DatabaseHelper {
                 "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
         );
       },
-      version: 5,
+      version: 1,
     );
     await GetLoggedInUser();
     globals.database = db;
@@ -181,14 +183,18 @@ class DatabaseHelper {
         name: 'Schulen Station',
         description: 'mooi station',
         location: 'Schulencity',
-        photoUrl: 'hotelPhotoUrl');
+        photoUrl: 'hotelPhotoUrl',
+        start_date: '2-11-2019',
+        end_date: '9-11-2019');
 
     var hotel2 = Hotel(
         id: 2,
         name: 'C-mine',
         description: 'mooie mijn',
         location: 'Genk',
-        photoUrl: 'hotelPhotoUrl');
+        photoUrl: 'hotelPhotoUrl',
+        start_date: '10-11-2019',
+        end_date: '17-11-2019');
 
     var room1 = Room(
       id: 1,
