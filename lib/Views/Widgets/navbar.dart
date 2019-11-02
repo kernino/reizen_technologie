@@ -15,9 +15,9 @@ class NavbarState extends State<Navbar> {
   int selectedIndex = 0;
   final widgetOptions = [
     new Vandaag(),
-    new Planning(),
+    new PlanningPage(),
     Text('AutoPage'),
-    new Hotels(),
+    new HotelsPage(),
     Text('Contacten page'),
   ];
 
@@ -28,32 +28,33 @@ class NavbarState extends State<Navbar> {
         child: widgetOptions.elementAt(selectedIndex),
       ),
       bottomNavigationBar: new BottomNavigationBar(
-        backgroundColor: Color.fromRGBO(212, 0, 69, 1.0) ,
+        backgroundColor: Color.fromRGBO(224, 0, 73, 1.0) ,
         type: BottomNavigationBarType.fixed ,
         items: [
           new BottomNavigationBarItem(
             icon: new Icon(Icons.home,color: Color.fromRGBO(255, 255, 255, 1.0)),
-            title: new Text('home'),
+            title: new Text('vandaag', style: TextStyle(color: Colors.white),),
           ),
           new BottomNavigationBarItem(
             icon: new Icon(Icons.calendar_today,color: Color.fromRGBO(255, 255, 255, 1.0)),
-            title: new Text('calender'),
+            title: new Text('kalender', style: TextStyle(color: Colors.white),),
           ),
           new BottomNavigationBarItem(
             icon: new Icon(Icons.directions_car,color: Color.fromRGBO(255, 255, 255, 1.0)),
-            title: new Text('auto'),
+            title: new Text('auto', style: TextStyle(color: Colors.white),),
           ),
           new BottomNavigationBarItem(
             icon: new Icon(Icons.hotel,color: Color.fromRGBO(255, 255, 255, 1.0)),
-            title: new Text('hotel'),
+            title: new Text('hotel', style: TextStyle(color: Colors.white),),
           ),
           new BottomNavigationBarItem(
             icon: new Icon(Icons.group,color: Color.fromRGBO(255, 255, 255, 1.0)),
-            title: new Text('contacten'),
+            title: new Text('contacten', style: TextStyle(color: Colors.white),),
           ),
         ],
         currentIndex: selectedIndex,
         onTap: onItemTapped,
+        selectedFontSize: 15,
       ),
     );
   }

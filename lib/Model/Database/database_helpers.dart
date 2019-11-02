@@ -183,18 +183,27 @@ class DatabaseHelper {
         name: 'Schulen Station',
         description: 'mooi station',
         location: 'Schulencity',
-        photoUrl: 'hotelPhotoUrl',
-        start_date: '2-11-2019',
-        end_date: '9-11-2019');
+        photoUrl: 'assets/hotels/hotel0.jpg',
+        start_date: '2019-11-2',
+        end_date: '2019-11-9');
 
     var hotel2 = Hotel(
         id: 2,
         name: 'C-mine',
         description: 'mooie mijn',
         location: 'Genk',
-        photoUrl: 'hotelPhotoUrl',
-        start_date: '10-11-2019',
-        end_date: '17-11-2019');
+        photoUrl: 'assets/hotels/hotel1.jpg',
+        start_date: '2019-11-9',
+        end_date: '2019-11-11');
+
+    var hotel3 = Hotel(
+        id: 3,
+        name: 'Hilton',
+        description: 'Hotel in New York',
+        location: 'New York',
+        photoUrl: 'assets/hotels/hotel2.jpg',
+        start_date: '2020-05-19',
+        end_date: '2020-05-20');
 
     var room1 = Room(
       id: 1,
@@ -202,7 +211,7 @@ class DatabaseHelper {
       size: "4"
     );
 
-    var traveller = Traveller(
+    var traveller1 = Traveller(
         id: 1,
         first_name: "Stefan",
         last_name: "Segers",
@@ -211,17 +220,30 @@ class DatabaseHelper {
         car_id: 1
     );
 
-    var number = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
+    var traveller2 = Traveller(
+        id: 2,
+        first_name: "Rudi",
+        last_name: "Roox",
+        major_name: null,
+        room_id: 2,
+        car_id: 1
+    );
+
+    var number1 = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
+    var number2 = EmergencyNumber(id: 2, traveller_id: 2, number: "0498765432");
 
     insert(dayPlanning1);
     insert(dayPlanning2);
     insert(dayPlanning3);
     insert(car1);
-    insert(hotel2);
     insert(hotel1);
+    insert(hotel2);
+    insert(hotel3);
     insert(room1);
-    insert(traveller);
-    insert(number);
+    insert(traveller1);
+    insert(traveller2);
+    insert(number1);
+    insert(number2);
     globals.getEmergencyNumbers();
   }
 }

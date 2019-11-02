@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
+import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
+import 'package:reizen_technologie/Views/Widgets/planning_widget.dart';
 import 'appbar.dart';
-import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 
-class HotelDetailsPage extends StatefulWidget {
-  HotelDetailsPage({Key key, this.hotel}) : super(key: key);
+class PlanningDetailsPage extends StatefulWidget {
+  PlanningDetailsPage({Key key, this.dayPlanning}) : super(key: key);
 
-  final int hotel;
+  final int dayPlanning;
 
   @override
-  _HotelDetailsPageState createState() => _HotelDetailsPageState();
+  _PlanningDetailsPageState createState() => _PlanningDetailsPageState();
 }
 
-class _HotelDetailsPageState extends State<HotelDetailsPage> {
+class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: new FutureBuilder(
-          future: GetHotelData(widget.hotel),
+          future: GetDayPlanningData(widget.dayPlanning),
           builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
             var content = snapshot.data;
             return Scaffold(
@@ -27,7 +27,8 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                     icon: Icon(Icons.arrow_back),
                     onPressed: () => Navigator.pop(
                           context,
-                          MaterialPageRoute(builder: (context) => HotelsPage()),
+                          MaterialPageRoute(
+                              builder: (context) => PlanningPage()),
                         )),
               ),
               body: new Column(
