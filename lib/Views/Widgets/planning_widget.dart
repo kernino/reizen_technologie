@@ -2,23 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Views/Widgets/appbar.dart';
 import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
-
-class Planning extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'reizen technologie',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        //Color.fromRGBO(255, g, b, opacity),
-        //Colors.red,
-      ),
-      home: PlanningPage(title: 'Planning'),
-    );
-  }
-}
+import 'package:reizen_technologie/Views/Widgets/planning_details_widget.dart';
 
 class PlanningPage extends StatefulWidget {
   PlanningPage({Key key, this.title}) : super(key: key);
@@ -33,7 +17,7 @@ class _PlanningPageState extends State<PlanningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: Appbar.getAppbar("Hotels"),
+        appBar: Appbar.getAppbar("Planning"),
         body: new FutureBuilder(
             future: GetDayPlannings(),
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
@@ -57,8 +41,8 @@ class _PlanningPageState extends State<PlanningPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    Text(content[index]['id'].toString())),
+                                builder: (context) => PlanningDetailsPage(
+                                    dayPlanning: snapshot.data[index]['id'])),
                           );
                         },
                         child: Center(

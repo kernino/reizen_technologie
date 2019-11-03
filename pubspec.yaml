@@ -29,6 +29,7 @@ dependencies:
   scoped_model: ^1.0.1
   graphql_flutter: ^2.1.0
   queries: ^0.1.12
+  intl: ^0.16.0
 
 dev_dependencies:
   flutter_test:
@@ -50,9 +51,9 @@ flutter:
   assets:
     - assets/inlogscherm/ucll.png
     - assets/hotels/hotel0.jpg
-#    - assets/hotels/hotel1.jpg
-#    - assets/hotels/hotel2.jpg
-#    - assets/hotels/hotel3.jpg
+    - assets/hotels/hotel1.jpg
+    - assets/hotels/hotel2.jpg
+    - assets/hotels/hotel3.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
