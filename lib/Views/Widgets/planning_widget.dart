@@ -30,7 +30,9 @@ class _PlanningPageState extends State<PlanningPage> {
               }
               content = snapshot.data;
               return new Scaffold(
-                  body: Center(
+                  body: Scrollbar(
+                      child: Center(
+                          child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: List.generate(content.length, (index) {
@@ -48,19 +50,22 @@ class _PlanningPageState extends State<PlanningPage> {
                                 child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                               ListTile(
-                                title: Text("day " + (index + 1).toString() + ": " + content[index]['name']),
-                                subtitle: Text(content[index]['date'] + "\n" + content[index]['highlight']),
-
+                              ListTile(
+                                title: Text("day " +
+                                    (index + 1).toString() +
+                                    ": " +
+                                    content[index]['name']),
+                                subtitle: Text(content[index]['date'] +
+                                    "\n" +
+                                    content[index]['highlight']),
                               ),
                             ]))));
                   }),
                 ),
-              ));
+              ))));
             }));
   }
 }
-
 
 //widget met hardcoded data
 /*
