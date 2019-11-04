@@ -20,6 +20,12 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
           future: GetDayPlanningData(widget.dayPlanning),
           builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
             var content = snapshot.data;
+            if (!snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                content = [];
+              }
+              return CircularProgressIndicator();
+            }
             return Scaffold(
               appBar: Appbar.getAppbar(
                 content[0]['name'],

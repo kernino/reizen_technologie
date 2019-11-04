@@ -4,8 +4,6 @@ import 'appbar.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 import 'package:flutter_mobile_carousel/carousel.dart';
 import 'package:flutter_mobile_carousel/carousel_arrow.dart';
-import 'package:flutter_mobile_carousel/default_carousel_item.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 List<List<String>> Dump = [['1','Kevin','Shrek', 'Chris P. Chicken', 'Dixon Kuntz'],['2','Richard Batsbak','Gerrie Van Boven', 'Rikkert Biemans', 'Robbie Schuurmans', 'Barrie Butsers'],['3','Student 1','Student 2']];
 
@@ -67,8 +65,23 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
             future: GetHotelData(widget.hotel),
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               var content = snapshot.data;
+              if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  content = [];
+                }
+                return CircularProgressIndicator();
+              }
               return Scaffold(
-                  appBar: Appbar.getAppbar(content[0]['name']),
+                  appBar: Appbar.getAppbar(
+                    content[0]['name'],
+                    IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () => Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HotelsPage()),
+                        )),
+                  ),
                   body: SingleChildScrollView(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,

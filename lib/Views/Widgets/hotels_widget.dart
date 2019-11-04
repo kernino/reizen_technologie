@@ -76,15 +76,20 @@ class _HotelsPageState extends State<HotelsPage> {
                             Padding(padding: EdgeInsets.all(5.0)),
                             //beetje ruimte boven titel
                             FittedBox(
-                                fit: BoxFit.fitWidth,
-                                child: Text(content[index]['name'],
-                                    style: TextStyle(
-                                        fontSize: 23,
-                                        fontWeight: FontWeight.bold))),
-                            Text(
-                              content[index]['location'],
-                              style: TextStyle(
-                                  fontSize: 16, fontStyle: FontStyle.italic),
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                content[index]['name'],
+                                style: TextStyle(
+                                    fontSize: 23, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            FittedBox(
+                              fit: BoxFit.fitWidth,
+                              child: Text(
+                                content[index]['location'],
+                                style: TextStyle(
+                                    fontSize: 16),
+                              ),
                             ),
                             RichText(
                               text: TextSpan(
