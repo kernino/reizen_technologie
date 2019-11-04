@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reizen_technologie/Views/Widgets/cars_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/planning_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
@@ -16,7 +17,7 @@ class NavbarState extends State<Navbar> {
   final widgetOptions = [
     new Vandaag(),
     new PlanningPage(),
-    Text('AutoPage'),
+    new CarsPage(),
     new HotelsPage(),
     Text('Contacten page'),
   ];
