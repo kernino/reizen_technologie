@@ -30,6 +30,7 @@ dependencies:
   graphql_flutter: ^2.1.0
   queries: ^0.1.12
   intl: ^0.16.0
+  flutter_mobile_carousel: ^1.0.2
 
 dev_dependencies:
   flutter_test:
