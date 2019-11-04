@@ -20,7 +20,7 @@ class DatabaseHelper {
   Future initializeDatabase() async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'reizentechnogie.data.database'),
+      join(await getDatabasesPath(), 'reizentechnogie.db'),
       onCreate: (db, version) async {
         await db.execute(
           "CREATE TABLE trips ("
@@ -38,7 +38,8 @@ class DatabaseHelper {
               "name TEXT,"
               "date TEXT,"
               "highlight TEXT,"
-              "description TEXT)"
+              "description TEXT,"
+              "end_location TEXT)"
         );
 
         await db.execute(
@@ -99,7 +100,7 @@ class DatabaseHelper {
                 "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
         );
       },
-      version: 1,
+      version: 2,
     );
     await GetLoggedInUser();
     globals.database = db;
@@ -160,21 +161,24 @@ class DatabaseHelper {
         name: 'vertrek naar ...',
         date: '17/05',
         highlight: 'highlightTest',
-        description: 'descriptionTest');
+        description: 'descriptionTest',
+        end_location: 'location1');
 
     var dayPlanning2 = DayPlanning(
         id: 2,
         name: 'bezoeken van ...',
         date: '18/05',
         highlight: 'highlightTest',
-        description: 'descriptionTest');
+        description: 'descriptionTest',
+        end_location: 'location2');
 
     var dayPlanning3 = DayPlanning(
         id: 3,
         name: 'eten bij ...',
         date: '19/05',
         highlight: 'highlightTest',
-        description: 'descriptionTest');
+        description: 'descriptionTest',
+        end_location: 'location3');
 
     var car1 = Car(id: 1, car_number: '69', size: '5');
 

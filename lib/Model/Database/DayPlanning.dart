@@ -7,8 +7,9 @@ class DayPlanning implements DatabaseTable {
   final String date;
   final String highlight;
   final String description;
+  final String end_location;
 
-  DayPlanning({this.id, this.name, this.date, this.highlight, this.description});
+  DayPlanning({this.id, this.name, this.date, this.highlight, this.description, this.end_location});
 
   @override
   int get field_id => this.id;
@@ -23,7 +24,8 @@ class DayPlanning implements DatabaseTable {
       'name': name,
       'date': date,
       'highlight': highlight,
-      'description': description
+      'description': description,
+      'end_location': end_location
     };
   }
 
@@ -37,7 +39,8 @@ class DayPlanning implements DatabaseTable {
         name: maps[i]['name'],
         date: maps[i]['date'],
         highlight: maps[i]['highlight'],
-        description: maps[i]['description']
+        description: maps[i]['description'],
+        end_location: maps[i]['end_location']
       );
     });
   }
@@ -45,6 +48,6 @@ class DayPlanning implements DatabaseTable {
   @override
   String toString() {
     return 'DayPlanning{id: $id, name: $name, description: $description, '
-        'date: $date, highlight: $highlight}';
+        'date: $date, highlight: $highlight, location: $end_location}';
   }
 }
