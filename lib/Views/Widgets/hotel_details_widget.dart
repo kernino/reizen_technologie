@@ -68,7 +68,16 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               var content = snapshot.data;
               return Scaffold(
-                  appBar: Appbar.getAppbar(content[0]['name']),
+                  appBar: Appbar.getAppbar(
+                    content[0]['name'],
+                    IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () => Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HotelsPage()),
+                        )),
+                  ),
                   body: SingleChildScrollView(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
