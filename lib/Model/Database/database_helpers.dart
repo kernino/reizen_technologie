@@ -170,7 +170,7 @@ class DatabaseHelper {
         date: '18/05',
         highlight: 'highlightTest',
         description: 'descriptionTest',
-        end_location: 'location2');
+        end_location: 'location1');
 
     var dayPlanning3 = DayPlanning(
         id: 3,
@@ -178,7 +178,47 @@ class DatabaseHelper {
         date: '19/05',
         highlight: 'highlightTest',
         description: 'descriptionTest',
+        end_location: 'location2');
+
+    var dayPlanning4 = DayPlanning(
+        id: 4,
+        name: 'bedrijfsbezoek bij ...',
+        date: '20/05',
+        highlight: 'highlightTest',
+        description: 'descriptionTest',
+        end_location: 'location2');
+
+    var dayPlanning5 = DayPlanning(
+        id: 5,
+        name: 'bezoeken van ...',
+        date: '21/05',
+        highlight: 'highlightTest',
+        description: 'descriptionTest',
         end_location: 'location3');
+
+    var dayPlanning6 = DayPlanning(
+        id: 6,
+        name: 'bezoeken van ...',
+        date: '21/05',
+        highlight: 'highlightTest',
+        description: 'descriptionTest',
+        end_location: 'location4');
+
+    var dayPlanning7 = DayPlanning(
+        id: 7,
+        name: 'bezoeken van ...',
+        date: '21/05',
+        highlight: 'highlightTest',
+        description: 'descriptionTest',
+        end_location: 'location5');
+
+    var dayPlanning8 = DayPlanning(
+        id: 8,
+        name: 'bezoeken van ...',
+        date: '21/05',
+        highlight: 'highlightTest',
+        description: 'descriptionTest',
+        end_location: 'location5');
 
     var car1 = Car(id: 1, car_number: '69', size: '5');
 
@@ -238,7 +278,12 @@ class DatabaseHelper {
 
     insert(dayPlanning1);
     insert(dayPlanning2);
-    insert(dayPlanning3);
+    insert(dayPlanning3);/*
+    insert(dayPlanning4);
+    insert(dayPlanning5);
+    insert(dayPlanning6);
+    insert(dayPlanning7);
+    insert(dayPlanning8);*/
     insert(car1);
     insert(hotel1);
     insert(hotel2);

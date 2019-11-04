@@ -29,84 +29,88 @@ class _HotelsPageState extends State<HotelsPage> {
           }
           content = snapshot.data;
           //return Text(content.toString());
-          return new GridView.count(
-            crossAxisCount: 2,
-            padding: EdgeInsets.all(10.0),
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 10.0,
-            // Generate 100 widgets that display their index in the List.
-            children: List.generate(content.length, (index) {
-              var stringStart = content[index]['start_date'];
-              stringStart = stringStart.split("-");
-              var stringEnd = content[index]['end_date'];
-              stringEnd = stringEnd.split("-");
+          return new Scrollbar(
+            child: GridView.count(
+              crossAxisCount: 2,
+              padding: EdgeInsets.all(10.0),
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              // Generate 100 widgets that display their index in the List.
+              children: List.generate(content.length, (index) {
+                var stringStart = content[index]['start_date'];
+                stringStart = stringStart.split("-");
+                var stringEnd = content[index]['end_date'];
+                stringEnd = stringEnd.split("-");
 
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => HotelDetailsPage(
-                            hotel: snapshot.data[index]['id'])),
-                  );
-                },
-                child: Center(
-                  child: new Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 5, color: Colors.black26),
-                        borderRadius:
-                            const BorderRadius.all(const Radius.circular(8))),
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HotelDetailsPage(
+                              hotel: snapshot.data[index]['id'])),
+                    );
+                  },
+                  child: Center(
+                    child: new Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 5, color: Colors.black26),
+                          borderRadius:
+                              const BorderRadius.all(const Radius.circular(8))),
 
-                    //enableFeedback: true,
-                    child: new Column(children: <Widget>[
-                      new AspectRatio(
-                        aspectRatio: 2 / 1,
-                        child: new Image(
-                          image: new AssetImage(content[index]['photoUrl']
-                              /*'assets/hotels/hotel' +
+                      //enableFeedback: true,
+                      child: new Column(children: <Widget>[
+                        new AspectRatio(
+                          aspectRatio: 2 / 1,
+                          child: new Image(
+                            image: new AssetImage(content[index]['photoUrl']
+                                /*'assets/hotels/hotel' +
                               index.toString() +
                               '.jpg'*/
-                              ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      new Center(
-                        child: new Column(children: <Widget>[
-                          Padding(padding: EdgeInsets.all(5.0)), //beetje ruimte boven titel
-                          FittedBox(
-                              fit: BoxFit.fitWidth,
-                              child: Text(content[index]['name'],
-                                  style: TextStyle(
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.bold))),
-                          Text(
-                            content[index]['location'],
-                            style: TextStyle(
-                                fontSize: 16, fontStyle: FontStyle.italic),
+                                ),
+                            fit: BoxFit.cover,
                           ),
-                          RichText(
-                            text: TextSpan(
-                              style:
-                                  TextStyle(fontSize: 15, color: Colors.black),
-                              children: <TextSpan>[
-                                //TextSpan(text: DateTime.now().toString())
-                                //TextSpan(text: '\n'),
-                                TextSpan(
-                                    text:
-                                        stringStart[1] + "/" + stringStart[2]),
-                                TextSpan(text: ' tot '),
-                                TextSpan(
-                                    text: stringEnd[1] + "/" + stringEnd[2]),
-                              ],
+                        ),
+                        new Center(
+                          child: new Column(children: <Widget>[
+                            Padding(padding: EdgeInsets.all(5.0)),
+                            //beetje ruimte boven titel
+                            FittedBox(
+                                fit: BoxFit.fitWidth,
+                                child: Text(content[index]['name'],
+                                    style: TextStyle(
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.bold))),
+                            Text(
+                              content[index]['location'],
+                              style: TextStyle(
+                                  fontSize: 16, fontStyle: FontStyle.italic),
                             ),
-                          )
-                        ]),
-                      ),
-                    ]),
+                            RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
+                                children: <TextSpan>[
+                                  //TextSpan(text: DateTime.now().toString())
+                                  //TextSpan(text: '\n'),
+                                  TextSpan(
+                                      text: stringStart[1] +
+                                          "/" +
+                                          stringStart[2]),
+                                  TextSpan(text: ' tot '),
+                                  TextSpan(
+                                      text: stringEnd[1] + "/" + stringEnd[2]),
+                                ],
+                              ),
+                            )
+                          ]),
+                        ),
+                      ]),
+                    ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+            ),
           );
         },
       ),
