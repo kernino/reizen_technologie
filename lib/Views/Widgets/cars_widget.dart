@@ -30,7 +30,7 @@ class _CarsPageState extends State<CarsPage> {
       }
       content = snapshot.data;
       return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Text('Autoverdeling',style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
           Carousel(
@@ -63,10 +63,8 @@ class _CarsPageState extends State<CarsPage> {
                 margin: new EdgeInsets.all(10.0),
               );
             }).toList(),
-          ),
-
+          )
         ],
-
       );    }
     ),
     );
@@ -76,12 +74,12 @@ class _CarsPageState extends State<CarsPage> {
 Widget makeWidget(String carNumber, String size)
 {
   List<Widget> widgets = new List<Widget>();
-  widgets.add(Text("Chauffeur: "+carNumber[0],style: TextStyle(fontSize: 20.0),));
+  widgets.add(Text("Chauffeur: "+carNumber,style: TextStyle(fontSize: 20.0, color: Colors.white)));
   widgets.add(Text(""));
-  widgets.add(Text("Passagiers:", style: TextStyle(fontWeight: FontWeight.bold),));
+  widgets.add(Text("Passagiers:", style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white)));
   for(int i=0; i<size.length; i++)
   {
-    widgets.add(Text(size[i]));
+    widgets.add(Text(size[i], style: TextStyle(color: Colors.white),));
   }
-  return new Column(children: widgets);
+  return new Column(children: widgets,mainAxisAlignment: MainAxisAlignment.center,);
 }

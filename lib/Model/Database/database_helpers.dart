@@ -221,6 +221,10 @@ class DatabaseHelper {
         end_location: 'location5');
 
     var car1 = Car(id: 1, car_number: '69', size: '5');
+    var car2 = Car(id: 2, car_number: '420', size: '5');
+    var car3 = Car(id: 3, car_number: '88', size: '5');
+    var car4 = Car(id: 4, car_number: '13', size: '5');
+
 
     var hotel1 = Hotel(
         id: 1,
@@ -285,6 +289,9 @@ class DatabaseHelper {
     insert(dayPlanning7);
     insert(dayPlanning8);*/
     insert(car1);
+    insert(car2);
+    insert(car3);
+    insert(car4);
     insert(hotel1);
     insert(hotel2);
     insert(hotel3);
