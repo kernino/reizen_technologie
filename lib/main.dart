@@ -32,18 +32,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainDart extends StatelessWidget {
+class MainDart extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
+  _MainDartState createState() => _MainDartState();
+}
+
+class _MainDartState extends State<MainDart> {
+  Future future;
+
+  @override
+  void initState() {
+
     Connection connection = new Connection(context);
     connection.checkConnectivity();
-
 
     DatabaseHelper db = new DatabaseHelper();
     globals.dbHelper = db;
 
+    future = db.initializeDatabase();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return FutureBuilder(
-      future: db.initializeDatabase(), // a previously-obtained Future<String> or null
+      future: future, // a previously-obtained Future<String> or null
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -68,6 +81,5 @@ class MainDart extends StatelessWidget {
     );
   }
 }
-
 
 
