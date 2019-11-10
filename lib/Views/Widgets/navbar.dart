@@ -38,7 +38,7 @@ class NavbarState extends State<Navbar> {
           ),
           new BottomNavigationBarItem(
             icon: new Icon(Icons.calendar_today,color: Color.fromRGBO(255, 255, 255, 1.0)),
-            title: new Text('kalender', style: TextStyle(color: Colors.white),),
+            title: new Text('planning', style: TextStyle(color: Colors.white),),
           ),
           new BottomNavigationBarItem(
             icon: new Icon(Icons.directions_car,color: Color.fromRGBO(255, 255, 255, 1.0)),
