@@ -91,7 +91,7 @@ class InlogViewModel implements InlogModel {
 
 
 
-        await globals.dbHelper.insert(user);
+        await globals.dbHelper.db.insert("users", user.toMap());
 
         Navigator.pushReplacement(
             context,

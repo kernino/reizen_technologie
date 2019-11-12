@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:path/path.dart';
+import 'package:reizen_technologie/Model/Database/Activity.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
 import 'package:reizen_technologie/Model/Database/Room.dart';
 import 'package:reizen_technologie/Model/Database/Traveller.dart';
@@ -11,6 +12,7 @@ import 'Car.dart';
 import 'DayPlanning.dart';
 import 'Emergency Number.dart';
 import 'Hotel.dart';
+import 'RoomTraveller.dart';
 
 
 class DatabaseHelper {
@@ -20,7 +22,7 @@ class DatabaseHelper {
   Future initializeDatabase() async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'reizentechnogie.db'),
+      join(await getDatabasesPath(), 'data.reizentechnogie'),
       onCreate: (db, version) async {
         await db.execute(
           "CREATE TABLE trips ("
@@ -35,11 +37,22 @@ class DatabaseHelper {
         await db.execute(
           "CREATE TABLE day_planning ("
               "id INTEGER PRIMARY KEY,"
-              "name TEXT,"
               "date TEXT,"
               "highlight TEXT,"
               "description TEXT,"
-              "end_location TEXT)"
+              "location TEXT)"
+        );
+
+        await db.execute(
+          "CREATE TABLE activities ("
+              "id INTEGER PRIMARY KEY,"
+              "day_planning_id INTEGER,"
+              "name TEXT,"
+              "start_hour TEXT,"
+              "end_hour TEXT,"
+              "description TEXT,"
+              "location TEXT,"
+              "FOREIGN KEY(day_planning_id) REFERENCES day_planning(id))"
         );
 
         await db.execute(
@@ -56,7 +69,6 @@ class DatabaseHelper {
         await db.execute(
           "CREATE TABLE cars ("
               "id INTEGER PRIMARY KEY,"
-              "car_number TEXT,"
               "size TEXT)"
         );
 
@@ -64,7 +76,9 @@ class DatabaseHelper {
           "CREATE TABLE rooms ("
               "id INTEGER PRIMARY KEY,"
               "room_number TEXT,"
-              "size TEXT)"
+              "size TEXT,"
+              "hotel_id INTEGER,"
+              "FOREIGN KEY(hotel_id) REFERENCES hotels(id))"
         );
 
         await db.execute(
@@ -74,33 +88,42 @@ class DatabaseHelper {
               "last_name TEXT,"
               "major_name TEXT,"
               "phone TEXT,"
-              "room_id INTEGER,"
+              "driver INTEGER,"
               "car_id INTEGER,"
-              "FOREIGN KEY(room_id) REFERENCES rooms(id),"
               "FOREIGN KEY(car_id) REFERENCES cars(id))"
         );
 
         await db.execute(
+          "CREATE TABLE room_traveller ("
+              "id INTEGER PRIMARY KEY,"
+              "room_id INTEGER,"
+              "traveller_id INTEGER,"
+              "FOREIGN KEY(room_id) REFERENCES rooms(id),"
+              "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
+        );
+
+        await db.execute(
             "CREATE TABLE users ("
-                "id INTEGER PRIMARY KEY, "
-                "first_name TEXT, "
-                "last_name TEXT, "
-                "accepted_conditions INTEGER, "
+                "id INTEGER PRIMARY KEY,"
+                "first_name TEXT,"
+                "last_name TEXT,"
+                "accepted_conditions INTEGER,"
                 "token TEXT,"
                 "traveller_id INTEGER,"
-                "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
+                "trip_id INTEGER,"
+                "FOREIGN KEY(traveller_id) REFERENCES travellers(id),"
+                "FOREIGN KEY(trip_id) REFERENCES trips(id))"
         );
 
         await db.execute(
             "CREATE TABLE emergency_numbers ("
                 "id INTEGER PRIMARY KEY,"
-                "user_id INTEGER,"
                 "number TEXT,"
                 "traveller_id INTEGER,"
                 "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
         );
       },
-      version: 2,
+      version: 3
     );
     await GetLoggedInUser();
     globals.database = db;
@@ -122,35 +145,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<DatabaseTable>> getAll(DatabaseTable model) async {
 
-    final List<Map<String, dynamic>> maps = await db.query(model.table);
-
-    return model.getAll(maps);
-  }
-
-  Future<void> update(DatabaseTable model, int id) async {
-    // Update the given User.
-    await db.update(
-      model.table,
-      model.toMap(),
-      // Ensure that the User has a matching id.
-      where: "id = ?",
-      // Pass the User's id as a whereArg to prevent SQL injection.
-      whereArgs: [model.field_id],
-    );
-  }
-
-  Future<void> delete(DatabaseTable model) async {
-    // Remove the User from the database.
-    await db.delete(
-      model.table,
-      // Use a `where` clause to delete a specific User.
-      where: "id = ?",
-      // Pass the User's id as a whereArg to prevent SQL injection.
-      whereArgs: [model.field_id],
-    );
-  }
 
   Future Seed() async {
 
@@ -158,72 +153,30 @@ class DatabaseHelper {
 
     var dayPlanning1 = DayPlanning(
         id: 1,
-        name: 'vertrek naar ...',
         date: '17/05',
-        highlight: 'highlightTest',
+        highlight: 'vertrek naar ...',
         description: 'descriptionTest',
-        end_location: 'location1');
+        location: 'location1');
 
     var dayPlanning2 = DayPlanning(
         id: 2,
-        name: 'bezoeken van ...',
         date: '18/05',
-        highlight: 'highlightTest',
+        highlight: 'bezoeken van ...',
         description: 'descriptionTest',
-        end_location: 'location1');
+        location: 'location1');
 
     var dayPlanning3 = DayPlanning(
         id: 3,
-        name: 'eten bij ...',
         date: '19/05',
-        highlight: 'highlightTest',
+        highlight: 'eten bij ...',
         description: 'descriptionTest',
-        end_location: 'location2');
+        location: 'location2');
 
-    var dayPlanning4 = DayPlanning(
-        id: 4,
-        name: 'bedrijfsbezoek bij ...',
-        date: '20/05',
-        highlight: 'highlightTest',
-        description: 'descriptionTest',
-        end_location: 'location2');
 
-    var dayPlanning5 = DayPlanning(
-        id: 5,
-        name: 'bezoeken van ...',
-        date: '21/05',
-        highlight: 'highlightTest',
-        description: 'descriptionTest',
-        end_location: 'location3');
-
-    var dayPlanning6 = DayPlanning(
-        id: 6,
-        name: 'bezoeken van ...',
-        date: '21/05',
-        highlight: 'highlightTest',
-        description: 'descriptionTest',
-        end_location: 'location4');
-
-    var dayPlanning7 = DayPlanning(
-        id: 7,
-        name: 'bezoeken van ...',
-        date: '21/05',
-        highlight: 'highlightTest',
-        description: 'descriptionTest',
-        end_location: 'location5');
-
-    var dayPlanning8 = DayPlanning(
-        id: 8,
-        name: 'bezoeken van ...',
-        date: '21/05',
-        highlight: 'highlightTest',
-        description: 'descriptionTest',
-        end_location: 'location5');
-
-    var car1 = Car(id: 1, car_number: '69', size: '5');
-    var car2 = Car(id: 2, car_number: '420', size: '5');
-    var car3 = Car(id: 3, car_number: '88', size: '5');
-    var car4 = Car(id: 4, car_number: '13', size: '5');
+    var car1 = Car(id: 1, size: '5');
+    var car2 = Car(id: 2, size: '5');
+    var car3 = Car(id: 3, size: '5');
+    var car4 = Car(id: 4, size: '5');
 
 
     var hotel1 = Hotel(
@@ -256,7 +209,8 @@ class DatabaseHelper {
     var room1 = Room(
       id: 1,
       room_number: "1",
-      size: "4"
+      size: "4",
+      hotel_id: 1
     );
 
     var traveller1 = Traveller(
@@ -264,7 +218,8 @@ class DatabaseHelper {
         first_name: "Stefan",
         last_name: "Segers",
         major_name: null,
-        room_id: 1,
+        phone: "0412345678",
+        driver: 1,
         car_id: 1
     );
 
@@ -273,33 +228,72 @@ class DatabaseHelper {
         first_name: "Rudi",
         last_name: "Roox",
         major_name: null,
-        room_id: 2,
-        car_id: 1
+        phone: "0412345678",
+        driver: 1,
+        car_id: 2
+    );
+
+    var room_traveller1 = RoomTraveller(
+      id: 1,
+      room_id: 1,
+      traveller_id: 1
+    );
+
+    var room_traveller2 = RoomTraveller(
+      id: 2,
+      room_id: 1,
+      traveller_id: 2
+    );
+
+    var activity1 = Activity(
+      id: 1,
+      day_planning_id: 1,
+      start_hour: "08:00",
+      end_hour: "09:00",
+      description: "activity 1 description...",
+      location: "activity 1 location...",
+      name: "Activity 1"
+    );
+
+    var activity2 = Activity(
+        id: 2,
+        day_planning_id: 1,
+        start_hour: "09:00",
+        end_hour: "10:00",
+        description: "activity 2 description...",
+        location: "activity 2 location...",
+        name: "Activity 2"
     );
 
     var number1 = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
     var number2 = EmergencyNumber(id: 2, traveller_id: 2, number: "0498765432");
 
-    insert(dayPlanning1);
-    insert(dayPlanning2);
-    insert(dayPlanning3);/*
+    db.insert("day_planning", dayPlanning1.toMap());
+    db.insert("day_planning", dayPlanning2.toMap());
+    db.insert("day_planning", dayPlanning3.toMap());
+    /*
     insert(dayPlanning4);
     insert(dayPlanning5);
     insert(dayPlanning6);
     insert(dayPlanning7);
-    insert(dayPlanning8);*/
-    insert(car1);
-    insert(car2);
-    insert(car3);
-    insert(car4);
-    insert(hotel1);
-    insert(hotel2);
-    insert(hotel3);
-    insert(room1);
-    insert(traveller1);
-    insert(traveller2);
-    insert(number1);
-    insert(number2);
+    insert(dayPlanning8);
+    */
+    db.insert("cars", car1.toMap());
+    db.insert("cars", car2.toMap());
+    db.insert("cars", car3.toMap());
+    db.insert("cars", car4.toMap());
+    db.insert("hotels", hotel1.toMap());
+    db.insert("hotels", hotel2.toMap());
+    db.insert("hotels", hotel3.toMap());
+    db.insert("rooms", room1.toMap());
+    db.insert("travellers", traveller1.toMap());
+    db.insert("travellers", traveller2.toMap());
+    db.insert("room_traveller", room_traveller1.toMap());
+    db.insert("room_traveller", room_traveller2.toMap());
+    db.insert("activities", activity1.toMap());
+    db.insert("activities", activity2.toMap());
+    db.insert("emergency_numbers", number1.toMap());
+    db.insert("emergency_numbers", number2.toMap());
     globals.getEmergencyNumbers();
   }
 }
