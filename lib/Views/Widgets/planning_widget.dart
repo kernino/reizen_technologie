@@ -35,65 +35,72 @@ class _PlanningPageState extends State<PlanningPage> {
             String location = "";
             return new Scaffold(
               body: Scrollbar(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: List.generate(content.length, (index) {
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: List.generate(content.length, (index) {
+                      titelWidget = Visibility(
+                        child: Text(content[index]['end_location']),
+                        visible: false,
+                      );
+
+                      if (location != content[index]['end_location']) {
                         titelWidget = Visibility(
-                          child: Text(content[index]['end_location']),
-                          visible: false,
-                        );
-
-                        if (location != content[index]['end_location']) {
-                          titelWidget = Visibility(
-                            child: Text(
-                              content[index]['end_location'],
-                              style: TextStyle(
-                                  fontSize: 30,),
+                          child: Text(
+                            content[index]['end_location'],
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
                             ),
-                            visible: true,
-                          );
-                        }
-                        location = content[index]['end_location'];
-
-                        return Column(
-                          children: <Widget>[
-                            titelWidget,
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PlanningDetailsPage(
-                                          dayPlanning: snapshot.data[index]
-                                              ['id'])),
-                                );
-                              },
-                              child: Center(
-                                child: new Card(
-                                  child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        ListTile(
-                                          title: Text("day " +
-                                              (index + 1).toString() +
-                                              ": " +
-                                              content[index]['name']),
-                                          subtitle: Text(content[index]
-                                                  ['date'] +
-                                              "\n" +
-                                              content[index]['highlight']),
-                                        ),
-                                      ]),
-                                ),
-                              ),
-                            )
-                          ],
+                          ),
+                          visible: true,
                         );
-                      }),
-                    ),
-                  ),
+                      }
+                      location = content[index]['end_location'];
 
+                      return Column(
+                        children: <Widget>[
+                          titelWidget,
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PlanningDetailsPage(
+                                        dayPlanning: snapshot.data[index]
+                                            ['id'])),
+                              );
+                            },
+                            child: Center(
+                              child: new Card(
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      ListTile(
+                                        title: Text("day " +
+                                            (index + 1).toString() +
+                                            ": " +
+                                            content[index]['highlight'],
+                                          style: TextStyle(
+                                            fontSize: 18
+                                          ),
+                                        ),
+                                        subtitle: Text(
+                                          content[index]['date'],
+                                          style: TextStyle(
+                                            fontSize: 18
+                                          ),
+                                        ),
+                                      )
+                                    ]),
+                              ),
+                            ),
+                          )
+                        ],
+                      );
+                    }),
+                  ),
+                ),
               ),
             );
           }),
