@@ -40,14 +40,14 @@ class _PlanningPageState extends State<PlanningPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: List.generate(content.length, (index) {
                       titelWidget = Visibility(
-                        child: Text(content[index]['end_location']),
+                        child: Text(content[index]['location']),
                         visible: false,
                       );
 
-                      if (location != content[index]['end_location']) {
+                      if (location != content[index]['location']) {
                         titelWidget = Visibility(
                           child: Text(
-                            content[index]['end_location'],
+                            content[index]['location'],
                             style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class _PlanningPageState extends State<PlanningPage> {
                           visible: true,
                         );
                       }
-                      location = content[index]['end_location'];
+                      location = content[index]['location'];
 
                       return Column(
                         children: <Widget>[
