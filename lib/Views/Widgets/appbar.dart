@@ -1,6 +1,7 @@
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reizen_technologie/ViewModel/syncDbViewModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appbar {
@@ -18,6 +19,12 @@ class Appbar {
         )),*/
         leading: leadingWidget,
       actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.refresh),
+          onPressed: () {
+            SyncConnection();
+          },
+        ),
         PopupMenuButton<String>(
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
