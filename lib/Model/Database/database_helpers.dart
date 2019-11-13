@@ -22,7 +22,7 @@ class DatabaseHelper {
   Future initializeDatabase() async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'data.reizentechnogie'),
+      join(await getDatabasesPath(), 'data.reizentechnogie.db'),
       onCreate: (db, version) async {
         await db.execute(
           "CREATE TABLE trips ("
@@ -130,7 +130,7 @@ class DatabaseHelper {
   }
 
   Future GetLoggedInUser() async {
-    List<Map> result = await db.query("users", columns: ["first_name", "last_name", "accepted_conditions", "token", "traveller_id"], where: "token IS NOT NULL");
+    List<Map> result = await db.query("users", columns: ["first_name", "last_name", "accepted_conditions", "token", "traveller_id", "trip_id"], where: "token IS NOT NULL");
     if(result[0] != null) {
       globals.loggedInUser = result;
       globals.isLoggedIn = true;
@@ -213,26 +213,6 @@ class DatabaseHelper {
       hotel_id: 1
     );
 
-    var traveller1 = Traveller(
-        id: 1,
-        first_name: "Stefan",
-        last_name: "Segers",
-        major_name: null,
-        phone: "0412345678",
-        driver: 1,
-        car_id: 1
-    );
-
-    var traveller2 = Traveller(
-        id: 2,
-        first_name: "Rudi",
-        last_name: "Roox",
-        major_name: null,
-        phone: "0412345678",
-        driver: 1,
-        car_id: 2
-    );
-
     var room_traveller1 = RoomTraveller(
       id: 1,
       room_id: 1,
@@ -268,9 +248,12 @@ class DatabaseHelper {
     var number1 = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
     var number2 = EmergencyNumber(id: 2, traveller_id: 2, number: "0498765432");
 
-    db.insert("day_planning", dayPlanning1.toMap());
-    db.insert("day_planning", dayPlanning2.toMap());
-    db.insert("day_planning", dayPlanning3.toMap());
+    db.insert("day_planning", dayPlanning1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("day_planning", dayPlanning2.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("day_planning", dayPlanning3.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
     /*
     insert(dayPlanning4);
     insert(dayPlanning5);
@@ -278,22 +261,36 @@ class DatabaseHelper {
     insert(dayPlanning7);
     insert(dayPlanning8);
     */
-    db.insert("cars", car1.toMap());
-    db.insert("cars", car2.toMap());
-    db.insert("cars", car3.toMap());
-    db.insert("cars", car4.toMap());
-    db.insert("hotels", hotel1.toMap());
-    db.insert("hotels", hotel2.toMap());
-    db.insert("hotels", hotel3.toMap());
-    db.insert("rooms", room1.toMap());
-    db.insert("travellers", traveller1.toMap());
-    db.insert("travellers", traveller2.toMap());
-    db.insert("room_traveller", room_traveller1.toMap());
-    db.insert("room_traveller", room_traveller2.toMap());
-    db.insert("activities", activity1.toMap());
-    db.insert("activities", activity2.toMap());
-    db.insert("emergency_numbers", number1.toMap());
-    db.insert("emergency_numbers", number2.toMap());
+    db.insert("cars", car1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("cars", car2.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("cars", car3.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("cars", car4.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("hotels", hotel1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("hotels", hotel2.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("hotels", hotel3.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("rooms", room1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", room_traveller1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", room_traveller2.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("activities", activity1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("activities", activity2.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("emergency_numbers", number1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("emergency_numbers", number2.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
     globals.getEmergencyNumbers();
+
+    print(await db.query("travellers", columns: ["first_name", "last_name", "phone"]));
   }
 }

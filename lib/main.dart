@@ -7,6 +7,7 @@ import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
+import 'package:reizen_technologie/ViewModel/syncDbViewModel.dart';
 import 'package:reizen_technologie/Views/Widgets/navbar.dart';
 //import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
@@ -43,11 +44,13 @@ class _MainDartState extends State<MainDart> {
   @override
   void initState() {
 
-    Connection connection = new Connection(context);
-    connection.checkConnectivity();
-
     DatabaseHelper db = new DatabaseHelper();
     globals.dbHelper = db;
+
+
+
+    Connection connection = new Connection(context);
+    connection.checkConnectivity();
 
     future = db.initializeDatabase();
     super.initState();
@@ -73,7 +76,15 @@ class _MainDartState extends State<MainDart> {
               return new VoorwaardenConnection();
             }
             else {
-              return new Navbar();
+              if (globals.connected == true)
+                {
+
+                  return new Sync();
+                }
+              else
+                {
+                  return new Navbar();
+                }
             }
         }
         return new Container();

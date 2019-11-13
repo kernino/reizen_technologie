@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:reizen_technologie/Views/Widgets/cars_widget.dart';
+import 'package:reizen_technologie/Views/Widgets/contacten_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/planning_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
@@ -19,8 +20,10 @@ class NavbarState extends State<Navbar> {
     new PlanningPage(),
     new CarsPage(),
     new HotelsPage(),
-    Text('Contacten page'),
+    new ContactPage(),
   ];
+
+
 
   @override
   Widget build(BuildContext context) {

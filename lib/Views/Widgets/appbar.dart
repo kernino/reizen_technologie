@@ -22,7 +22,7 @@ class Appbar {
         IconButton(
           icon: Icon(Icons.refresh),
           onPressed: () {
-            SyncConnection();
+            Sync();
           },
         ),
         PopupMenuButton<String>(

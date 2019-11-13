@@ -6,6 +6,10 @@ import 'package:reizen_technologie/Model/globals.dart' as globals;
 class Vandaag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    if (globals.connected == true) {
+
+    }
     return FutureBuilder<void>(
         future: globals.dbHelper.Seed(),
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {

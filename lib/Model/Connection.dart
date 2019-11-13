@@ -13,32 +13,39 @@ _using4GDialog(): Displays a dialog with the question "Continue with mobile data
 import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:reizen_technologie/ViewModel/syncDbViewModel.dart';
+import 'package:reizen_technologie/Model/globals.dart' as globals;
+import 'package:sqflite/sqflite.dart';
+
+import 'Database/Traveller.dart';
+
 class Connection
 {
   BuildContext _context;
 
   Connection(BuildContext context):_context=context;
 
- checkConnectivity()async{
-  var connection = await(Connectivity().checkConnectivity());
-  if (connection == ConnectivityResult.mobile) {
-    _using4GDialog(_context);
+ checkConnectivity() async{
+    var connection = await(Connectivity().checkConnectivity());
+    if (connection == ConnectivityResult.mobile) {
+      _using4GDialog(_context);
+    }
+    else if (connection == ConnectivityResult.wifi) {
+      dbSync();
+    }
+    else if (connection == ConnectivityResult.none) {
+      Fluttertoast.showToast(
+          msg: "no connection to data network",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }
   }
-  else if (connection == ConnectivityResult.wifi) {
-    dbSync();
-  }
-  else if (connection == ConnectivityResult.none) {
-    Fluttertoast.showToast(
-        msg: "no connection to data network",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIos: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
-  }
-}
 
 _using4GDialog (BuildContext context) {
   showDialog(
@@ -76,7 +83,7 @@ _using4GDialog (BuildContext context) {
       });
 }
 
-dbSync(){
+void dbSync() {
   Fluttertoast.showToast(
       msg: "Sync started",
       toastLength: Toast.LENGTH_SHORT,
@@ -86,5 +93,7 @@ dbSync(){
       textColor: Colors.white,
       fontSize: 16.0
   );
+
+  globals.connected = true;
 }
 }

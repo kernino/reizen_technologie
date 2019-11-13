@@ -16,7 +16,7 @@ import 'package:reizen_technologie/Model/globals.dart' as globals;
 class InlogViewModel implements InlogModel {
 
   String status, message, api_token, first_name, last_name;
-  int traveller_id;
+  int traveller_id, trip_id;
   bool isData = false;
   Inlog view = new Inlog();
 
@@ -70,6 +70,7 @@ class InlogViewModel implements InlogModel {
         first_name = responseJSON['first_name'];
         last_name = responseJSON['last_name'];
         traveller_id = responseJSON['traveller_id'];
+        trip_id = responseJSON['trip_id'];
 
         isData = true;
 /*      setState(() {
@@ -87,7 +88,8 @@ class InlogViewModel implements InlogModel {
             lastName: last_name,
             acceptedConditions: 0,
             token: api_token,
-            traveller_id: traveller_id);
+            traveller_id: traveller_id,
+            trip_id: trip_id);
 
 
 
