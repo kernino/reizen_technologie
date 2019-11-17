@@ -15,7 +15,7 @@ Future<List> GetDayPlannings() async {
 return dayPlannings;
 }
 
-Future<List> GetDayPlanningData(int id) async {;
+Future<List> GetDayPlanningData(int id) async {
 List<Map> dayPlanningData = await globals.database.query('day_planning', where: '"id" = ?', whereArgs: [id]);
 if(dayPlanningData != null) {
   print("data day planning met id " + id.toString() + " ophalen gelukt: " + dayPlanningData.toString());

@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Views/Widgets/appbar.dart';
-import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
-import 'package:reizen_technologie/Model/globals.dart' as globals;
-import 'package:reizen_technologie/Views/Widgets/planning_details_widget.dart';
+import 'package:reizen_technologie/ViewModel/ContactenViewModel.dart';
+
 
 class ContactPage extends StatefulWidget {
   ContactPage({Key key, this.title}) : super(key: key);
@@ -21,7 +20,7 @@ class _ContactPageState extends State<ContactPage> {
     return Scaffold(
       appBar: Appbar.getAppbar("Planning"),
       body: new FutureBuilder(
-          future: globals.dbHelper.db.query("travellers", columns: ["first_name", "last_name", "phone"]),
+          future: GetTravellers(),
           builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
             var content;
             if (!snapshot.hasData) {
@@ -54,7 +53,7 @@ class _ContactPageState extends State<ContactPage> {
                                           ),
                                         ),
 
-                                        subtitle: Text("Phone: " +
+                                        subtitle: Text("Nummer: " +
                                           content[index]['phone'],
                                           style: TextStyle(
                                               fontSize: 18
