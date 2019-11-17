@@ -177,6 +177,22 @@ class DatabaseHelper {
     var car2 = Car(id: 2, size: '5');
     var car3 = Car(id: 3, size: '5');
     var car4 = Car(id: 4, size: '5');
+    
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 1]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 2]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 3]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 4]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [2, 5]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [2, 6]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [2, 7]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [2, 8]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [3, 9]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [3, 10]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [3, 11]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [3, 12]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 13]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 14]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 15]);
 
     /*var traveller1 = Traveller(
       id: 1,
