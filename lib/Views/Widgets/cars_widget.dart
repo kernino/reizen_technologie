@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_carousel/carousel.dart';
 import 'package:flutter_mobile_carousel/carousel_arrow.dart';
@@ -20,66 +22,49 @@ class _CarsPageState extends State<CarsPage> {
       appBar: Appbar.getAppbar("Auto"),
       body: new FutureBuilder(
           future: GetCars(),
-    builder: (BuildContext context, AsyncSnapshot snapshot) {
-      var content;
-      if (!snapshot.hasData) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          content = [];
-        }
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+        var content;
+        if (!snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            content = [];
+          }
         return CircularProgressIndicator();
-      }
-      content = snapshot.data;
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Text('Autoverdeling',style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-          Carousel(
-            rightArrow: CarouselArrow(
-              width: 30.0,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Icon(
-                    Icons.chevron_right,
-                    size: 15.0
-                ),
-              ),
-            ),
-            leftArrow: CarouselArrow(
-              width: 30.0,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Icon(
-                    Icons.chevron_left,
-                    size: 15.0
-                ),
-              ),
-            ),
-            rowCount: 1,
-            children: List.generate(content.length, (index){
-              return Container(
-                color: Color.fromRGBO(224,0,73,1.0),
-                child: makeWidget(content[index]['size']),
-                padding: EdgeInsets.all(5.0),
-                margin: new EdgeInsets.all(10.0),
-              );
-            }).toList(),
+        }
+        content = snapshot.data;
+        return new Scrollbar(
+          child: GridView.count(
+              crossAxisCount: 1,
+              padding: EdgeInsets.all(10.0),
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0,
+              children:
+              List.generate(content.length, (index){
+                     return
+                       Container(
+                        decoration: BoxDecoration(
+                        border: Border.all(width: 10, color: Color.fromRGBO(224,0,73,1.0)),
+                        borderRadius: const BorderRadius.all(const Radius.circular(8))
+                      ),
+                      child: makeWidget(content[index],index),
+                      padding: EdgeInsets.all(5.0),
+                    );
+          }).toList(),
           )
-        ],
       );    }
     ),
     );
   }
 }
 
-Widget makeWidget(String size)
+Widget makeWidget(LinkedHashMap map, int index)
 {
   List<Widget> widgets = new List<Widget>();
-  widgets.add(Text("Chauffeur: ",style: TextStyle(fontSize: 20.0, color: Colors.white)));
-  widgets.add(Text(""));
-  widgets.add(Text("Passagiers:", style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white)));
-  for(int i=0; i<size.length; i++)
-  {
-    widgets.add(Text(size[i], style: TextStyle(color: Colors.white),));
-  }
-  return new Column(children: widgets,mainAxisAlignment: MainAxisAlignment.center,);
+  widgets.add(Text('Car '+index.toString(),style: TextStyle(fontWeight: FontWeight.bold, color:  Color.fromRGBO(224, 0, 73, 1.0),fontSize: 25)));
+  widgets.add(Text(''));
+  widgets.add(Text("Passagiers:", style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromRGBO(224,0,73,1.0),fontSize: 20)));
+    for(int a=0;a<map['reizigers'].length;a++) {
+      widgets.add(
+          Text(map['reizigers'][a]['naam'], style: TextStyle(color: Color.fromRGBO(224,0,73,1.0),fontSize: 20)));
+    }
+  return Column(children: widgets,mainAxisAlignment: MainAxisAlignment.spaceEvenly,);
 }

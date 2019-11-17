@@ -178,6 +178,65 @@ class DatabaseHelper {
     var car3 = Car(id: 3, size: '5');
     var car4 = Car(id: 4, size: '5');
 
+    var traveller1 = Traveller(
+      id: 1,
+      first_name: 'a',
+      major_name: 'test',
+      car_id: 1
+    );
+
+    var traveller2 = Traveller(
+        id: 2,
+        first_name: 'b',
+        major_name: 'test',
+        car_id: 1
+    );var traveller3 = Traveller(
+        id: 3,
+        first_name: 'c',
+        major_name: 'test',
+        car_id: 1
+    );var traveller4 = Traveller(
+        id: 4,
+        first_name: 'd',
+        major_name: 'test',
+        car_id: 2
+    );var traveller5 = Traveller(
+        id: 5,
+        first_name: 'e',
+        major_name: 'test',
+        car_id: 2
+    );var traveller6 = Traveller(
+        id: 6,
+        first_name: 'f',
+        major_name: 'test',
+        car_id: 2
+    );var traveller7 = Traveller(
+        id: 7,
+        first_name: 'g',
+        major_name: 'test',
+        car_id: 3
+    );var traveller8 = Traveller(
+        id: 8,
+        first_name: 'h',
+        major_name: 'test',
+        car_id: 3
+    );var traveller9 = Traveller(
+        id: 9,
+        first_name: 'i',
+        major_name: 'test',
+        car_id: 3
+    );var traveller10 = Traveller(
+        id: 10,
+        first_name: 'j',
+        major_name: 'test',
+        car_id: 4
+    );var traveller11 = Traveller(
+        id: 11,
+        first_name: 'k',
+        major_name: 'test',
+        car_id: 4
+    );
+
 
     var hotel1 = Hotel(
         id: 1,
@@ -268,6 +327,28 @@ class DatabaseHelper {
     db.insert("cars", car3.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("cars", car4.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller2.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller3.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller4.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller5.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller6.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller7.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller8.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller9.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller10.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("travellers", traveller11.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("hotels", hotel1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);

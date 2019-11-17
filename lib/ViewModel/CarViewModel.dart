@@ -3,10 +3,26 @@ import 'package:reizen_technologie/Model/globals.dart' as globals;
 
 Future<List> GetCars() async {
   List<Map> cars = await globals.database.query("cars");
-  if(cars != null) {
-    print("data cars ophalen gelukt: " + cars.toString());
-  }
-  return cars;
+  List<Map> data = new List();
+  List<Map> travellers = await globals.database.query('travellers');
+  for(int i=0;i<cars.length;i++)
+    {
+      int counter = int.parse(cars[i]['id'].toString());
+      List<Map> carTravellers = new List();
+      for(int a=0; a<travellers.length; a++)
+          {
+            if(travellers[a]['car_id']==counter) {
+              carTravellers.add({
+                'naam': travellers[a]['first_name'] + ' ' +
+                    travellers[a]['major_name']
+              });
+            }
+          }
+      if(carTravellers!=null) {
+        data.add({'reizigers': carTravellers});
+      }
+    }
+  return data;
 }
 
 
