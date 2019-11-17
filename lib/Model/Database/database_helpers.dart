@@ -178,7 +178,7 @@ class DatabaseHelper {
     var car3 = Car(id: 3, size: '5');
     var car4 = Car(id: 4, size: '5');
 
-    var traveller1 = Traveller(
+    /*var traveller1 = Traveller(
       id: 1,
       first_name: 'a',
       last_name: 'test',
@@ -248,7 +248,7 @@ class DatabaseHelper {
         car_id: 4,
         phone: "555"
     );
-
+*/
 
     var hotel1 = Hotel(
         id: 1,
@@ -340,7 +340,7 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("cars", car4.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    db.insert("travellers", traveller1.toMap(),
+    /*db.insert("travellers", traveller1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("travellers", traveller2.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
@@ -361,7 +361,7 @@ class DatabaseHelper {
     db.insert("travellers", traveller10.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("travellers", traveller11.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+        conflictAlgorithm: ConflictAlgorithm.replace);*/
     db.insert("hotels", hotel1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("hotels", hotel2.toMap(),

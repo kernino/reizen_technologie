@@ -78,7 +78,6 @@ class _MainDartState extends State<MainDart> {
             else {
               if (globals.connected == true)
                 {
-
                   return new Sync();
                 }
               else

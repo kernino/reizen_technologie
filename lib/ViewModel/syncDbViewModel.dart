@@ -15,17 +15,20 @@ class Sync extends StatefulWidget {
 
 class _SyncState extends State<Sync> {
 
+  Future future;
+
+
   @override
   void initState() {
 
-
+    future = syncDbToLocal();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: syncDbToLocal(), // a previously-obtained Future<String> or null
+      future: future, // a previously-obtained Future<String> or null
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
