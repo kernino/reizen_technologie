@@ -1,6 +1,7 @@
 
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:reizen_technologie/Model/Database/database_helpers.dart';
+import 'package:reizen_technologie/main.dart';
 
 DatabaseHelper db = new DatabaseHelper();
 
@@ -24,4 +25,15 @@ else{
   print("data day planning met id " + id.toString() + " ophalen NIET gelukt: ");
 }
 return dayPlanningData;
+}
+
+Future<List> GetActivitiesByDay(int id) async {
+  List<Map> activitiesData = await globals.database.query('activities', where: '"day_planning_id" = ?', whereArgs: [id]);
+  if(activitiesData != null){
+    print("activities met id " + id.toString() + "ophalen gelukt: " + activitiesData.toString());
+  }
+  else{
+    print("data activities met id " + id.toString() + " ophalen NIET gelukt: ");
+  }
+  return activitiesData;
 }
