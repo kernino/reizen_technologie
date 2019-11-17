@@ -181,60 +181,72 @@ class DatabaseHelper {
     var traveller1 = Traveller(
       id: 1,
       first_name: 'a',
-      major_name: 'test',
-      car_id: 1
+      last_name: 'test',
+      car_id: 1,
+        phone: "555"
     );
 
     var traveller2 = Traveller(
         id: 2,
         first_name: 'b',
-        major_name: 'test',
-        car_id: 1
+        last_name: 'test',
+        car_id: 1,
+        phone: "555"
     );var traveller3 = Traveller(
         id: 3,
         first_name: 'c',
-        major_name: 'test',
-        car_id: 1
+        last_name: 'test',
+        car_id: 1,
+        phone: "555"
     );var traveller4 = Traveller(
         id: 4,
         first_name: 'd',
-        major_name: 'test',
-        car_id: 2
+        last_name: 'test',
+        car_id: 2,
+        phone: "555"
     );var traveller5 = Traveller(
         id: 5,
         first_name: 'e',
-        major_name: 'test',
-        car_id: 2
+        last_name: 'test',
+        car_id: 2,
+        phone: "555"
     );var traveller6 = Traveller(
         id: 6,
         first_name: 'f',
-        major_name: 'test',
-        car_id: 2
+        last_name: 'test',
+        car_id: 2,
+        phone: "555"
     );var traveller7 = Traveller(
         id: 7,
         first_name: 'g',
-        major_name: 'test',
-        car_id: 3
+        last_name: 'test',
+        car_id: 3,
+        phone: "555"
     );var traveller8 = Traveller(
         id: 8,
         first_name: 'h',
-        major_name: 'test',
-        car_id: 3
+        last_name: 'test',
+        car_id: 3,
+        phone: "555"
     );var traveller9 = Traveller(
         id: 9,
         first_name: 'i',
-        major_name: 'test',
-        car_id: 3
+        last_name: 'test',
+        car_id: 3,
+        phone: "555"
+
     );var traveller10 = Traveller(
         id: 10,
         first_name: 'j',
-        major_name: 'test',
-        car_id: 4
+        last_name: 'test',
+        car_id: 4,
+        phone: "555"
     );var traveller11 = Traveller(
         id: 11,
         first_name: 'k',
-        major_name: 'test',
-        car_id: 4
+        last_name: 'test',
+        car_id: 4,
+        phone: "555"
     );
 
 

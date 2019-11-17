@@ -14,7 +14,7 @@ Future<List> GetCars() async {
             if(travellers[a]['car_id']==counter) {
               carTravellers.add({
                 'naam': travellers[a]['first_name'] + ' ' +
-                    travellers[a]['major_name']
+                    travellers[a]['last_name']
               });
             }
           }
