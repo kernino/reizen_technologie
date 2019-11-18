@@ -266,32 +266,32 @@ class DatabaseHelper {
     );
 */
 
-    var hotel1 = Hotel(
-        id: 1,
-        name: 'Schulen Station',
-        description: 'mooi station. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est. Dictum sit amet justo donec. Diam sit amet nisl suscipit adipiscing bibendum est ultricies integer. Maecenas sed enim ut sem viverra aliquet eget sit amet. Et netus et malesuada fames ac turpis egestas. Turpis massa tincidunt dui ut ornare lectus sit amet. Sit amet justo donec enim diam. Augue ut lectus arcu bibendum at varius vel pharetra vel. Mauris vitae ultricies leo integer malesuada nunc. Nibh cras pulvinar mattis nunc sed. Amet risus nullam eget felis eget nunc lobortis. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Integer feugiat scelerisque varius morbi. Proin sagittis nisl rhoncus mattis rhoncus urna neque. Sed risus ultricies tristique nulla aliquet enim tortor. Sem integer vitae justo eget magna. Iaculis urna id volutpat lacus laoreet non curabitur gravida. Ornare massa eget egestas purus viverra. Mauris ultrices eros in cursus turpis massa tincidunt dui. \n\nSollicitudin nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Sagittis nisl rhoncus mattis rhoncus urna neque viverra justo. Enim nulla aliquet porttitor lacus luctus. Tincidunt id aliquet risus feugiat. Adipiscing at in tellus integer feugiat scelerisque varius morbi. Nisl nunc mi ipsum faucibus vitae aliquet nec. Et tortor consequat id porta nibh venenatis. Tincidunt ornare massa eget egestas purus viverra accumsan. Ac tortor vitae purus faucibus ornare. Consequat ac felis donec et odio pellentesque. Rhoncus aenean vel elit scelerisque mauris. Aliquam id diam maecenas ultricies mi eget mauris. Neque convallis a cras semper auctor neque vitae tempus quam.',
-        location: 'Schulencity',
-        photoUrl: 'assets/hotels/hotel0.jpg',
-        start_date: '2019-11-2',
-        end_date: '2019-11-9');
-
-    var hotel2 = Hotel(
-        id: 2,
-        name: 'C-mine',
-        description: 'mooie mijn',
-        location: 'Genk',
-        photoUrl: 'assets/hotels/hotel1.jpg',
-        start_date: '2019-11-9',
-        end_date: '2019-11-11');
-
-    var hotel3 = Hotel(
-        id: 3,
-        name: 'Hilton',
-        description: 'Hotel in New York',
-        location: 'New York',
-        photoUrl: 'assets/hotels/hotel2.jpg',
-        start_date: '2020-05-19',
-        end_date: '2020-05-20');
+//    var hotel1 = Hotel(
+//        id: 1,
+//        name: 'Schulen Station',
+//        description: 'mooi station. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est. Dictum sit amet justo donec. Diam sit amet nisl suscipit adipiscing bibendum est ultricies integer. Maecenas sed enim ut sem viverra aliquet eget sit amet. Et netus et malesuada fames ac turpis egestas. Turpis massa tincidunt dui ut ornare lectus sit amet. Sit amet justo donec enim diam. Augue ut lectus arcu bibendum at varius vel pharetra vel. Mauris vitae ultricies leo integer malesuada nunc. Nibh cras pulvinar mattis nunc sed. Amet risus nullam eget felis eget nunc lobortis. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae. Integer feugiat scelerisque varius morbi. Proin sagittis nisl rhoncus mattis rhoncus urna neque. Sed risus ultricies tristique nulla aliquet enim tortor. Sem integer vitae justo eget magna. Iaculis urna id volutpat lacus laoreet non curabitur gravida. Ornare massa eget egestas purus viverra. Mauris ultrices eros in cursus turpis massa tincidunt dui. \n\nSollicitudin nibh sit amet commodo nulla facilisi nullam vehicula ipsum. Sagittis nisl rhoncus mattis rhoncus urna neque viverra justo. Enim nulla aliquet porttitor lacus luctus. Tincidunt id aliquet risus feugiat. Adipiscing at in tellus integer feugiat scelerisque varius morbi. Nisl nunc mi ipsum faucibus vitae aliquet nec. Et tortor consequat id porta nibh venenatis. Tincidunt ornare massa eget egestas purus viverra accumsan. Ac tortor vitae purus faucibus ornare. Consequat ac felis donec et odio pellentesque. Rhoncus aenean vel elit scelerisque mauris. Aliquam id diam maecenas ultricies mi eget mauris. Neque convallis a cras semper auctor neque vitae tempus quam.',
+//        location: 'Schulencity',
+//        photoUrl: 'assets/hotels/hotel0.jpg',
+//        start_date: '2019-11-2',
+//        end_date: '2019-11-9');
+//
+//    var hotel2 = Hotel(
+//        id: 2,
+//        name: 'C-mine',
+//        description: 'mooie mijn',
+//        location: 'Genk',
+//        photoUrl: 'assets/hotels/hotel1.jpg',
+//        start_date: '2019-11-9',
+//        end_date: '2019-11-11');
+//
+//    var hotel3 = Hotel(
+//        id: 3,
+//        name: 'Hilton',
+//        description: 'Hotel in New York',
+//        location: 'New York',
+//        photoUrl: 'assets/hotels/hotel2.jpg',
+//        start_date: '2020-05-19',
+//        end_date: '2020-05-20');
 
     var room1 = Room(
       id: 1,
@@ -378,12 +378,12 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("travellers", traveller11.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);*/
-    db.insert("hotels", hotel1.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
-    db.insert("hotels", hotel2.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
-    db.insert("hotels", hotel3.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+//    db.insert("hotels", hotel1.toMap(),
+//        conflictAlgorithm: ConflictAlgorithm.replace);
+//    db.insert("hotels", hotel2.toMap(),
+//        conflictAlgorithm: ConflictAlgorithm.replace);
+//    db.insert("hotels", hotel3.toMap(),
+//        conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("rooms", room1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("room_traveller", room_traveller1.toMap(),

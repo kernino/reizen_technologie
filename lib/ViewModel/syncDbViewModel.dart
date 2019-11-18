@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reizen_technologie/Model/Database/Activity.dart';
+import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
+import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/Traveller.dart';
 import 'package:reizen_technologie/Views/Widgets/navbar.dart';
 import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
@@ -64,7 +67,9 @@ Future syncDbToLocal() async
  var result = await client.query(QueryOptions(document: getAllDataToSync()));
 
  await globals.dbHelper.db.rawDelete("DELETE FROM travellers");
+ await globals.dbHelper.db.rawDelete("DELETE FROM hotels");
 
+//travellers
  for (int i = 0; i < result.data['trip'][0]['travellers'].length; i++) {
 
 
@@ -77,6 +82,44 @@ Future syncDbToLocal() async
 
       await globals.dbHelper.db.insert("travellers", traveller.toMap());
  }
+
+ //hotels
+ for(int i = 0; i < result.data['trip'][0]['hotels'].length; i++){
+   Hotel hotel = Hotel(
+       name: result
+           .data['trip'][0]['hotels'][i]['hotel_name'],
+       location: result.data['trip'][0]['hotels'][i]['address'],
+       photoUrl: "",
+     description: "test",
+     start_date: "2019-11-9",
+     end_date: "2019-11-12",
+   );
+   await globals.dbHelper.db.insert("hotels", hotel.toMap());
+ }
+
+ //activities
+  for(int i = 0; i < result.data['trip'][0]['activities'].length; i++){
+    Activity activity = Activity(
+      name: result
+          .data['trip'][0]['activities'][i]['name'],
+      location: result.data['trip'][0]['activities'][i]['location'],
+      start_hour: result.data['trip'][0]['activities'][i]['start_hour'],
+      end_hour: result.data['trip'][0]['activities'][i]['end_hour'],
+      description: result.data['trip'][0]['activities'][i]['description'],
+    );
+    await globals.dbHelper.db.insert("activities", activity.toMap());
+  }
+
+  //day_planning
+  for(int i = 0; i < result.data['trip'][0]['day_planning'].length; i++){
+    DayPlanning dayPlanning = DayPlanning(
+      date: result.data['trip'][0]['day_planning'][i]['date'],
+      highlight: result.data['trip'][0]['day_planning'][i]['highlight'],
+      location: result.data['trip'][0]['day_planning'][i]['location'],
+      description: result.data['trip'][0]['day_planning'][i]['description'],
+    );
+    await globals.dbHelper.db.insert("day_planning", dayPlanning.toMap());
+  }
 }
 
 String getAllDataToSync() {
@@ -85,7 +128,7 @@ String getAllDataToSync() {
 
   String data ="""
     query{
-      trip(trip_id:1)
+      trip(trip_id:$trip_id)
       {
         name, 
         travellers
@@ -93,6 +136,27 @@ String getAllDataToSync() {
           first_name, 
           last_name, 
           phone
+        },
+        hotels
+        {
+          hotel_name,
+          address,
+          picture1_link
+        }
+        activities
+        {
+          name,
+          start_hour,
+          end_hour,
+          description,
+          location
+        }
+        dayplanning
+        {
+          date,
+          highlight,
+          description,
+          location
         }
       }
     }
