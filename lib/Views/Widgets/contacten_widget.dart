@@ -18,7 +18,7 @@ class _ContactPageState extends State<ContactPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbar.getAppbar("Planning"),
+      appBar: Appbar.getAppbar("Contacten"),
       body: new FutureBuilder(
           future: GetTravellers(),
           builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
