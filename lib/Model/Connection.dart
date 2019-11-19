@@ -94,7 +94,7 @@ void dbSync() async {
       textColor: Colors.white,
       fontSize: 16.0
   );
-  await db.GetLoggedInUser();
+
 
   await syncDbToLocal();
 }
