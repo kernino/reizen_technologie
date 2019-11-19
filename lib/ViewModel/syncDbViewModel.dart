@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Model/Database/Activity.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
+import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/Traveller.dart';
 import 'package:reizen_technologie/Views/Widgets/navbar.dart';
@@ -68,6 +69,7 @@ Future syncDbToLocal() async
 
  await globals.dbHelper.db.rawDelete("DELETE FROM travellers");
  await globals.dbHelper.db.rawDelete("DELETE FROM hotels");
+ await globals.dbHelper.db.rawDelete("DELETE FROM emergency_numbers");
 
 //travellers
  for (int i = 0; i < result.data['trip'][0]['travellers'].length; i++) {
@@ -98,7 +100,7 @@ Future syncDbToLocal() async
  }
 
  //activities
-  for(int i = 0; i < result.data['trip'][0]['activities'].length; i++){
+  /*for(int i = 0; i < result.data['trip'][0]['activities'].length; i++){
     Activity activity = Activity(
       name: result
           .data['trip'][0]['activities'][i]['name'],
@@ -119,7 +121,7 @@ Future syncDbToLocal() async
       description: result.data['trip'][0]['day_planning'][i]['description'],
     );
     await globals.dbHelper.db.insert("day_planning", dayPlanning.toMap());
-  }
+  }*/
 }
 
 String getAllDataToSync() {
@@ -128,7 +130,7 @@ String getAllDataToSync() {
 
   String data ="""
     query{
-      trip(trip_id:$trip_id)
+      trip(trip_id:1)
       {
         name, 
         travellers
@@ -143,6 +145,12 @@ String getAllDataToSync() {
           address,
           picture1_link
         }
+        
+      }
+    }
+    """;
+
+  /*
         activities
         {
           name,
@@ -158,8 +166,6 @@ String getAllDataToSync() {
           description,
           location
         }
-      }
-    }
-    """;
+   */
   return data;
 }

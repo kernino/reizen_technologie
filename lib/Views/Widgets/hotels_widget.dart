@@ -48,7 +48,7 @@ class _HotelsPageState extends State<HotelsPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => HotelDetailsPage(
-                              hotel: snapshot.data[index]['id'])),
+                              hotel: content[index]['id'])),
                     );
                   },
                   child: Center(
@@ -63,10 +63,10 @@ class _HotelsPageState extends State<HotelsPage> {
                         new AspectRatio(
                           aspectRatio: 2 / 1,
                           child: new Image(
-                            image: new AssetImage(content[index]['photoUrl']
-                                /*'assets/hotels/hotel' +
+                            image: new AssetImage(//content[index]['photoUrl']
+                                'assets/hotels/hotel' +
                               index.toString() +
-                              '.jpg'*/
+                              '.jpg'
                                 ),
                             fit: BoxFit.cover,
                           ),

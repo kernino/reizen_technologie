@@ -332,8 +332,8 @@ class DatabaseHelper {
         name: "Activity 2"
     );
 
-    var number1 = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
-    var number2 = EmergencyNumber(id: 2, traveller_id: 2, number: "0498765432");
+   /* var number1 = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
+    var number2 = EmergencyNumber(id: 2, traveller_id: 2, number: "0498765432");*/
 
     db.insert("day_planning", dayPlanning1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
@@ -394,11 +394,11 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("activities", activity2.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    db.insert("emergency_numbers", number1.toMap(),
+    /*db.insert("emergency_numbers", number1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("emergency_numbers", number2.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    globals.getEmergencyNumbers();
+    globals.getEmergencyNumbers();*/
 
     print(await db.query("travellers", columns: ["first_name", "last_name", "phone"]));
   }

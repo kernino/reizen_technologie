@@ -40,6 +40,7 @@ class MainDart extends StatefulWidget {
 
 class _MainDartState extends State<MainDart> {
   Future future;
+  int i = 0;
 
   @override
   void initState() {
@@ -47,10 +48,10 @@ class _MainDartState extends State<MainDart> {
     DatabaseHelper db = new DatabaseHelper();
     globals.dbHelper = db;
 
-
-
     Connection connection = new Connection(context);
     connection.checkConnectivity();
+
+
 
     future = db.initializeDatabase();
     super.initState();
@@ -76,14 +77,12 @@ class _MainDartState extends State<MainDart> {
               return new VoorwaardenConnection();
             }
             else {
-              if (globals.connected == true)
-                {
-                  return new Sync();
-                }
-              else
-                {
-                  return new Navbar();
-                }
+              i++;
+              if (i== 1) {
+
+
+              }
+              return new Navbar();
             }
         }
         return new Container();

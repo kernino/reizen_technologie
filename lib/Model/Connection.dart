@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:reizen_technologie/ViewModel/ContactenViewModel.dart';
 import 'package:reizen_technologie/ViewModel/syncDbViewModel.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:sqflite/sqflite.dart';
@@ -83,7 +84,7 @@ _using4GDialog (BuildContext context) {
       });
 }
 
-void dbSync() {
+void dbSync() async {
   Fluttertoast.showToast(
       msg: "Sync started",
       toastLength: Toast.LENGTH_SHORT,
@@ -93,7 +94,8 @@ void dbSync() {
       textColor: Colors.white,
       fontSize: 16.0
   );
+  await db.GetLoggedInUser();
 
-  globals.connected = true;
+  await syncDbToLocal();
 }
 }

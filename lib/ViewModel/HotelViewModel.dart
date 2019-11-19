@@ -10,7 +10,7 @@ Future<List> GetHotels() async {
 return hotels;
 }
 
-Future<List> GetHotelData(int id) async {;
+Future<List> GetHotelData(int id) async {
   List<Map> hotelData = await globals.database.query('hotels', where: '"id" = ?', whereArgs: [id]);
   if(hotelData != null) {
     print("data hotel met id " + id.toString() + " ophalen gelukt: " + hotelData.toString());
