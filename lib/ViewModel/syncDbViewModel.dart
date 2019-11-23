@@ -159,7 +159,7 @@ String getAllDataToSync() {
           description,
           location
         }
-        dayplanning
+        day_planning
         {
           date,
           highlight,
