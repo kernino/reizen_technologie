@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart';
 import 'package:reizen_technologie/Model/Database/Activity.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
@@ -8,6 +9,7 @@ import 'package:reizen_technologie/Model/Database/Traveller.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 
+import '../Connection.dart';
 import 'Car.dart';
 import 'DayPlanning.dart';
 import 'Emergency Number.dart';
@@ -19,7 +21,7 @@ class DatabaseHelper {
 
   Database db;
 
-  Future initializeDatabase() async {
+  Future initializeDatabase(BuildContext context) async {
 
     db = await openDatabase(
       join(await getDatabasesPath(), 'data.reizentechnogie.db'),
@@ -127,6 +129,9 @@ class DatabaseHelper {
     );
     await GetLoggedInUser();
     globals.database = db;
+
+    Connection connection = new Connection(context);
+    connection.checkConnectivity();
   }
 
   Future GetLoggedInUser() async {

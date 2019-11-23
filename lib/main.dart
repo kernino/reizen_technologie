@@ -48,12 +48,7 @@ class _MainDartState extends State<MainDart> {
     DatabaseHelper db = new DatabaseHelper();
     globals.dbHelper = db;
 
-    Connection connection = new Connection(context);
-    connection.checkConnectivity();
-
-
-
-    future = db.initializeDatabase();
+    future = db.initializeDatabase(context);
     super.initState();
   }
 
@@ -77,11 +72,6 @@ class _MainDartState extends State<MainDart> {
               return new VoorwaardenConnection();
             }
             else {
-              i++;
-              if (i== 1) {
-
-
-              }
               return new Navbar();
             }
         }
