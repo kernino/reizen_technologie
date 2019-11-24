@@ -5,10 +5,11 @@ import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/Traveller.dart';
+import 'package:reizen_technologie/Model/Database/TripInfo.dart';
 import 'package:reizen_technologie/Views/Widgets/navbar.dart';
 import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:reizen_technologie/ViewModel/AlgemeneInfoViewModel.dart';
+import 'package:reizen_technologie/ViewModel/VoorwaardenViewModel.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:sqflite/sqflite.dart';
 
@@ -70,6 +71,7 @@ Future syncDbToLocal() async
  await globals.dbHelper.db.rawDelete("DELETE FROM travellers");
  await globals.dbHelper.db.rawDelete("DELETE FROM hotels");
  await globals.dbHelper.db.rawDelete("DELETE FROM emergency_numbers");
+ await globals.dbHelper.db.rawDelete("DELETE FROM trip_info");
 
 //travellers
  for (int i = 0; i < result.data['trip'][0]['travellers'].length; i++) {
@@ -122,6 +124,10 @@ Future syncDbToLocal() async
     );
     await globals.dbHelper.db.insert("day_planning", dayPlanning.toMap());
   }*/
+
+  //trip info
+  TripInfo tripInfo = TripInfo(info: result.data['info'][0]['info_value']);
+  await globals.dbHelper.db.insert("trip_info", tripInfo.toMap());
 }
 
 String getAllDataToSync() {
@@ -146,6 +152,10 @@ String getAllDataToSync() {
           picture1_link
         }
         
+      },
+      info(info_name:"algemene_info")
+      {
+        info_value
       }
     }
     """;

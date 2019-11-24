@@ -15,6 +15,7 @@ import 'DayPlanning.dart';
 import 'Emergency Number.dart';
 import 'Hotel.dart';
 import 'RoomTraveller.dart';
+import 'TripInfo.dart';
 
 
 class DatabaseHelper {
@@ -124,6 +125,13 @@ class DatabaseHelper {
                 "traveller_id INTEGER,"
                 "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
         );
+
+        await db.execute(
+            "CREATE TABLE trip_info ("
+                "id INTEGER PRIMARY KEY,"
+                "info TEXT)"
+        );
+
       },
       version: 3
     );
