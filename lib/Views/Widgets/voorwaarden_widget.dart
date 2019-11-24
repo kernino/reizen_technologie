@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:reizen_technologie/ViewModel/AlgemeneInfoViewModel.dart';
+import 'package:reizen_technologie/ViewModel/VoorwaardenViewModel.dart';
 
 class VoorwaardenConnection extends StatelessWidget {
   @override

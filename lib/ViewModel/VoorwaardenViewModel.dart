@@ -11,7 +11,8 @@ import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
 String getAlgemeneData() {
   String data ="""
     query{
-      info{
+      info(info_name:"algemene_voorwaarde")
+      {
         info_value
       }
     }
