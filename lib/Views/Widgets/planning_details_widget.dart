@@ -24,7 +24,7 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
               if (snapshot.connectionState == ConnectionState.done) {
                 content = [];
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             }
             return Scaffold(
               appBar: Appbar.getAppbar(

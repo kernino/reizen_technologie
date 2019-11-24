@@ -25,7 +25,7 @@ class _HotelsPageState extends State<HotelsPage> {
             if (snapshot.connectionState == ConnectionState.done) {
               content = [];
             }
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
           content = snapshot.data;
           //return Text(content.toString());

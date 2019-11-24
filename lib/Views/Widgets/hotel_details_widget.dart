@@ -69,7 +69,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   content = [];
                 }
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               }
               return Scaffold(
                   appBar: Appbar.getAppbar(

@@ -28,7 +28,7 @@ class _CarsPageState extends State<CarsPage> {
           if (snapshot.connectionState == ConnectionState.done) {
             content = [];
           }
-        return CircularProgressIndicator();
+        return Center(child: CircularProgressIndicator());
         }
         content = snapshot.data;
         return new Scrollbar(
