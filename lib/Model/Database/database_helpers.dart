@@ -169,21 +169,21 @@ class DatabaseHelper {
         date: '17/05',
         highlight: 'vertrek naar ...',
         description: 'descriptionTest',
-        location: 'location1');
+        location: 'Location1');
 
     var dayPlanning2 = DayPlanning(
         id: 2,
         date: '18/05',
         highlight: 'bezoeken van ...',
         description: 'descriptionTest',
-        location: 'location1');
+        location: 'Location1');
 
     var dayPlanning3 = DayPlanning(
         id: 3,
         date: '19/05',
         highlight: 'eten bij ...',
         description: 'descriptionTest',
-        location: 'location2');
+        location: 'Location2');
 
 
     var car1 = Car(id: 1, size: '5');

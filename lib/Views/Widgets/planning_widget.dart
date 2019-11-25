@@ -28,7 +28,7 @@ class _PlanningPageState extends State<PlanningPage> {
               if (snapshot.connectionState == ConnectionState.done) {
                 content = [];
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             }
             content = snapshot.data;
 
@@ -46,11 +46,11 @@ class _PlanningPageState extends State<PlanningPage> {
 
                       if (location != content[index]['location']) {
                         titelWidget = Visibility(
-                          child: Text(
-                            content[index]['location'],
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 15),
+                            child: Text(
+                                content[index]['location'],
+                                style: TextStyle(fontSize: 35)
                             ),
                           ),
                           visible: true,

@@ -28,7 +28,7 @@ class _ContactPageState extends State<ContactPage> {
               if (snapshot.connectionState == ConnectionState.done) {
                 content = [];
               }
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             }
             content = snapshot.data;
             filteredUsers = content;

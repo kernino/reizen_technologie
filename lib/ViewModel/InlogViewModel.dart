@@ -115,4 +115,5 @@ class InlogViewModel implements InlogModel {
       MaterialPageRoute(builder: (context) => VoorwaardenConnection()),
     );
   }
+
 }
