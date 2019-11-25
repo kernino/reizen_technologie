@@ -14,6 +14,7 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
+  List<Map> filteredUsers = List();
 
   @override
   Widget build(BuildContext context) {
@@ -30,46 +31,72 @@ class _ContactPageState extends State<ContactPage> {
               return CircularProgressIndicator();
             }
             content = snapshot.data;
+            filteredUsers = content;
 
             return new Scaffold(
-              body: Scrollbar(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: List.generate(content.length, (index) {
+              body: Column(
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(15.0),
+                        hintText: 'Filter naam',
+                      ),
+                      onChanged: (string) {
+                        setState(() {
+                          filteredUsers = content
+                              .where((u) =>
+                          (u['first_name']
+                              .toLowerCase()
+                              .contains(string.toLowerCase()) ||
+                              u['last_name'].toLowerCase().contains(
+                                  string.toLowerCase())))
+                              .toList();
+                        });
+                      },
+                    ),
+                    Scrollbar(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: List.generate(
+                                filteredUsers.length, (index) {
+                              return Column(
+                                children: <Widget>[
 
-                      return Column(
-                        children: <Widget>[
-                          InkWell(
-                            child: Center(
-                              child: new Card(
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      ListTile(
-                                        title: Text(content[index]['first_name'] + " " + content[index]['last_name'],
-                                          style: TextStyle(
-                                              fontSize: 18
-                                          ),
-                                        ),
+                                  InkWell(
+                                    child: Center(
+                                      child: new Card(
+                                        child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              ListTile(
+                                                title: Text(
+                                                  filteredUsers[index]['first_name'] +
+                                                      " " +
+                                                      filteredUsers[index]['last_name'],
+                                                  style: TextStyle(
+                                                      fontSize: 18
+                                                  ),
+                                                ),
 
-                                        subtitle: Text("Nummer: " +
-                                          content[index]['phone'],
-                                          style: TextStyle(
-                                              fontSize: 18
-                                          ),
-                                        ),
-                                      )
-                                    ]),
-                              ),
-                            ),
-                          )
-                        ],
-                      );
-                    }),
-                  ),
-                ),
-              ),
+                                                subtitle: Text("Nummer: " +
+                                                    filteredUsers[index]['phone'],
+                                                  style: TextStyle(
+                                                      fontSize: 18
+                                                  ),
+                                                ),
+                                              )
+                                            ]),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              );
+                            }),
+                          ),
+                        )),
+                  ]),
+
             );
           }),
     );
