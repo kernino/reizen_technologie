@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Model/Database/Activity.dart';
+import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
@@ -55,7 +56,7 @@ class _SyncState extends State<Sync> {
 Link setConnection(){
   var bearer = globals.loggedInUser[0]["token"];
   print(bearer);
-  final HttpLink httpLink =  HttpLink(uri: "http://171.25.229.102:8222/graphql?query=");
+  final HttpLink httpLink =  HttpLink(uri: "http://171.25.229.102:8222/graphql2?query=");
   final AuthLink authLink = AuthLink(getToken: () async => 'Bearer ' + bearer);
   final Link link = authLink.concat(httpLink);
   return link;
@@ -71,63 +72,77 @@ Future syncDbToLocal() async
  await globals.dbHelper.db.rawDelete("DELETE FROM travellers");
  await globals.dbHelper.db.rawDelete("DELETE FROM hotels");
  await globals.dbHelper.db.rawDelete("DELETE FROM emergency_numbers");
+ await globals.dbHelper.db.rawDelete("DELETE FROM cars");
  await globals.dbHelper.db.rawDelete("DELETE FROM trip_info");
 
 //travellers
- for (int i = 0; i < result.data['trip'][0]['travellers'].length; i++) {
+ for (int i = 0; i < result.data['trip']['travellers'].length; i++) {
 
 
     Traveller traveller = Traveller(
-        first_name: result
-            .data['trip'][0]['travellers'][i]['first_name'],
-        last_name: result.data['trip'][0]['travellers'][i]['last_name'],
-        phone: result.data['trip'][0]['travellers'][i]['phone']
+        id: result.data['trip']['travellers'][i]["traveller_id"],
+        first_name: result.data['trip']['travellers'][i]['first_name'],
+        last_name: result.data['trip']['travellers'][i]['last_name'],
+        phone: result.data['trip']['travellers'][i]['phone']
     );
 
       await globals.dbHelper.db.insert("travellers", traveller.toMap());
  }
 
  //hotels
- for(int i = 0; i < result.data['trip'][0]['hotels'].length; i++){
-   Hotel hotel = Hotel(
-       name: result
-           .data['trip'][0]['hotels'][i]['hotel_name'],
-       location: result.data['trip'][0]['hotels'][i]['address'],
-       photoUrl: "",
-     description: "test",
-     start_date: "2019-11-9",
-     end_date: "2019-11-12",
-   );
-   await globals.dbHelper.db.insert("hotels", hotel.toMap());
- }
+   for(int i = 0; i < result.data['trip']['hotels'].length; i++){
+     Hotel hotel = Hotel(
+         name: result.data['trip']['hotels'][i]['hotel_name'],
+         location: result.data['trip']['hotels'][i]['address'],
+         photoUrl: result.data['trip']['hotels'][i]['picture1_link'],
+       description: "test",
+       start_date: result.data['trip']['hotels'][i]['hoteltrips'][0]["start_date"],
+       end_date: result.data['trip']['hotels'][i]['hoteltrips'][0]["end_date"],
+     );
+     await globals.dbHelper.db.insert("hotels", hotel.toMap());
+   }
 
- //activities
-  /*for(int i = 0; i < result.data['trip'][0]['activities'].length; i++){
-    Activity activity = Activity(
-      name: result
-          .data['trip'][0]['activities'][i]['name'],
-      location: result.data['trip'][0]['activities'][i]['location'],
-      start_hour: result.data['trip'][0]['activities'][i]['start_hour'],
-      end_hour: result.data['trip'][0]['activities'][i]['end_hour'],
-      description: result.data['trip'][0]['activities'][i]['description'],
-    );
-    await globals.dbHelper.db.insert("activities", activity.toMap());
-  }
-
-  //day_planning
-  for(int i = 0; i < result.data['trip'][0]['day_planning'].length; i++){
+  for(int i = 0; i < result.data['trip']['dayplannings'].length; i++){
     DayPlanning dayPlanning = DayPlanning(
-      date: result.data['trip'][0]['day_planning'][i]['date'],
-      highlight: result.data['trip'][0]['day_planning'][i]['highlight'],
-      location: result.data['trip'][0]['day_planning'][i]['location'],
-      description: result.data['trip'][0]['day_planning'][i]['description'],
+      date: result.data['trip']['dayplannings'][i]['date'],
+      highlight: "test",
+      location: result.data['trip']['dayplannings'][i]['location'],
+      description: result.data['trip']['dayplannings'][i]['description'],
     );
     await globals.dbHelper.db.insert("day_planning", dayPlanning.toMap());
-  }*/
+
+    for(int j = 0; j < result.data['trip']['dayplannings'][i]['activities'].length; j++){
+      Activity activity = Activity(
+        name: result.data['trip']['dayplannings'][i]['activities'][j]['name'],
+        location: "test",
+        start_hour: result.data['trip']['dayplannings'][i]['activities'][j]['start_hour'],
+        end_hour: result.data['trip']['dayplannings'][i]['activities'][j]['end_hour'],
+        description: "test",
+      );
+      await globals.dbHelper.db.insert("activities", activity.toMap());
+    }
+  }
+
+  for(int i=0; i< result.data['trip']['transports'].length; i++) {
+
+    Car car = Car(
+        id: i+1,
+        size: result.data['trip']['transports'][i]["size"].toString(),
+        driver_id: result.data['trip']['transports'][i]["driver_id"]
+    );
+
+    await globals.dbHelper.db.insert("cars", car.toMap());
+
+    for (int j=0; j<result.data['trip']['transports'][i]['travellers'].length; j++) {
+        int id = int.parse(result.data['trip']['transports'][i]['travellers'][j]["traveller_id"]);
+        int carId = i+1;
+        await globals.dbHelper.db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [carId, id]);
+    }
+  }
 
   //trip info
-  TripInfo tripInfo = TripInfo(info: result.data['info'][0]['info_value']);
-  await globals.dbHelper.db.insert("trip_info", tripInfo.toMap());
+  /*TripInfo tripInfo = TripInfo(info: result.data['info'][0]['info_value']);
+  await globals.dbHelper.db.insert("trip_info", tripInfo.toMap());*/
 }
 
 String getAllDataToSync() {
@@ -136,29 +151,51 @@ String getAllDataToSync() {
 
   String data ="""
     query{
-      trip(trip_id:1)
-      {
-        name, 
-        travellers
-        {
-          first_name, 
-          last_name, 
+      trip(trip_id: 1) {
+        name
+        travellers {
+          first_name
+          last_name
           phone
-        },
-        hotels
-        {
-          hotel_name,
-          address,
-          picture1_link
         }
-        
-      },
-      info(info_name:"algemene_info")
-      {
-        info_value
+        hotels {
+          hotel_id, 
+          hotel_name, 
+          address, 
+          picture1_link, 
+          hoteltrips {
+            id, 
+            start_date, 
+            end_date, 
+            rooms {
+              room_id, 
+              size
+            }
+          }
+        }
+        dayplannings {
+          date
+          description
+          location
+          activities {
+            name
+            start_hour
+            end_hour
+          }
+        }
+        transports {
+          driver_id
+          travellers
+          {
+            traveller_id
+            first_name
+            last_name
+          }
+          size
+        }
       }
     }
-    """;
+   """;
 
   /*
         activities
