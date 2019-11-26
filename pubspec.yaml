@@ -36,6 +36,7 @@ dependencies:
   flutter_mobile_carousel: ^1.0.2
   date_format: ^1.0.8
   expandable: ^3.0.1
+  intl_translation: ^0.17.5
 
 
 

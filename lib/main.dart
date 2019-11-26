@@ -14,6 +14,8 @@ import 'package:reizen_technologie/Views/Widgets/voorwaarden_widget.dart';
 import 'package:reizen_technologie/ViewModel/DayPlanningViewModel.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 import 'package:reizen_technologie/ViewModel/CarViewModel.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'Model/globals.dart' as globals;
 import 'Views/Widgets/inlog_widget.dart';
@@ -50,6 +52,7 @@ class _MainDartState extends State<MainDart> {
 
     future = db.initializeDatabase(context);
     super.initState();
+    initializeDateFormatting();
   }
 
   @override
