@@ -72,7 +72,8 @@ class DatabaseHelper {
         await db.execute(
           "CREATE TABLE cars ("
               "id INTEGER PRIMARY KEY,"
-              "size TEXT)"
+              "size TEXT,"
+              "driver_id INTEGER)"
         );
 
         await db.execute(
@@ -186,11 +187,28 @@ class DatabaseHelper {
         location: 'Location2');
 
 
-    var car1 = Car(id: 1, size: '5');
-    var car2 = Car(id: 2, size: '5');
-    var car3 = Car(id: 3, size: '5');
-    var car4 = Car(id: 4, size: '5');
-    
+    var car1 = Car(id: 1, driver_id: 1);
+    var car2 = Car(id: 2, driver_id: 2);
+    var car3 = Car(id: 3, driver_id: 3);
+    var car4 = Car(id: 4, driver_id: 4);
+    var room1 = Room(hotel_id: 1, room_number: '101');
+    var room2 = Room(hotel_id: 1,room_number: '102');
+    var room3 = Room(hotel_id: 2,room_number: '103');
+    var room4 = Room(hotel_id: 2, room_number: '104');
+    var roomTraveller1 = RoomTraveller(room_id: 1,traveller_id: 1);
+    var roomTraveller2 = RoomTraveller(room_id: 1,traveller_id: 2);
+    var roomTraveller3 = RoomTraveller(room_id: 1,traveller_id: 3);
+    var roomTraveller4 = RoomTraveller(room_id: 2,traveller_id: 4);
+    var roomTraveller5 = RoomTraveller(room_id: 2,traveller_id: 5);
+    var roomTraveller6 = RoomTraveller(room_id: 2,traveller_id: 6);
+    var roomTraveller7 = RoomTraveller(room_id: 3,traveller_id: 7);
+    var roomTraveller8 = RoomTraveller(room_id: 3,traveller_id: 8);
+    var roomTraveller9 = RoomTraveller(room_id: 3,traveller_id: 9);
+    var roomTraveller10 = RoomTraveller(room_id: 4,traveller_id: 10);
+    var roomTraveller11 = RoomTraveller(room_id: 4,traveller_id: 11);
+    var roomTraveller12 = RoomTraveller(room_id: 4,traveller_id: 12);
+
+
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 1]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 2]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 3]);
@@ -306,25 +324,6 @@ class DatabaseHelper {
 //        start_date: '2020-05-19',
 //        end_date: '2020-05-20');
 
-    var room1 = Room(
-      id: 1,
-      room_number: "1",
-      size: "4",
-      hotel_id: 1
-    );
-
-    var room_traveller1 = RoomTraveller(
-      id: 1,
-      room_id: 1,
-      traveller_id: 1
-    );
-
-    var room_traveller2 = RoomTraveller(
-      id: 2,
-      room_id: 1,
-      traveller_id: 2
-    );
-
     var activity1 = Activity(
       id: 1,
       day_planning_id: 1,
@@ -397,11 +396,39 @@ class DatabaseHelper {
 //        conflictAlgorithm: ConflictAlgorithm.replace);
 //    db.insert("hotels", hotel3.toMap(),
 //        conflictAlgorithm: ConflictAlgorithm.replace);
+    await globals.dbHelper.db.rawDelete("DELETE FROM rooms");
+    await globals.dbHelper.db.rawDelete("DELETE FROM room_traveller");
     db.insert("rooms", room1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    db.insert("room_traveller", room_traveller1.toMap(),
+    db.insert("rooms", room2.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    db.insert("room_traveller", room_traveller2.toMap(),
+    db.insert("rooms", room3.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("rooms", room4.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller1.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller2.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller3.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller4.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller5.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller6.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller7.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller8.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller9.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller10.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller11.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    db.insert("room_traveller", roomTraveller12.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("activities", activity1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);

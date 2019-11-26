@@ -39,7 +39,7 @@ class _CarsPageState extends State<CarsPage> {
                      return
                        Container(
                         decoration: BoxDecoration(
-                        border: Border.all(width: 10, color: Color.fromRGBO(224,0,73,1.0)),
+                        border: Border.all(width: 5, color: Color.fromRGBO(224,0,73,1.0)),
                         borderRadius: const BorderRadius.all(const Radius.circular(8))
                       ),
                       child: makeWidget(content[index],index),
@@ -58,8 +58,9 @@ class _CarsPageState extends State<CarsPage> {
 Widget makeWidget(LinkedHashMap map, int index)
 {
   List<Widget> widgets = new List<Widget>();
-  widgets.add(Text('Car '+index.toString(),style: TextStyle(fontWeight: FontWeight.bold, color:  Color.fromRGBO(224, 0, 73, 1.0),fontSize: 25)));
-  widgets.add(Text(''));
+  widgets.add(Text('Auto '+(index+1).toString(),style: TextStyle(fontWeight: FontWeight.bold, color:  Color.fromRGBO(224, 0, 73, 1.0),fontSize: 25)));
+  widgets.add(Text('Chauffeur:', style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromRGBO(224,0,73,1.0),fontSize: 20)));
+  widgets.add(Text(map['chauffeur'],style: TextStyle(color: Color.fromRGBO(224,0,73,1.0),fontSize: 20)));
   widgets.add(Text("Passagiers:", style: TextStyle(fontWeight: FontWeight.bold,color: Color.fromRGBO(224,0,73,1.0),fontSize: 20)));
     for(int a=0;a<map['reizigers'].length;a++) {
       widgets.add(
