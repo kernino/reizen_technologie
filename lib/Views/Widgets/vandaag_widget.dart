@@ -96,7 +96,7 @@ class _VandaagPageState extends State<VandaagPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                DateFormat.MMMMEEEEd('nl')
+                DateFormat.MMMMEEEEd()
                     .format(new DateTime.now())
                     .toUpperCase(),
                 style: TextStyle(fontSize: 12),
