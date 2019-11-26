@@ -25,7 +25,7 @@ class DatabaseHelper {
   Future initializeDatabase(BuildContext context) async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'data.reizentechnogie.db'),
+      join(await getDatabasesPath(), 'data.reizentechnogie.db2'),
       onCreate: (db, version) async {
         await db.execute(
           "CREATE TABLE trips ("
@@ -72,7 +72,8 @@ class DatabaseHelper {
         await db.execute(
           "CREATE TABLE cars ("
               "id INTEGER PRIMARY KEY,"
-              "size TEXT)"
+              "size TEXT,"
+              "driver_id INTEGER)"
         );
 
         await db.execute(
@@ -186,7 +187,7 @@ class DatabaseHelper {
         location: 'Location2');
 
 
-    var car1 = Car(id: 1, size: '5');
+    /*var car1 = Car(id: 1, size: '5');
     var car2 = Car(id: 2, size: '5');
     var car3 = Car(id: 3, size: '5');
     var car4 = Car(id: 4, size: '5');
@@ -205,7 +206,7 @@ class DatabaseHelper {
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [3, 12]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 13]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 14]);
-    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 15]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 15]);*/
 
     /*var traveller1 = Traveller(
       id: 1,
@@ -361,14 +362,14 @@ class DatabaseHelper {
     insert(dayPlanning7);
     insert(dayPlanning8);
     */
-    db.insert("cars", car1.toMap(),
+    /*db.insert("cars", car1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("cars", car2.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("cars", car3.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("cars", car4.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+        conflictAlgorithm: ConflictAlgorithm.replace);*/
     /*db.insert("travellers", traveller1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("travellers", traveller2.toMap(),
