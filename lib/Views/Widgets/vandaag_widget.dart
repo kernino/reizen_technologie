@@ -36,7 +36,7 @@ class VandaagPage extends StatefulWidget {
 
 class _VandaagPageState extends State<VandaagPage> {
   //the countdown
-  dynamic _counter = DateTime(2020, 5, 17).difference(DateTime.now()).inDays;
+  dynamic f_counter = DateTime(2020, 5, 17).difference(DateTime.now()).inDays;
   var _planningText =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. Vestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. Nam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet."
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. Vestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. Nam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet.";
@@ -71,11 +71,17 @@ class _VandaagPageState extends State<VandaagPage> {
                 style: TextStyle(fontSize: 35),
               ),
               _buildExpandablePlanning(),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
               Text(
                 'Hotel',
                 style: TextStyle(fontSize: 35),
               ),
               _buildExpandableHotel(),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+              ),
               Text(
                 'Algemene info',
                 style: TextStyle(fontSize: 35),
@@ -96,7 +102,7 @@ class _VandaagPageState extends State<VandaagPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                DateFormat.MMMMEEEEd()
+                new DateFormat.MMMMEEEEd('nl_BE')
                     .format(new DateTime.now())
                     .toUpperCase(),
                 style: TextStyle(fontSize: 12),
