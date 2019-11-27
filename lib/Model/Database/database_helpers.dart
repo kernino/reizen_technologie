@@ -187,10 +187,10 @@ class DatabaseHelper {
         location: 'Location2');
 
 
-    var car1 = Car(id: 1, driver_id: 1);
+/*    var car1 = Car(id: 1, driver_id: 1);
     var car2 = Car(id: 2, driver_id: 2);
     var car3 = Car(id: 3, driver_id: 3);
-    var car4 = Car(id: 4, driver_id: 4);
+    var car4 = Car(id: 4, driver_id: 4);*/
     var room1 = Room(hotel_id: 1, room_number: '101');
     var room2 = Room(hotel_id: 1,room_number: '102');
     var room3 = Room(hotel_id: 2,room_number: '103');
@@ -209,7 +209,7 @@ class DatabaseHelper {
     var roomTraveller12 = RoomTraveller(room_id: 4,traveller_id: 12);
 
 
-    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 1]);
+/*    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 1]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 2]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 3]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [1, 4]);
@@ -223,7 +223,7 @@ class DatabaseHelper {
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [3, 12]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 13]);
     await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 14]);
-    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 15]);
+    await db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [4, 15]);*/
 
     /*var traveller1 = Traveller(
       id: 1,
@@ -360,14 +360,14 @@ class DatabaseHelper {
     insert(dayPlanning7);
     insert(dayPlanning8);
     */
-    db.insert("cars", car1.toMap(),
+    /*db.insert("cars", car1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("cars", car2.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("cars", car3.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("cars", car4.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+        conflictAlgorithm: ConflictAlgorithm.replace);*/
     /*db.insert("travellers", traveller1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("travellers", traveller2.toMap(),

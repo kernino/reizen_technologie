@@ -26,7 +26,7 @@ Future<List> GetHotelData(int id) async {
               whereArgs: [travellersRoom[a]['traveller_id']]);
           travellers.add({
             'room': room_id,
-            'travellers': traveller[0]['first_name'] + ' ' +
+            'traveller': traveller[0]['first_name'] + ' ' +
                 traveller[0]['last_name']
           });
         }

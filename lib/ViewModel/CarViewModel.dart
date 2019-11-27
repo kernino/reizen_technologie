@@ -20,7 +20,9 @@ Future<List> GetCars() async {
             }
           }
       if(carTravellers!=null) {
-        data.add({'reizigers': carTravellers,'chauffeur':travellers[cars[i]['driver_id']]['first_name']+' '+travellers[cars[i]['driver_id']]['last_name']});
+        List<Map> findDriver = await globals.database.query('travellers',where: '"id" =?',whereArgs: [cars[i]['driver_id']]);
+        String chauffeur = findDriver[0]['first_name']+' '+findDriver[0]['last_name'];
+        data.add({'reizigers': carTravellers,'chauffeur':chauffeur/*['first_name']+' '+travellers[cars[i]['driver_id']]['last_name']*/});
       }
     }
   }
