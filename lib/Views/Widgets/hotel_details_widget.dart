@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'appbar.dart';
@@ -7,16 +9,19 @@ import 'package:flutter_mobile_carousel/carousel_arrow.dart';
 
 List<List<String>> Dump = [['1','Kevin','Shrek', 'Chris P. Chicken', 'Dixon Kuntz'],['2','Richard Batsbak','Gerrie Van Boven', 'Rikkert Biemans', 'Robbie Schuurmans', 'Barrie Butsers'],['3','Student 1','Student 2']];
 
-Widget makeWidget(List<String> list)
+Widget makeWidget(LinkedHashMap list, int index)
 {
   List<Widget> widgets = new List<Widget>();
-  widgets.add(Text("Kamer: "+list[0],style: TextStyle(fontSize: 30.0, color:Colors.white),));
+  widgets.add(Text("Kamer "+list['rooms'][index]['room_number'].toString(),style: TextStyle(fontSize: 30.0, color:Color.fromRGBO(224,0,73,1.0))));
   widgets.add(Text(""));
-  widgets.add(Text("Leden:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25.0, color:Colors.white)));
-  for(int i=1; i<list.length; i++)
-  {
-    widgets.add(Text(list[i], style: TextStyle(fontSize: 18.0, color:Colors.white)));
-  }
+  widgets.add(Text("Leden:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color:Color.fromRGBO(224,0,73,1.0))));
+  for(int i=0;i<list['travellers'].length;i++)
+    {
+      if(list['travellers'][i]['room']==list['rooms'][index]['id'])
+        {
+          widgets.add(Text(list['travellers'][i]['traveller'], style: TextStyle(fontSize: 20.0, color:Color.fromRGBO(224,0,73,1.0))));
+        }
+    }
   return new Column(children: widgets);
 }
 
@@ -73,7 +78,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
               }
               return Scaffold(
                   appBar: Appbar.getAppbar(
-                    content[0]['name'],
+                    content[0]['hotel']['name'],
                     IconButton(
                         icon: Icon(Icons.arrow_back),
                         onPressed: () => Navigator.pop(
@@ -108,13 +113,19 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                 ),
                               ),
                               rowCount: 1,
-                              children: Dump.map((List<String> itext){
-                                return Container(
-                                  color: Color.fromRGBO(224,0,73,1.0),
-                                  child: makeWidget(itext),
-                                  padding: EdgeInsets.all(5.0),
-                                  margin: new EdgeInsets.all(10.0),
-                                );
+
+                              children: List.generate(content[0]['rooms'].length, (index){
+                                return
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(width: 5, color: Color.fromRGBO(224,0,73,1.0)),
+                                        borderRadius: const BorderRadius.all(const Radius.circular(8))
+                                    ),
+                                    child: makeWidget(content[0],index),
+                                    padding: EdgeInsets.all(5.0),
+                                    margin: EdgeInsets.all(5.0),
+
+                                  );
                               }).toList(),
                             ),
 
@@ -138,7 +149,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                 padding: new EdgeInsets.all(10.0),
                                 child:
                                 Text(
-                                  content[0]['description'],
+                                  content[0]['hotel']['description'],
                                   //textAlign: TextAlign.justify,
                                   style: TextStyle(fontSize: 15.0),
                                 ),

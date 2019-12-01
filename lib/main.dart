@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:reizen_technologie/Model/Connection.dart';
 import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
@@ -21,7 +22,12 @@ import 'Model/globals.dart' as globals;
 import 'Views/Widgets/inlog_widget.dart';
 import 'Views/Widgets/vandaag_widget.dart';
 
-void main() => runApp(MyApp());
+void main(){
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(new MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

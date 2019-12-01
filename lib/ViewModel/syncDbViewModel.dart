@@ -140,6 +140,11 @@ Future syncDbToLocal() async
     }
   }
 
+  List<Map> dayPlannings = await globals.database.query("cars");
+  if(dayPlannings != null) {
+    print("cars: " + dayPlannings.toString());
+  }
+
   //trip info
   /*TripInfo tripInfo = TripInfo(info: result.data['info'][0]['info_value']);
   await globals.dbHelper.db.insert("trip_info", tripInfo.toMap());*/

@@ -46,7 +46,7 @@ class _VandaagPageState extends State<VandaagPage> {
     return Scaffold(
       appBar: Appbar.getAppbar("Vandaag"),
       body: new FutureBuilder(
-        future: GetUser(),
+        future: GetAllData(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           var content;
           if (!snapshot.hasData) {
@@ -60,7 +60,7 @@ class _VandaagPageState extends State<VandaagPage> {
           return new SingleChildScrollView(child: Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top:10),
+                padding: EdgeInsets.only(top:8),
               ),
               _buildHeader(content),
               Padding(
@@ -70,7 +70,7 @@ class _VandaagPageState extends State<VandaagPage> {
                 'Planning',
                 style: TextStyle(fontSize: 35),
               ),
-              _buildExpandablePlanning(),
+              _buildExpandablePlanning(content),
               Padding(
                 padding: EdgeInsets.only(top: 20),
               ),
@@ -109,7 +109,7 @@ class _VandaagPageState extends State<VandaagPage> {
                 textAlign: TextAlign.left,
               ),
               Text(
-                'Welkom ' + content[0]['first_name'],
+                'Welkom ' + content[0]['user']['first_name'],
                 style: TextStyle(
                     fontSize: 40, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left,
@@ -119,7 +119,7 @@ class _VandaagPageState extends State<VandaagPage> {
     ]);
   }
 
-  Widget _buildExpandablePlanning() {
+  Widget _buildExpandablePlanning(var content) {
     return Card(
       child: ExpandablePanel(
         collapsed: Padding(
@@ -134,7 +134,7 @@ class _VandaagPageState extends State<VandaagPage> {
         expanded: Padding(
           padding: EdgeInsets.all(5),
           child: Text(
-            _planningText,
+            content[0]['user']['first_name'],
             softWrap: true,
           ),
         ),

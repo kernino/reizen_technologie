@@ -11,12 +11,29 @@ return hotels;
 }
 
 Future<List> GetHotelData(int id) async {
-  List<Map> hotelData = await globals.database.query('hotels', where: '"id" = ?', whereArgs: [id]);
-  if(hotelData != null) {
-    print("data hotel met id " + id.toString() + " ophalen gelukt: " + hotelData.toString());
+  List<Map> hotel = await globals.database.query('hotels', where: '"id" = ?', whereArgs: [id]);
+  List<Map> rooms = await globals.database.query('rooms',where: '"hotel_id" = ?',whereArgs: [id]);
+  List<Map> travellers = new List();
+  if(rooms.isNotEmpty) {
+    for (int i=0; i<rooms.length; i++) {
+      int room_id = rooms[i]['id'];
+      List<Map> travellersRoom = await globals.database.query(
+          'room_traveller', where: '"room_id"=?', whereArgs: [room_id]);
+      if(travellersRoom.isNotEmpty) {
+        for (int a = 0; a < travellersRoom.length; a++) {
+          List<Map> traveller = await globals.database.query(
+              'travellers', where: '"id"=?',
+              whereArgs: [travellersRoom[a]['traveller_id']]);
+          travellers.add({
+            'room': room_id,
+            'traveller': traveller[0]['first_name'] + ' ' +
+                traveller[0]['last_name']
+          });
+        }
+      }
+    }
   }
-  else{
-    print("data hotel met id " + id.toString() + " ophalen NIET gelukt: ");
-  }
+  List<Map> hotelData = new List();
+  hotelData.add({'hotel':hotel[0], 'rooms':rooms, 'travellers':travellers});
   return hotelData;
 }
