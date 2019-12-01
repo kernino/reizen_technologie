@@ -123,8 +123,8 @@ class DatabaseHelper {
             "CREATE TABLE emergency_numbers ("
                 "id INTEGER PRIMARY KEY,"
                 "number TEXT,"
-                "traveller_id INTEGER,"
-                "FOREIGN KEY(traveller_id) REFERENCES travellers(id))"
+                "first_name TEXT,"
+                "last_name TEXT)"
         );
 
         await db.execute(
@@ -165,7 +165,7 @@ class DatabaseHelper {
 
 
 
-    var dayPlanning1 = DayPlanning(
+    /*var dayPlanning1 = DayPlanning(
         id: 1,
         date: '17/05',
         highlight: 'vertrek naar ...',
@@ -184,14 +184,14 @@ class DatabaseHelper {
         date: '19/05',
         highlight: 'eten bij ...',
         description: 'descriptionTest',
-        location: 'Location2');
+        location: 'Location2');*/
 
 
 /*    var car1 = Car(id: 1, driver_id: 1);
     var car2 = Car(id: 2, driver_id: 2);
     var car3 = Car(id: 3, driver_id: 3);
     var car4 = Car(id: 4, driver_id: 4);*/
-    var room1 = Room(hotel_id: 1, room_number: '101');
+    /*var room1 = Room(hotel_id: 1, room_number: '101');
     var room2 = Room(hotel_id: 1,room_number: '102');
     var room3 = Room(hotel_id: 2,room_number: '103');
     var room4 = Room(hotel_id: 2, room_number: '104');
@@ -324,7 +324,7 @@ class DatabaseHelper {
 //        start_date: '2020-05-19',
 //        end_date: '2020-05-20');
 
-    var activity1 = Activity(
+    /*var activity1 = Activity(
       id: 1,
       day_planning_id: 1,
       start_hour: "08:00",
@@ -342,17 +342,17 @@ class DatabaseHelper {
         description: "activity 2 description...",
         location: "activity 2 location...",
         name: "Activity 2"
-    );
+    );*/
 
    /* var number1 = EmergencyNumber(id: 1, traveller_id: 1, number: "0412345678");
     var number2 = EmergencyNumber(id: 2, traveller_id: 2, number: "0498765432");*/
 
-    db.insert("day_planning", dayPlanning1.toMap(),
+    /*db.insert("day_planning", dayPlanning1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("day_planning", dayPlanning2.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("day_planning", dayPlanning3.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+        conflictAlgorithm: ConflictAlgorithm.replace);*/
     /*
     insert(dayPlanning4);
     insert(dayPlanning5);
@@ -430,16 +430,16 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("room_traveller", roomTraveller12.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    db.insert("activities", activity1.toMap(),
+    /*db.insert("activities", activity1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("activities", activity2.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+        conflictAlgorithm: ConflictAlgorithm.replace);*/
     /*db.insert("emergency_numbers", number1.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     db.insert("emergency_numbers", number2.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
-    globals.getEmergencyNumbers();*/
+    */
 
-    print(await db.query("travellers", columns: ["first_name", "last_name", "phone"]));
+    print(await db.query("travellers", columns: ["first_name", "last_name", "phone"]));*/
   }
 }

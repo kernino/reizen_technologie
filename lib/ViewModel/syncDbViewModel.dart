@@ -5,6 +5,8 @@ import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
+import 'package:reizen_technologie/Model/Database/Room.dart';
+import 'package:reizen_technologie/Model/Database/RoomTraveller.dart';
 import 'package:reizen_technologie/Model/Database/Traveller.dart';
 import 'package:reizen_technologie/Model/Database/TripInfo.dart';
 import 'package:reizen_technologie/Views/Widgets/navbar.dart';
@@ -71,10 +73,13 @@ Future syncDbToLocal() async
 
  await globals.dbHelper.db.rawDelete("DELETE FROM travellers");
  await globals.dbHelper.db.rawDelete("DELETE FROM hotels");
+ await globals.dbHelper.db.rawDelete("DELETE FROM rooms");
+ await globals.dbHelper.db.rawDelete("DELETE FROM room_traveller");
  await globals.dbHelper.db.rawDelete("DELETE FROM emergency_numbers");
  await globals.dbHelper.db.rawDelete("DELETE FROM cars");
  await globals.dbHelper.db.rawDelete("DELETE FROM trip_info");
-
+await globals.dbHelper.db.rawDelete("DELETE FROM day_planning");
+await globals.dbHelper.db.rawDelete("DELETE FROM activities");
 //travellers
  for (int i = 0; i < result.data['trip']['travellers'].length; i++) {
 
@@ -92,14 +97,36 @@ Future syncDbToLocal() async
  //hotels
    for(int i = 0; i < result.data['trip']['hotels'].length; i++){
      Hotel hotel = Hotel(
+         id: int.parse(result.data['trip']['hotels'][i]['hotel_id']),
          name: result.data['trip']['hotels'][i]['hotel_name'],
          location: result.data['trip']['hotels'][i]['address'],
          photoUrl: result.data['trip']['hotels'][i]['picture1_link'],
-       description: "test",
-       start_date: result.data['trip']['hotels'][i]['hoteltrips'][0]["start_date"],
-       end_date: result.data['trip']['hotels'][i]['hoteltrips'][0]["end_date"],
+         description: "test",
+         start_date: result.data['trip']['hotels'][i]['hoteltrips'][0]["start_date"],
+         end_date: result.data['trip']['hotels'][i]['hoteltrips'][0]["end_date"],
      );
+
      await globals.dbHelper.db.insert("hotels", hotel.toMap());
+
+     for(int j=0; j< result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'].length; j++){
+       Room room = Room(
+         id: int.parse(result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["room_id"]),
+         size: result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["size"].toString(),
+         hotel_id: int.parse(result.data['trip']['hotels'][i]['hotel_id'])
+       );
+
+       await globals.dbHelper.db.insert("rooms", room.toMap());
+
+       for (int k =0; k < result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["travellers"].length; k++)
+       {
+         RoomTraveller roomTraveller = RoomTraveller(
+           room_id: int.parse(result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["room_id"]),
+           traveller_id: int.parse(result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["travellers"][k]["traveller_id"])
+         );
+
+         await globals.dbHelper.db.insert("room_traveller", roomTraveller.toMap());
+       }
+     }
    }
 
   for(int i = 0; i < result.data['trip']['dayplannings'].length; i++){
@@ -140,14 +167,23 @@ Future syncDbToLocal() async
     }
   }
 
-  List<Map> dayPlannings = await globals.database.query("cars");
-  if(dayPlannings != null) {
-    print("cars: " + dayPlannings.toString());
+  for(int i=0; i< result.data['trip']['emergencynumbers'].length; i++) {
+
+    EmergencyNumber emergencyNumber = EmergencyNumber(
+        number: result.data['trip']['emergencynumbers'][i]["number"],
+        first_name: result.data['trip']['emergencynumbers'][i]["first_name"],
+        last_name: result.data['trip']['emergencynumbers'][i]["last_name"]
+    );
+
+    await globals.dbHelper.db.insert("emergency_numbers", emergencyNumber.toMap());
   }
 
+  await globals.getEmergencyNumbers();
+
+
   //trip info
-  /*TripInfo tripInfo = TripInfo(info: result.data['info'][0]['info_value']);
-  await globals.dbHelper.db.insert("trip_info", tripInfo.toMap());*/
+  TripInfo tripInfo = TripInfo(info: result.data['info']['info_value']);
+  await globals.dbHelper.db.insert("trip_info", tripInfo.toMap());
 }
 
 String getAllDataToSync() {
@@ -156,6 +192,10 @@ String getAllDataToSync() {
 
   String data ="""
     query{
+      info(info_name: "algemene_info")
+      {
+        info_value
+      }
       trip(trip_id: 1) {
         name
         travellers {
@@ -174,7 +214,13 @@ String getAllDataToSync() {
             end_date, 
             rooms {
               room_id, 
-              size
+              size,
+              travellers
+              {
+                traveller_id, 
+                first_name, 
+                last_name
+              }
             }
           }
         }
@@ -197,6 +243,12 @@ String getAllDataToSync() {
             last_name
           }
           size
+        },
+        emergencynumbers
+        {
+          number, 
+          first_name, 
+          last_name
         }
       }
     }
