@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Views/Widgets/appbar.dart';
 import 'package:reizen_technologie/ViewModel/ContactenViewModel.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class ContactPage extends StatefulWidget {
@@ -11,18 +14,28 @@ class ContactPage extends StatefulWidget {
 
   @override
   _ContactPageState createState() => _ContactPageState();
-}
 
+}
 class _ContactPageState extends State<ContactPage> {
   List<Map> filteredUsers = List();
+  List<Map> filteredUsersNietOphalen = List();
+  int i =0;
 
+  Future _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _future = GetTravellers();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Appbar.getAppbar("Contacten"),
       body: new FutureBuilder(
-          future: GetTravellers(),
-          builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+          future: _future,
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
             var content;
             if (!snapshot.hasData) {
               if (snapshot.connectionState == ConnectionState.done) {
@@ -31,7 +44,12 @@ class _ContactPageState extends State<ContactPage> {
               return Center(child: CircularProgressIndicator());
             }
             content = snapshot.data;
-            filteredUsers = content;
+            i++;
+            if(i==1)
+              {
+                filteredUsers = content;
+              }
+            filteredUsersNietOphalen = content;
 
             return new Scaffold(
               body: Column(
@@ -43,7 +61,7 @@ class _ContactPageState extends State<ContactPage> {
                       ),
                       onChanged: (string) {
                         setState(() {
-                          filteredUsers = content
+                          filteredUsers = filteredUsersNietOphalen
                               .where((u) =>
                           (u['first_name']
                               .toLowerCase()
@@ -54,49 +72,23 @@ class _ContactPageState extends State<ContactPage> {
                         });
                       },
                     ),
-                    Scrollbar(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: List.generate(
-                                filteredUsers.length, (index) {
-                              return Column(
-                                children: <Widget>[
-
-                                  InkWell(
-                                    child: Center(
-                                      child: new Card(
-                                        child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              ListTile(
-                                                title: Text(
-                                                  filteredUsers[index]['first_name'] +
-                                                      " " +
-                                                      filteredUsers[index]['last_name'],
-                                                  style: TextStyle(
-                                                      fontSize: 18
-                                                  ),
-                                                ),
-
-                                                subtitle: Text("Nummer: " +
-                                                    filteredUsers[index]['phone'],
-                                                  style: TextStyle(
-                                                      fontSize: 18
-                                                  ),
-                                                ),
-                                              )
-                                            ]),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              );
-                            }),
-                          ),
-                        )),
-                  ]),
-
+                    Expanded(
+                      child: ListView.builder(
+                        padding: EdgeInsets.all(10.0),
+                        itemCount: filteredUsers.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                            title: Text(filteredUsers[index]['first_name'] +
+                                        " " +
+                                       filteredUsers[index]['last_name'],),
+                            subtitle: Text("Nummer: " +
+                                        filteredUsers[index]['phone']),
+                            onTap: () =>
+                                launch("tel://" + filteredUsers[index]['phone']),
+                          );
+                        },
+                        ),
+                    )]),
             );
           }),
     );
