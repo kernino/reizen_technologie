@@ -82,33 +82,16 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                   return SingleChildScrollView(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            Carousel(
-                              rightArrow: CarouselArrow(
-                                width: 30.0,
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Icon(
-                                      Icons.chevron_right,
-                                      size: 15.0
-                                  ),
-                                ),
-                              ),
-                              leftArrow: CarouselArrow(
-                                width: 30.0,
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Icon(
-                                      Icons.chevron_left,
-                                      size: 15.0
-                                  ),
-                                ),
-                              ),
-                              rowCount: 1,
-
-                              children: List.generate(content[0]['rooms'].length, (index){
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                             child:Row(
+                              children:
+                              List.generate(content[0]['rooms'].length, (index){
                                 return
                                   Container(
+                                    width: MediaQuery.of(context).size.width -30,
                                     decoration: BoxDecoration(
                                         border: Border.all(width: 5, color: Color.fromRGBO(224,0,73,1.0)),
                                         borderRadius: const BorderRadius.all(const Radius.circular(8))
@@ -119,7 +102,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
 
                                   );
                               }).toList(),
-                            ),
+                            )),
 
                             Row(
                                 children: <Widget>[
