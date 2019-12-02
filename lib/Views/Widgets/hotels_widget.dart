@@ -99,12 +99,12 @@ class _HotelsPageState extends State<HotelsPage> {
                                   //TextSpan(text: DateTime.now().toString())
                                   //TextSpan(text: '\n'),
                                   TextSpan(
-                                      text: stringStart[1] +
+                                      text: stringStart[2] +
                                           "/" +
-                                          stringStart[2]),
+                                          stringStart[1]),
                                   TextSpan(text: ' tot '),
                                   TextSpan(
-                                      text: stringEnd[1] + "/" + stringEnd[2]),
+                                      text: stringEnd[2] + "/" + stringEnd[1]),
                                 ],
                               ),
                             )
