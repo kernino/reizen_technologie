@@ -7,14 +7,11 @@ import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 import 'package:flutter_mobile_carousel/carousel.dart';
 import 'package:flutter_mobile_carousel/carousel_arrow.dart';
 
-List<List<String>> Dump = [['1','Kevin','Shrek', 'Chris P. Chicken', 'Dixon Kuntz'],['2','Richard Batsbak','Gerrie Van Boven', 'Rikkert Biemans', 'Robbie Schuurmans', 'Barrie Butsers'],['3','Student 1','Student 2']];
-
 Widget makeWidget(LinkedHashMap list, int index)
 {
   List<Widget> widgets = new List<Widget>();
-  widgets.add(Text("Kamer "+list['rooms'][index]['room_number'].toString(),style: TextStyle(fontSize: 30.0, color:Color.fromRGBO(224,0,73,1.0))));
+  widgets.add(Text("Kamer "+(index+1).toString(),style: TextStyle(fontSize: 30.0, color:Color.fromRGBO(224,0,73,1.0))));
   widgets.add(Text(""));
-  widgets.add(Text("Leden:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0, color:Color.fromRGBO(224,0,73,1.0))));
   for(int i=0;i<list['travellers'].length;i++)
     {
       if(list['travellers'][i]['room']==list['rooms'][index]['id'])
@@ -53,10 +50,6 @@ class HotelDetailsPage extends StatefulWidget {
   HotelDetailsPage({Key key, this.hotel}) : super(key: key);
 
   final int hotel;
-  List<List<String>> Dump = [['1','Kevin','Shrek', 'Chris P. Chicken', 'Dixon Kuntz'],['2','Richard Batsbak','Gerrie Van Boven', 'Rikkert Biemans', 'Robbie Schuurmans', 'Barrie Butsers'],['3','Student 1','Student 2']];
-  List<List<String>> Dump2 = [['1','Koen','Kevin', 'Stijn', 'Nino'],['2','Zeno','Christian', 'Daan'],['3','Pieter','Sibert']];
-  List<List<String>> Dump3 = [['1','Mario','Luigi'],['2','Crimson Chin','Crash Nebula', 'Catman', 'Bronze Knee Cap'],['3','Student 1','Student 2']];
-
 
   @override
   _HotelDetailsPageState createState() => _HotelDetailsPageState();
@@ -66,6 +59,16 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: Appbar.getAppbar(
+          "Details",
+          IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () => Navigator.pop(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HotelsPage()),
+              )),
+        ),
         body: new FutureBuilder(
             future: GetHotelData(widget.hotel),
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
@@ -76,18 +79,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                 }
                 return Center(child: CircularProgressIndicator());
               }
-              return Scaffold(
-                  appBar: Appbar.getAppbar(
-                    content[0]['hotel']['name'],
-                    IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () => Navigator.pop(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HotelsPage()),
-                        )),
-                  ),
-                  body: SingleChildScrollView(
+                  return SingleChildScrollView(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
@@ -171,7 +163,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
 
                       )
                   )
-              );
+              ;
             }));
   }
 }

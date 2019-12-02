@@ -1,3 +1,4 @@
+import 'package:reizen_technologie/Model/Connection.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class Appbar {
         IconButton(
           icon: Icon(Icons.refresh),
           onPressed: () {
-            Sync();
+            syncDbToLocal();
           },
         ),
         PopupMenuButton<String>(

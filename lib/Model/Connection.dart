@@ -85,15 +85,7 @@ _using4GDialog (BuildContext context) {
 }
 
 void dbSync() async {
-  Fluttertoast.showToast(
-      msg: "Sync started",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIos: 1,
-      backgroundColor: Colors.blueAccent,
-      textColor: Colors.white,
-      fontSize: 16.0
-  );
+
   await syncDbToLocal();
 }
 }

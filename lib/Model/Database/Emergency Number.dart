@@ -1,14 +1,16 @@
 class EmergencyNumber {
   final int id;
-  final int traveller_id;
+  final String first_name;
+  final String last_name;
   final String number;
 
-  EmergencyNumber({this.id,this.traveller_id,this.number});
+  EmergencyNumber({this.id,this.first_name,this.last_name,this.number});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'traveller_id': traveller_id,
+      'first_name': first_name,
+      'last_name': last_name,
       'number': number
     };
   }

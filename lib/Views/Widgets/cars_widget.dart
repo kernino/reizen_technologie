@@ -33,7 +33,7 @@ class _CarsPageState extends State<CarsPage> {
         content = snapshot.data;
         return new Scrollbar(
           child: ListView(
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(5.0),
               children:
               List.generate(content.length, (index){
                      return
@@ -44,7 +44,7 @@ class _CarsPageState extends State<CarsPage> {
                       ),
                       child: makeWidget(content[index],index),
                       padding: EdgeInsets.all(5.0),
-                         margin: EdgeInsets.all(5.0),
+                      margin: EdgeInsets.all(5.0),
 
                     );
           }).toList(),
