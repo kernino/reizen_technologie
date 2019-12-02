@@ -7,12 +7,10 @@ import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 import 'package:flutter_mobile_carousel/carousel.dart';
 import 'package:flutter_mobile_carousel/carousel_arrow.dart';
 
-List<List<String>> Dump = [['1','Kevin','Shrek', 'Chris P. Chicken', 'Dixon Kuntz'],['2','Richard Batsbak','Gerrie Van Boven', 'Rikkert Biemans', 'Robbie Schuurmans', 'Barrie Butsers'],['3','Student 1','Student 2']];
-
 Widget makeWidget(LinkedHashMap list, int index)
 {
   List<Widget> widgets = new List<Widget>();
-  widgets.add(Text("Kamer "+list['rooms'][index]['room_number'].toString(),style: TextStyle(fontSize: 30.0, color:Color.fromRGBO(224,0,73,1.0))));
+  widgets.add(Text("Kamer "+(index+1).toString(),style: TextStyle(fontSize: 30.0, color:Color.fromRGBO(224,0,73,1.0))));
   widgets.add(Text(""));
   for(int i=0;i<list['travellers'].length;i++)
     {

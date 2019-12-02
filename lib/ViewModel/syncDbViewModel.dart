@@ -95,7 +95,7 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
 
 
     Traveller traveller = Traveller(
-        id: result.data['trip']['travellers'][i]["traveller_id"],
+        id: int.parse(result.data['trip']['travellers'][i]["traveller_id"]),
         first_name: result.data['trip']['travellers'][i]['first_name'],
         last_name: result.data['trip']['travellers'][i]['last_name'],
         phone: result.data['trip']['travellers'][i]['phone']
@@ -172,8 +172,7 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
 
     for (int j=0; j<result.data['trip']['transports'][i]['travellers'].length; j++) {
         int id = int.parse(result.data['trip']['transports'][i]['travellers'][j]["traveller_id"]);
-        int carId = i+1;
-        await globals.dbHelper.db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [carId, id]);
+        await globals.dbHelper.db.rawUpdate("UPDATE travellers SET car_id = ? WHERE id = ?", [car.id, id]);
     }
   }
 
@@ -209,6 +208,7 @@ String getAllDataToSync() {
       trip(trip_id: 1) {
         name
         travellers {
+          traveller_id
           first_name
           last_name
           phone
