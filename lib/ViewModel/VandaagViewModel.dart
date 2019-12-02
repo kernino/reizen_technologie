@@ -5,30 +5,35 @@ Future<List> GetAllData() async {
 
   //var now = DateTime.now();
   //var today = DateTime(now.year, now.month, now.day);
-  String todayString='2018-12-15'; //testData
+  String todayString='2019-12-16'; //testData
   var today = new DateFormat("yyyy-MM-dd").parse(todayString);//testdata
 
   List<Map> allData = new List();
   List<Map> Users = await GetUser();
-  List<Map> Planning = await GetDayPlannings();
+  List<Map> Plannings = await GetDayPlannings();
 
-/*  int _findDayPlanningId(){
-    for(int i = 0; i<Planning.length; i++)
+  dynamic _findDayPlanning(){
+    for(int i = 0; i<Plannings.length; i++)
       {
-        String planningDateString = Planning[i]['start_date'];
+        String planningDateString = Plannings[i]['date'];
         var planningDate = new DateFormat("yyyy-MM-dd").parse(planningDateString);
         if(planningDate == today)
         {
-          return  Planning[i]['id'];
+          return Plannings[i];
         }
       }
     return -1;
-  }*/
-  //int dayPlanningId = _findDayPlanningId();
-  /*if (dayPlanningId == -1)
+  }
+  var dayPlanning = _findDayPlanning();
+  var Planning;
+  if (dayPlanning != -1)
   {
-    Planning = new List<Map>();
-  }*/
+    Planning = dayPlanning;
+  }
+  else if (dayPlanning == -1)
+  {
+    Planning = null;
+  }
 
   List<Map> Hotels = await GetHotels();
   List<Map> HotelData;
@@ -113,7 +118,8 @@ Future<List> GetHotelData(int id) async {
           travellers.add({
             'room': room_id,
             'traveller': traveller[0]['first_name'] + ' ' +
-                traveller[0]['last_name']
+                traveller[0]['last_name'],
+            'traveller_id': traveller[0]['id']
           });
         }
       }

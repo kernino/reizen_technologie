@@ -120,7 +120,7 @@ class _VandaagPageState extends State<VandaagPage> {
   }
 
   Widget _buildExpandablePlanning(var content) {
-    if(content[0]['day_planning'].isNotEmpty) {
+    if (content[0]['day_planning'] != null) {
       return Card(
         child: ExpandablePanel(
           header: Padding(
@@ -130,16 +130,17 @@ class _VandaagPageState extends State<VandaagPage> {
                 Row(
                   children: <Widget>[
                     Text(
-                      content[0]['day_planning'][0]['highlight'],
+                      content[0]['day_planning']['highlight'],
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
                 Row(
                   children: <Widget>[
                     Text(
-                      content[0]['day_planning'][0]['location'],
+                      content[0]['day_planning']['location'],
                       style: TextStyle(fontStyle: FontStyle.italic),
                     )
                   ],
@@ -150,7 +151,7 @@ class _VandaagPageState extends State<VandaagPage> {
           collapsed: Padding(
             padding: EdgeInsets.all(5),
             child: Text(
-              content[0]['day_planning'][0]['description'] + _planningText,
+              content[0]['day_planning']['description'] + _planningText,
               softWrap: true,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -159,7 +160,7 @@ class _VandaagPageState extends State<VandaagPage> {
           expanded: Padding(
             padding: EdgeInsets.all(5),
             child: Text(
-              content[0]['day_planning'][0]['description'] + _planningText,
+              content[0]['day_planning']['description'] + _planningText,
               softWrap: true,
             ),
           ),
@@ -167,27 +168,30 @@ class _VandaagPageState extends State<VandaagPage> {
           hasIcon: true,
         ),
       );
-    }
-    else if (content[0]['day_planning'].isEmpty) {
+    } else if (content[0]['day_planning'] == null) {
       return Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(top: 20, left: 5, bottom: 20),
-              child: Text('Hier kan je binnenkort de dagplanning bekijken.', style: TextStyle(fontSize: 20,),
-                textAlign: TextAlign.center,),
+              child: Text(
+                'Hier kan je binnenkort de dagplanning bekijken.',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
       );
-
     }
   }
 
   Widget _buildExpandableHotel(var content) {
-    int hotelId = content[0]['hotel_id'] -1;
-     if(content[0]['hotel_data'].isNotEmpty) {
+    int hotelId = content[0]['hotel_id'] - 1;
+    if (content[0]['hotel_data'].isNotEmpty) {
       return Card(
         //Randen foto laten overeenkomen met card:
         clipBehavior: Clip.antiAlias,
@@ -218,22 +222,25 @@ class _VandaagPageState extends State<VandaagPage> {
           ],
         ),
       );
+    } else if (content[0]['hotel_data'].isEmpty) {
+      return Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 5, bottom: 20),
+              child: Text(
+                'Hier kan je binnenkort iedere dag je hotel en je kamerindeling bekijken.',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      );
     }
-    else if (content[0]['hotel_data'].isEmpty) {
-       return Card(
-         child: Column(
-           crossAxisAlignment: CrossAxisAlignment.stretch,
-           children: <Widget>[
-             Padding(
-                 padding: EdgeInsets.only(top: 20, left: 5, bottom: 20),
-                 child: Text('Hier kan je binnenkort iedere dag je hotel en je kamerindeling bekijken.', style: TextStyle(fontSize: 20,),
-                   textAlign: TextAlign.center,),
-             ),
-           ],
-         ),
-       );
-
-     }
   }
 
   Widget _buildExpandableAlgemeneInfo(var content) {
@@ -300,8 +307,7 @@ class _VandaagPageState extends State<VandaagPage> {
               children: <Widget>[
                 Padding(
                     padding: EdgeInsets.only(top: 20, left: 5, bottom: 20),
-                    child: daysText
-                    ),
+                    child: daysText),
               ],
             ),
           )
@@ -315,9 +321,11 @@ class _VandaagPageState extends State<VandaagPage> {
   }
 
   int _countDays(var content) {
-    var now = DateTime.now();
-    var today = DateTime(now.year, now.month, now.day);
-    String leaveDateString = content[0]['day_planning'][0]['date'];
+    //var now = DateTime.now();
+    //var today = DateTime(now.year, now.month, now.day);
+    String todayString='2018-05-20'; //testData
+    var today = new DateFormat("yyyy-MM-dd").parse(todayString);//testdata
+    String leaveDateString = content[0]['hotels'][0]['start_date'];
     var leaveDate = new DateFormat("yyyy-MM-dd").parse(leaveDateString);
     dynamic counter = leaveDate.difference(today).inDays;
 
@@ -334,35 +342,55 @@ class _VandaagPageState extends State<VandaagPage> {
           borderRadius: const BorderRadius.all(const Radius.circular(8)),
         ),
         child: //Text('kamertje'),
-            makeRoomWidget(content, 0),
+            makeRoomWidget(content),
         padding: EdgeInsets.all(5.0),
         margin: EdgeInsets.all(5.0),
       ),
     );
   }
 
-  Widget makeRoomWidget(var content, int roomNumber) {
- /*      List<Widget> widgets = new List<Widget>();
-    widgets.add(Text(
-        "Kamer " +
-            content[0]['hotel_data'][0]['room_number'],
+  Widget makeRoomWidget(var content) {
+    List<Widget> widgets = new List<Widget>();
+
+    //roomId van huidige traveller zoeken
+    int travellerId = content[0]['user']['traveller_id'];
+    int roomNumber;
+    for (int i = 0; i < content[0]['hotel_data'][0]['travellers'].length; i++) {
+      if (content[0]['hotel_data'][0]['travellers'][i]['traveller_id'] ==
+          travellerId) {
+        roomNumber = content[0]['hotel_data'][0]['travellers'][i]['room'];
+      } else {
+        roomNumber = 0;
+      }
+    }
+
+    widgets.add(Text("Kamer " + (roomNumber + 1).toString(),
         style:
             TextStyle(fontSize: 30.0, color: Color.fromRGBO(224, 0, 73, 1.0))));
     widgets.add(Text(""));
-    widgets.add(Text("Leden:",
+    widgets.add(
+      Text(
+        "Leden:",
         style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0,
-            color: Color.fromRGBO(224, 0, 73, 1.0))));*/
-    /*for (int i = 0; i < list['travellers'].length; i++) {
-      if (list['travellers'][i]['room'] == list['rooms'][index]['id']) {
-        widgets.add(Text(list['travellers'][i]['traveller'],
+            color: Color.fromRGBO(224, 0, 73, 1.0)),
+      ),
+    );
+
+    //travellers zoeken die in de kamer zitten
+    for (int i = 0; i < content[0]['hotel_data'][0]['travellers'].length; i++) {
+      if (content[0]['hotel_data'][0]['travellers'][i]['room'] ==
+          content[0]['hotel_data'][0]['rooms'][roomNumber]['id']) {
+        widgets.add(
+          Text(
+            content[0]['hotel_data'][0]['travellers'][i]['traveller'],
             style: TextStyle(
-                fontSize: 20.0, color: Color.fromRGBO(224, 0, 73, 1.0))));
+                fontSize: 20.0, color: Color.fromRGBO(224, 0, 73, 1.0)),
+          ),
+        );
       }
-    }*/
-    //return new Column(children: widgets);
-    return new Text(
-        content[0]['hotel_data'][0]['rooms'][roomNumber]['size'].toString());
+    }
+    return new Column(children: widgets);
   }
 }
