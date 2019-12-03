@@ -25,7 +25,7 @@ class DatabaseHelper {
   Future initializeDatabase(BuildContext context) async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'data.reizentechnogie.db'),
+      join(await getDatabasesPath(), 'data.reizentechnogie.database'),
       onCreate: (db, version) async {
         await db.execute(
             "CREATE TABLE remote_update ("
