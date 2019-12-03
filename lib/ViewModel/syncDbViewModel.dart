@@ -73,7 +73,8 @@ Future checkUpdate() async
   var result = await client.query(QueryOptions(document: """
     query{latest}"""));
 
-  List<Map> oldUpdateDate = await globals.dbHelper.db.query("remote_update");
+  List<Map> dbDate = await globals.dbHelper.db.query("remote_update");
+  String oldUpdateDate = dbDate[0]["update_time"];
 
   if (oldUpdateDate.length == 0)
   {
@@ -82,7 +83,7 @@ Future checkUpdate() async
     );
     await globals.dbHelper.db.insert("remote_update", update.toMap());
   }
-  else if (oldUpdateDate[0]["update_time"] != result.data['latest']) {
+  else if (oldUpdateDate.compareTo(result.data['latest']) != 0) {
 
       RemoteUpdate update = new RemoteUpdate(
           update_time: result.data['latest']
@@ -90,7 +91,7 @@ Future checkUpdate() async
 
       await syncDbToLocal();
 
-      await globals.dbHelper.db.rawUpdate("UPDATE remote_update SET update_time = ? WHERE id = ?",  [result.data['latest'], oldUpdateDate[0]["id"]]);
+      await globals.dbHelper.db.rawUpdate("UPDATE remote_update SET update_time = ? WHERE id = ?",  [result.data['latest'], dbDate[0]["id"]]);
   }
   else{
     Fluttertoast.showToast(
