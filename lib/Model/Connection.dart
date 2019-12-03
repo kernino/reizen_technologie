@@ -86,6 +86,6 @@ _using4GDialog (BuildContext context) {
 
 void dbSync() async {
 
-  await checkUpdate();
+  await syncDbToLocal();
 }
 }

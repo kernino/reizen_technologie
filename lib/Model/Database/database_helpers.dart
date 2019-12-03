@@ -28,12 +28,6 @@ class DatabaseHelper {
       join(await getDatabasesPath(), 'data.reizentechnogie.db'),
       onCreate: (db, version) async {
         await db.execute(
-            "CREATE TABLE remote_update ("
-                "id INTEGER PRIMARY KEY,"
-                "update_time TEXT)"
-        );
-
-        await db.execute(
           "CREATE TABLE trips ("
               "id INTEGER PRIMARY KEY,"
               "name TEXT,"
