@@ -6,6 +6,7 @@ import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
+import 'package:reizen_technologie/Model/Database/RemoteUpdate.dart';
 import 'package:reizen_technologie/Model/Database/Room.dart';
 import 'package:reizen_technologie/Model/Database/RoomTraveller.dart';
 import 'package:reizen_technologie/Model/Database/Traveller.dart';
@@ -236,8 +237,6 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
   await globals.dbHelper.db.insert("trip_info", tripInfo.toMap());
 }
 
-
-
 String getAllDataToSync() {
 
   int trip_id = globals.loggedInUser[0]["trip_id"];
@@ -308,4 +307,3 @@ String getAllDataToSync() {
    """;
   return data;
 }
-
