@@ -2,8 +2,10 @@ import 'dart:collection';
 
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_mobile_carousel/carousel.dart';
 import 'package:flutter_mobile_carousel/carousel_arrow.dart';
+import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:reizen_technologie/ViewModel/VandaagViewModel.dart';
 import 'package:reizen_technologie/Views/Widgets/appbar.dart';
@@ -244,6 +246,9 @@ class _VandaagPageState extends State<VandaagPage> {
   }
 
   Widget _buildExpandableAlgemeneInfo(var content) {
+    String algemeneInfo = content[0]['trip_info'][0]['info'];
+    Widget algemeneInfoCol = Html(data: algemeneInfo,);
+    Widget algemeneInfoExp = Html(data: algemeneInfo,);
     return ExpandablePanel(
       header: Padding(
         padding: EdgeInsets.only(left: 50),
@@ -256,21 +261,13 @@ class _VandaagPageState extends State<VandaagPage> {
       collapsed: Card(
         child: Padding(
           padding: EdgeInsets.all(5),
-          child: Text(
-            content[0]['trip_info'][0]['info'] + _planningText,
-            softWrap: true,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
+          child: algemeneInfoCol,
         ),
       ),
       expanded: Card(
         child: Padding(
           padding: EdgeInsets.all(5),
-          child: Text(
-            content[0]['trip_info'][0]['info'] + _planningText,
-            softWrap: true,
-          ),
+          child: algemeneInfoExp
         ),
       ),
       tapHeaderToExpand: true,
@@ -321,10 +318,10 @@ class _VandaagPageState extends State<VandaagPage> {
   }
 
   int _countDays(var content) {
-    //var now = DateTime.now();
-    //var today = DateTime(now.year, now.month, now.day);
-    String todayString='2018-05-20'; //testData
-    var today = new DateFormat("yyyy-MM-dd").parse(todayString);//testdata
+    var now = DateTime.now();
+    var today = DateTime(now.year, now.month, now.day);
+    //String todayString='2018-05-20'; //testData
+    //var today = new DateFormat("yyyy-MM-dd").parse(todayString);//testdata
     String leaveDateString = content[0]['hotels'][0]['start_date'];
     var leaveDate = new DateFormat("yyyy-MM-dd").parse(leaveDateString);
     dynamic counter = leaveDate.difference(today).inDays;
