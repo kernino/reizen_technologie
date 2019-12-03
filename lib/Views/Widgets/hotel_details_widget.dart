@@ -4,24 +4,57 @@ import 'package:flutter/material.dart';
 import 'package:reizen_technologie/Views/Widgets/hotels_widget.dart';
 import 'appbar.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
-import 'package:flutter_mobile_carousel/carousel.dart';
-import 'package:flutter_mobile_carousel/carousel_arrow.dart';
 
-Widget makeWidget(LinkedHashMap list, int index)
+Widget makeWidget(LinkedHashMap list, int index,int max)
 {
   List<Widget> widgets = new List<Widget>();
-  widgets.add(Text("Kamer "+(index+1).toString(),style: TextStyle(fontSize: 30.0, color:Color.fromRGBO(224,0,73,1.0))));
+  if(list['rooms'][index]['room_number']==null) {
+    widgets.add(Text("Kamer ?", style: TextStyle(fontSize: 25.0)));
+  }
+  else
+    {
+      widgets.add(Text("Kamer "+list['rooms'][index]['room_number'], style: TextStyle(fontSize: 25.0)));
+    }
   widgets.add(Text(""));
+  int count = 0;
   for(int i=0;i<list['travellers'].length;i++)
     {
       if(list['travellers'][i]['room']==list['rooms'][index]['id'])
         {
-          widgets.add(Text(list['travellers'][i]['traveller'], style: TextStyle(fontSize: 20.0, color:Color.fromRGBO(224,0,73,1.0))));
+          widgets.add(Text(list['travellers'][i]['traveller'], style: TextStyle(fontSize: 15.0)));
+          count++;
+        }
+    }
+  if(count<max)
+    {
+      for(int j=0;j<(max-count);j++)
+        {
+          widgets.add(Text(""));
         }
     }
   return new Column(children: widgets);
 }
 
+int getMax(Map list)
+{
+  int max =0;
+  for(int i=0;i<list['rooms'].length;i++)
+    {
+      int count =0;
+      for(int j = 0; j < list['travellers'].length;j++)
+        {
+          if(list['travellers'][j]['room']==list['rooms'][i]['id'])
+            {
+              count++;
+            }
+        }
+      if(count>max)
+        {
+          max = count;
+        }
+    }
+  return max;
+}
 
 final int index = 0;
 
@@ -79,6 +112,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                 }
                 return Center(child: CircularProgressIndicator());
               }
+              var max =getMax(content[0]);
                   return SingleChildScrollView(
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -93,10 +127,10 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                                   Container(
                                     width: MediaQuery.of(context).size.width -30,
                                     decoration: BoxDecoration(
-                                        border: Border.all(width: 5, color: Color.fromRGBO(224,0,73,1.0)),
-                                        borderRadius: const BorderRadius.all(const Radius.circular(8))
+                                        border: Border.all(width: 5, color: Colors.black26),
+                                        borderRadius: const BorderRadius.all(const Radius.circular(20))
                                     ),
-                                    child: makeWidget(content[0],index),
+                                    child: makeWidget(content[0],index,max),
                                     padding: EdgeInsets.all(5.0),
                                     margin: EdgeInsets.all(5.0),
 

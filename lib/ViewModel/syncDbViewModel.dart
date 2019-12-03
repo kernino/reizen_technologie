@@ -6,7 +6,6 @@ import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
-import 'package:reizen_technologie/Model/Database/RemoteUpdate.dart';
 import 'package:reizen_technologie/Model/Database/Room.dart';
 import 'package:reizen_technologie/Model/Database/RoomTraveller.dart';
 import 'package:reizen_technologie/Model/Database/Traveller.dart';

@@ -37,6 +37,7 @@ dependencies:
   date_format: ^1.0.8
   expandable: ^3.0.1
   intl_translation: ^0.17.5
+  flutter_html: ^0.11.0
 
 
 
