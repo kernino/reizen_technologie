@@ -6,6 +6,7 @@ import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
+import 'package:reizen_technologie/Model/Database/RemoteUpdate.dart';
 import 'package:reizen_technologie/Model/Database/Room.dart';
 import 'package:reizen_technologie/Model/Database/RoomTraveller.dart';
 import 'package:reizen_technologie/Model/Database/Traveller.dart';
@@ -63,6 +64,46 @@ Link setConnection(){
   final AuthLink authLink = AuthLink(getToken: () async => 'Bearer ' + bearer);
   final Link link = authLink.concat(httpLink);
   return link;
+}
+
+Future checkUpdate() async
+{
+  var client = GraphQLClient(cache: InMemoryCache(), link: setConnection());
+
+  var result = await client.query(QueryOptions(document: """
+    query{latest}"""));
+
+  List<Map> oldUpdateDate = await globals.dbHelper.db.query("remote_update");
+
+  if (oldUpdateDate.length == 0)
+  {
+    RemoteUpdate update = new RemoteUpdate(
+        update_time: result.data['latest']
+    );
+    await globals.dbHelper.db.insert("remote_update", update.toMap());
+  }
+  else if (oldUpdateDate[0]["update_time"] != result.data['latest']) {
+
+      RemoteUpdate update = new RemoteUpdate(
+          update_time: result.data['latest']
+      );
+
+      await syncDbToLocal();
+
+      await globals.dbHelper.db.rawUpdate("UPDATE remote_update SET update_time = ? WHERE id = ?",  [result.data['latest'], oldUpdateDate[0]["id"]]);
+  }
+  else{
+    Fluttertoast.showToast(
+        msg: "App is up to date :)",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }
+
 }
 
 Future syncDbToLocal() async
@@ -195,6 +236,8 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
   await globals.dbHelper.db.insert("trip_info", tripInfo.toMap());
 }
 
+
+
 String getAllDataToSync() {
 
   int trip_id = globals.loggedInUser[0]["trip_id"];
@@ -263,23 +306,6 @@ String getAllDataToSync() {
       }
     }
    """;
-
-  /*
-        activities
-        {
-          name,
-          start_hour,
-          end_hour,
-          description,
-          location
-        }
-        day_planning
-        {
-          date,
-          highlight,
-          description,
-          location
-        }
-   */
   return data;
 }
+
