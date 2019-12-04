@@ -23,7 +23,7 @@ class Appbar {
         IconButton(
           icon: Icon(Icons.refresh),
           onPressed: () {
-            syncDbToLocal();
+            checkUpdate();
           },
         ),
         PopupMenuButton<String>(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:reizen_technologie/Model/Connection.dart';
 import 'package:reizen_technologie/Model/Database/Activity.dart';
 import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
@@ -68,6 +69,7 @@ Link setConnection(){
 
 Future checkUpdate() async
 {
+
   var client = GraphQLClient(cache: InMemoryCache(), link: setConnection());
 
   var result = await client.query(QueryOptions(document: """
