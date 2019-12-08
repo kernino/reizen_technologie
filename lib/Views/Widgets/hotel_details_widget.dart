@@ -93,7 +93,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: Appbar.getAppbar(
-          "Details",
+          "Details", context,
           IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(
@@ -168,11 +168,9 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                             new AspectRatio(aspectRatio: 2/1,
                               child: Container(
                                 padding: new EdgeInsets.all(10.0),
-                                child: new Image(
-                                  image: new AssetImage(
-                                      'assets/hotels/hotel' + (widget.hotel - 1).toString() + '.jpg'),
-                                  fit: BoxFit.cover,
-                                ),
+                                child: new Image.network(content[0]['hotel']['photoUrl'],
+                                fit: BoxFit.cover,
+                              ),
                               ),
                             )
 

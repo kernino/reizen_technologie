@@ -50,6 +50,7 @@ class Connection
 
 _using4GDialog (BuildContext context) {
   showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(

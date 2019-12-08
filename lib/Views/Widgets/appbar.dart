@@ -6,7 +6,7 @@ import 'package:reizen_technologie/ViewModel/syncDbViewModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appbar {
-  static getAppbar(String title, [Widget leadingWidget]) {
+  static getAppbar(String title, BuildContext context, [Widget leadingWidget]) {
     return AppBar(
       title: Text(title, style: TextStyle(color: Colors.white)),
       backgroundColor: Color.fromRGBO(224, 0, 73, 1.0),
@@ -23,7 +23,8 @@ class Appbar {
         IconButton(
           icon: Icon(Icons.refresh),
           onPressed: () {
-            checkUpdate();
+            Connection connection = new Connection(context);
+            connection.checkConnectivity();
           },
         ),
         PopupMenuButton<String>(

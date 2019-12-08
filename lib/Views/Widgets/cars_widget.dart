@@ -17,7 +17,7 @@ class _CarsPageState extends State<CarsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbar.getAppbar("Auto"),
+      appBar: Appbar.getAppbar("Auto", context),
       body: new FutureBuilder(
           future: GetCars(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {

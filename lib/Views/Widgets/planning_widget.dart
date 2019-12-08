@@ -19,7 +19,7 @@ class _PlanningPageState extends State<PlanningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbar.getAppbar("Planning"),
+      appBar: Appbar.getAppbar("Planning", context),
       body: new FutureBuilder(
           future: GetDayPlannings(),
           builder: (BuildContext context, AsyncSnapshot<List> snapshot) {

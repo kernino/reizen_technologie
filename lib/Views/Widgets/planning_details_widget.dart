@@ -28,7 +28,7 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
             }
             return Scaffold(
               appBar: Appbar.getAppbar(
-                content[0]['highlight'],
+                content[0]['highlight'], context,
                 IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: () => Navigator.pop(
