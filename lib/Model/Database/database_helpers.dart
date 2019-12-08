@@ -25,8 +25,14 @@ class DatabaseHelper {
   Future initializeDatabase(BuildContext context) async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'data.reizentechnogie.db'),
+      join(await getDatabasesPath(), 'data.reizentechnogie.database'),
       onCreate: (db, version) async {
+        await db.execute(
+            "CREATE TABLE remote_update ("
+                "id INTEGER PRIMARY KEY,"
+                "update_time TEXT)"
+        );
+
         await db.execute(
           "CREATE TABLE trips ("
               "id INTEGER PRIMARY KEY,"
@@ -134,7 +140,7 @@ class DatabaseHelper {
         );
 
       },
-      version: 3
+      version: 5
     );
     await GetLoggedInUser();
     globals.database = db;

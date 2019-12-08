@@ -76,36 +76,46 @@ Future checkUpdate() async
     query{latest}"""));
 
   List<Map> dbDate = await globals.dbHelper.db.query("remote_update");
-  String oldUpdateDate = dbDate[0]["update_time"];
 
-  if (oldUpdateDate.length == 0)
+
+  if (dbDate.length == 0)
   {
     RemoteUpdate update = new RemoteUpdate(
         update_time: result.data['latest']
     );
     await globals.dbHelper.db.insert("remote_update", update.toMap());
+    await syncDbToLocal();
   }
-  else if (oldUpdateDate.compareTo(result.data['latest']) != 0) {
+  else {
+    String oldUpdateDate = dbDate[0]["update_time"];
+    if (oldUpdateDate.compareTo(result.data['latest']) != 0) {
 
       RemoteUpdate update = new RemoteUpdate(
           update_time: result.data['latest']
       );
 
-      await syncDbToLocal();
 
-      await globals.dbHelper.db.rawUpdate("UPDATE remote_update SET update_time = ? WHERE id = ?",  [result.data['latest'], dbDate[0]["id"]]);
+
+      await globals.dbHelper.db.rawUpdate(
+          "UPDATE remote_update SET update_time = ? WHERE id = ?",
+          [result.data['latest'], dbDate[0]["id"]]);
+
+      await syncDbToLocal();
+    }
+    else{
+      Fluttertoast.showToast(
+          msg: "App is up to date :)",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIos: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }
   }
-  else{
-    Fluttertoast.showToast(
-        msg: "App is up to date :)",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        timeInSecForIos: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
-  }
+
+
 
 }
 
