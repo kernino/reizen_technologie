@@ -196,7 +196,7 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
   for(int i = 0; i < result.data['trip']['dayplannings'].length; i++){
     DayPlanning dayPlanning = DayPlanning(
       date: result.data['trip']['dayplannings'][i]['date'],
-      highlight: "test",
+      highlight: result.data['trip']['dayplannings'][i]['highlight'],
       location: result.data['trip']['dayplannings'][i]['location'],
       description: result.data['trip']['dayplannings'][i]['description'],
     );
@@ -205,10 +205,10 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
     for(int j = 0; j < result.data['trip']['dayplannings'][i]['activities'].length; j++){
       Activity activity = Activity(
         name: result.data['trip']['dayplannings'][i]['activities'][j]['name'],
-        location: "test",
+        location: "activityLocation",
         start_hour: result.data['trip']['dayplannings'][i]['activities'][j]['start_hour'],
         end_hour: result.data['trip']['dayplannings'][i]['activities'][j]['end_hour'],
-        description: "test",
+        description: "activityDescription",
       );
       await globals.dbHelper.db.insert("activities", activity.toMap());
     }
@@ -292,6 +292,7 @@ String getAllDataToSync() {
           date
           description
           location
+          highlight
           activities {
             name
             start_hour

@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:reizen_technologie/ViewModel/VandaagViewModel.dart';
 import 'package:reizen_technologie/Views/Widgets/appbar.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
+import 'package:reizen_technologie/Views/Widgets/hotel_details_widget.dart';
+import 'package:reizen_technologie/Views/Widgets/planning_details_widget.dart';
 
 class Vandaag extends StatelessWidget {
   @override
@@ -45,6 +47,10 @@ class _VandaagPageState extends State<VandaagPage> {
       " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. Vestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. Nam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet."
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. Vestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. Nam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet.";
 
+  //var now = DateTime.now();
+
+  var now = new DateFormat("yyyy-MM-dd").parse('2020-05-21'); //testdata
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,34 +68,87 @@ class _VandaagPageState extends State<VandaagPage> {
           content = snapshot.data;
           //return Text(content.toString());
           return new SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 8),
-                ),
-                _buildHeader(content),
-                _buildCountDown(content),
-                Padding(
-                  padding: EdgeInsets.only(top: 15),
-                ),
-                Text(
-                  'Planning',
-                  style: TextStyle(fontSize: 35),
-                ),
-                _buildExpandablePlanning(content),
-                Padding(
-                  padding: EdgeInsets.only(top: 15),
-                ),
-                Text(
-                  'Hotel',
-                  style: TextStyle(fontSize: 35),
-                ),
-                _buildExpandableHotel(content),
-                Padding(
-                  padding: EdgeInsets.only(top: 15),
-                ),
-                _buildExpandableAlgemeneInfo(content),
-              ],
+            child: Padding(
+              padding: EdgeInsets.only(left: 4, right: 4),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                  ),
+                  _buildHeader(content),
+                  _buildCountDown(content),
+                  Padding(
+                    padding: EdgeInsets.only(top: 25),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 3, right: 3, bottom: 7),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Planning',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        InkWell(
+                          child: Text(
+                            'Toon alles',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PlanningDetailsPage(
+                                      dayPlanning: content[0]['day_planning']['id']
+                                      )),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  _buildExpandablePlanning(content),
+                  Padding(
+                    padding: EdgeInsets.only(top: 40),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 3, right: 3, bottom: 7),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Hotel',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        InkWell(
+                          child: Text(
+                            'Toon alles',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HotelDetailsPage(
+                                      hotel: content[0]['hotels'][content[0]['hotel_id'] - 1]['id']
+                                  )),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  _buildExpandableHotel(content),
+                  Padding(
+                    padding: EdgeInsets.only(top: 15),
+                  ),
+                  _buildExpandableAlgemeneInfo(content),
+                ],
+              ),
             ),
           );
         },
@@ -105,10 +164,8 @@ class _VandaagPageState extends State<VandaagPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                new DateFormat.MMMMEEEEd('nl_BE')
-                    .format(new DateTime.now())
-                    .toUpperCase(),
-                style: TextStyle(fontSize: 12),
+                new DateFormat.MMMMEEEEd('nl_BE').format(now).toUpperCase(),
+                style: TextStyle(fontSize: 14),
                 textAlign: TextAlign.left,
               ),
               Text(
@@ -119,160 +176,6 @@ class _VandaagPageState extends State<VandaagPage> {
             ]),
       ),
     ]);
-  }
-
-  Widget _buildExpandablePlanning(var content) {
-    if (content[0]['day_planning'] != null) {
-      return Card(
-        child: ExpandablePanel(
-          header: Padding(
-            padding: EdgeInsets.only(left: 4, right: 5, bottom: 5),
-            child: Column(
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Text(
-                      content[0]['day_planning']['highlight'],
-                      textAlign: TextAlign.left,
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      content[0]['day_planning']['location'],
-                      style: TextStyle(fontStyle: FontStyle.italic),
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          collapsed: Padding(
-            padding: EdgeInsets.all(5),
-            child: Text(
-              content[0]['day_planning']['description'] + _planningText,
-              softWrap: true,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          expanded: Padding(
-            padding: EdgeInsets.all(5),
-            child: Text(
-              content[0]['day_planning']['description'] + _planningText,
-              softWrap: true,
-            ),
-          ),
-          tapHeaderToExpand: true,
-          hasIcon: true,
-        ),
-      );
-    } else if (content[0]['day_planning'] == null) {
-      return Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 5, bottom: 20),
-              child: Text(
-                'Hier kan je binnenkort de dagplanning bekijken.',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
-  Widget _buildExpandableHotel(var content) {
-    int hotelId = content[0]['hotel_id'] - 1;
-    if (content[0]['hotel_data'].isNotEmpty) {
-      return Card(
-        //Randen foto laten overeenkomen met card:
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 3 / 1,
-              child: new Image(
-                image: new AssetImage(//content[index]['photoUrl']
-                    'assets/hotels/hotel' + hotelId.toString() + '.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            ExpandablePanel(
-              header: Padding(
-                padding: EdgeInsets.only(left: 4, right: 5, bottom: 5, top: 8),
-                child: Text(
-                  content[0]['hotels'][hotelId]['name'],
-                  textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-              ),
-              collapsed: null,
-              expanded: _buildCarousel(content),
-              tapHeaderToExpand: true,
-              hasIcon: true,
-            ),
-          ],
-        ),
-      );
-    } else if (content[0]['hotel_data'].isEmpty) {
-      return Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 5, bottom: 20),
-              child: Text(
-                'Hier kan je binnenkort iedere dag je hotel en je kamerindeling bekijken.',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-  }
-
-  Widget _buildExpandableAlgemeneInfo(var content) {
-    String algemeneInfo = content[0]['trip_info'][0]['info'];
-    Widget algemeneInfoCol = Html(data: algemeneInfo,);
-    Widget algemeneInfoExp = Html(data: algemeneInfo,);
-    return ExpandablePanel(
-      header: Padding(
-        padding: EdgeInsets.only(left: 50),
-        child: Text(
-          'Algemene info',
-          style: TextStyle(fontSize: 35),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      collapsed: Card(
-        child: Padding(
-          padding: EdgeInsets.all(5),
-          child: algemeneInfoCol,
-        ),
-      ),
-      expanded: Card(
-        child: Padding(
-          padding: EdgeInsets.all(5),
-          child: algemeneInfoExp
-        ),
-      ),
-      tapHeaderToExpand: true,
-      hasIcon: true,
-    );
   }
 
   Widget _buildCountDown(var content) {
@@ -318,7 +221,6 @@ class _VandaagPageState extends State<VandaagPage> {
   }
 
   int _countDays(var content) {
-    var now = DateTime.now();
     var today = DateTime(now.year, now.month, now.day);
     //String todayString='2018-05-20'; //testData
     //var today = new DateFormat("yyyy-MM-dd").parse(todayString);//testdata
@@ -327,6 +229,132 @@ class _VandaagPageState extends State<VandaagPage> {
     dynamic counter = leaveDate.difference(today).inDays;
 
     return counter;
+  }
+
+  Widget _buildExpandablePlanning(var content) {
+    if (content[0]['day_planning'] != null) {
+      return Card(
+        elevation: 4,
+        child: ExpandablePanel(
+          header: Padding(
+            padding: EdgeInsets.only(left: 4, right: 5, bottom: 5, top: 5),
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(content[0]['day_planning']['highlight'],
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.w500)),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Text(
+                      content[0]['day_planning']['location'],
+                      style: TextStyle(color: Colors.grey),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          collapsed: Padding(
+            padding: EdgeInsets.all(5),
+            child: Text(
+              content[0]['day_planning']['description'] +_planningText,
+              softWrap: true,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          expanded: Padding(
+            padding: EdgeInsets.all(5),
+            child: Text(
+              content[0]['day_planning']['description'] + _planningText,
+              softWrap: true,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          tapHeaderToExpand: true,
+          hasIcon: true,
+        ),
+      );
+    } else if (content[0]['day_planning'] == null) {
+      return Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 5, bottom: 20),
+              child: Text(
+                'Hier kan je binnenkort de dagplanning bekijken.',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  Widget _buildExpandableHotel(var content) {
+    int hotelId = content[0]['hotel_id'] - 1;
+    if (content[0]['hotel_data'].isNotEmpty) {
+      return Card(
+        elevation: 4,
+        //Randen foto laten overeenkomen met card:
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 3 / 1,
+              child: new Image(
+                image: new AssetImage(//content[index]['photoUrl']
+                    'assets/hotels/hotel' + hotelId.toString() + '.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            ExpandablePanel(
+              header: Padding(
+                padding: EdgeInsets.only(left: 4, right: 5, bottom: 5, top: 8),
+                child: Text(
+                  content[0]['hotels'][hotelId]['name'],
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                ),
+              ),
+              collapsed: null,
+              expanded: _buildCarousel(content),
+              tapHeaderToExpand: true,
+              hasIcon: true,
+            ),
+          ],
+        ),
+      );
+    } else if (content[0]['hotel_data'].isEmpty) {
+      return Card(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top: 20, left: 5, bottom: 20),
+              child: Text(
+                'Hier kan je binnenkort iedere dag je hotel en je kamerindeling bekijken.',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   Widget _buildCarousel(var content) {
@@ -339,14 +367,14 @@ class _VandaagPageState extends State<VandaagPage> {
           borderRadius: const BorderRadius.all(const Radius.circular(8)),
         ),
         child: //Text('kamertje'),
-            makeRoomWidget(content),
+            _makeRoomWidget(content),
         padding: EdgeInsets.all(5.0),
         margin: EdgeInsets.all(5.0),
       ),
     );
   }
 
-  Widget makeRoomWidget(var content) {
+  Widget _makeRoomWidget(var content) {
     List<Widget> widgets = new List<Widget>();
 
     //roomId van huidige traveller zoeken
@@ -389,5 +417,44 @@ class _VandaagPageState extends State<VandaagPage> {
       }
     }
     return new Column(children: widgets);
+  }
+
+  Widget _buildExpandableAlgemeneInfo(var content) {
+    String algemeneInfo = content[0]['trip_info'][0]['info'];
+    Widget algemeneInfoCol = Html(
+      data: algemeneInfo,
+    );
+    Widget algemeneInfoExp = Html(
+      data: algemeneInfo,
+    );
+    return ExpandablePanel(
+      header: Padding(
+        padding: EdgeInsets.only(left: 50),
+        child: Text(
+          'Algemene info',
+          style: TextStyle(fontSize: 35),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      collapsed: Padding(
+        padding: EdgeInsets.only(bottom: 8),
+        child: Card(
+          elevation: 4,
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: algemeneInfoCol,
+          ),
+        ),
+      ),
+      expanded: Padding(
+        padding: EdgeInsets.only(bottom: 8),
+        child: Card(
+          elevation: 4,
+          child: Padding(padding: EdgeInsets.all(5), child: algemeneInfoExp),
+        ),
+      ),
+      tapHeaderToExpand: true,
+      hasIcon: true,
+    );
   }
 }

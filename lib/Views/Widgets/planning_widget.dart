@@ -67,7 +67,7 @@ class _PlanningPageState extends State<PlanningPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PlanningDetailsPage(
-                                        dayPlanning: snapshot.data[index]
+                                        dayPlanning: content[index]
                                             ['id'])),
                               );
                             },
