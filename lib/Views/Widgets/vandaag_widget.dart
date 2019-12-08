@@ -54,7 +54,7 @@ class _VandaagPageState extends State<VandaagPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbar.getAppbar("Vandaag"),
+      appBar: Appbar.getAppbar("Vandaag", context),
       body: new FutureBuilder(
         future: GetAllData(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {

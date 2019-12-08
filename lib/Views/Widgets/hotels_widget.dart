@@ -16,7 +16,7 @@ class _HotelsPageState extends State<HotelsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbar.getAppbar("Hotels"),
+      appBar: Appbar.getAppbar("Hotels", context),
       body: new FutureBuilder(
         future: GetHotels(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
@@ -62,12 +62,7 @@ class _HotelsPageState extends State<HotelsPage> {
                       child: new Column(children: <Widget>[
                         new AspectRatio(
                           aspectRatio: 2 / 1,
-                          child: new Image(
-                            image: new AssetImage(//content[index]['photoUrl']
-                                'assets/hotels/hotel' +
-                              index.toString() +
-                              '.jpg'
-                                ),
+                          child: new Image.network(content[index]['photoUrl'],
                             fit: BoxFit.cover,
                           ),
                         ),

@@ -32,7 +32,7 @@ class _ContactPageState extends State<ContactPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbar.getAppbar("Contacten"),
+      appBar: Appbar.getAppbar("Contacten", context),
       body: new FutureBuilder(
           future: _future,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
