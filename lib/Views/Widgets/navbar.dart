@@ -16,7 +16,7 @@ class Navbar extends StatefulWidget {
 class NavbarState extends State<Navbar> {
   int selectedIndex = 0;
   final widgetOptions = [
-    new Vandaag(),
+    new VandaagPage(),
     new PlanningPage(),
     new CarsPage(),
     new HotelsPage(),

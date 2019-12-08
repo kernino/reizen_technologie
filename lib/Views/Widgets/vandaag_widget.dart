@@ -1,13 +1,9 @@
-import 'dart:collection';
-
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_mobile_carousel/carousel.dart';
-import 'package:flutter_mobile_carousel/carousel_arrow.dart';
-import 'package:html/parser.dart';
 import 'package:intl/intl.dart';
 import 'package:reizen_technologie/ViewModel/VandaagViewModel.dart';
+import 'package:reizen_technologie/Views/Widgets/algemene_info_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/appbar.dart';
 import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:reizen_technologie/Views/Widgets/hotel_details_widget.dart';
@@ -44,12 +40,12 @@ class VandaagPage extends StatefulWidget {
 
 class _VandaagPageState extends State<VandaagPage> {
   var _planningText =
-      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. Vestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. Nam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet."
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. Vestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. Nam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet.";
+      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. \nVestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. \nNam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet."
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. \nVestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. Nam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet.";
 
   //var now = DateTime.now();
 
-  var now = new DateFormat("yyyy-MM-dd").parse('2020-05-21'); //testdata
+  var now = new DateFormat("yyyy-MM-dd").parse('2019-05-21'); //testdata
 
   @override
   Widget build(BuildContext context) {
@@ -72,55 +68,21 @@ class _VandaagPageState extends State<VandaagPage> {
               padding: EdgeInsets.only(left: 4, right: 4),
               child: Column(
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 8),
-                  ),
                   _buildHeader(content),
                   _buildCountDown(content),
-                  Padding(
-                    padding: EdgeInsets.only(top: 25),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 3, right: 3, bottom: 7),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Planning',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        InkWell(
-                          child: Text(
-                            'Toon alles',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PlanningDetailsPage(
-                                      dayPlanning: content[0]['day_planning']['id']
-                                      )),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  _buildPlanningHeader(content),
                   _buildExpandablePlanning(content),
                   Padding(
-                    padding: EdgeInsets.only(top: 40),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 3, right: 3, bottom: 7),
+                    padding:
+                        EdgeInsets.only(left: 3, right: 3, bottom: 7, top: 40),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Text(
                           'Hotel',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w500),
                         ),
                         InkWell(
                           child: Text(
@@ -134,8 +96,8 @@ class _VandaagPageState extends State<VandaagPage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HotelDetailsPage(
-                                      hotel: content[0]['hotels'][content[0]['hotel_id'] - 1]['id']
-                                  )),
+                                      hotel: content[0]['hotels']
+                                          [content[0]['hotel_id'] - 1]['id'])),
                             );
                           },
                         ),
@@ -143,9 +105,6 @@ class _VandaagPageState extends State<VandaagPage> {
                     ),
                   ),
                   _buildExpandableHotel(content),
-                  Padding(
-                    padding: EdgeInsets.only(top: 15),
-                  ),
                   _buildExpandableAlgemeneInfo(content),
                 ],
               ),
@@ -159,7 +118,7 @@ class _VandaagPageState extends State<VandaagPage> {
   Widget _buildHeader(var content) {
     return Row(children: <Widget>[
       Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.only(top: 20.0, left: 5),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -192,16 +151,17 @@ class _VandaagPageState extends State<VandaagPage> {
       }
       daysText = Text(
         'Nog ' + counter.toString() + days,
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 30),
         textAlign: TextAlign.center,
       );
 
       return Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 15),
+            padding: EdgeInsets.only(top: 40),
           ),
           Card(
+            elevation: 4,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -231,6 +191,42 @@ class _VandaagPageState extends State<VandaagPage> {
     return counter;
   }
 
+  Widget _buildPlanningHeader(var content)
+  {
+    return Padding(
+      padding:
+      EdgeInsets.only(left: 3, right: 3, bottom: 7, top: 40),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            'Planning',
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w500),
+          ),
+          InkWell(
+            child: Text(
+              'Toon alles',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PlanningDetailsPage(
+                        dayPlanning: content[0]['day_planning']
+                        ['id'])),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildExpandablePlanning(var content) {
     if (content[0]['day_planning'] != null) {
       return Card(
@@ -244,8 +240,7 @@ class _VandaagPageState extends State<VandaagPage> {
                   children: <Widget>[
                     Text(content[0]['day_planning']['highlight'],
                         textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.w500)),
+                        style: TextStyle(fontSize: 25)),
                   ],
                 ),
                 Row(
@@ -262,11 +257,11 @@ class _VandaagPageState extends State<VandaagPage> {
           collapsed: Padding(
             padding: EdgeInsets.all(5),
             child: Text(
-              content[0]['day_planning']['description'] +_planningText,
+              content[0]['day_planning']['description'] + _planningText,
               softWrap: true,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.justify,
             ),
           ),
           expanded: Padding(
@@ -274,7 +269,7 @@ class _VandaagPageState extends State<VandaagPage> {
             child: Text(
               content[0]['day_planning']['description'] + _planningText,
               softWrap: true,
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.justify,
             ),
           ),
           tapHeaderToExpand: true,
@@ -312,7 +307,7 @@ class _VandaagPageState extends State<VandaagPage> {
         child: Column(
           children: <Widget>[
             AspectRatio(
-              aspectRatio: 3 / 1,
+              aspectRatio: 7 / 2,
               child: new Image(
                 image: new AssetImage(//content[index]['photoUrl']
                     'assets/hotels/hotel' + hotelId.toString() + '.jpg'),
@@ -321,11 +316,11 @@ class _VandaagPageState extends State<VandaagPage> {
             ),
             ExpandablePanel(
               header: Padding(
-                padding: EdgeInsets.only(left: 4, right: 5, bottom: 5, top: 8),
+                padding: EdgeInsets.only(left: 4, right: 5, bottom: 5, top: 5),
                 child: Text(
                   content[0]['hotels'][hotelId]['name'],
                   textAlign: TextAlign.left,
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 25),
                 ),
               ),
               collapsed: null,
@@ -420,41 +415,54 @@ class _VandaagPageState extends State<VandaagPage> {
   }
 
   Widget _buildExpandableAlgemeneInfo(var content) {
-    String algemeneInfo = content[0]['trip_info'][0]['info'];
-    Widget algemeneInfoCol = Html(
-      data: algemeneInfo,
+    String algemeneInfoString = content[0]['trip_info'][0]['info'];
+    String delimiter = '</ul>';
+    int lastIndex = algemeneInfoString.indexOf(delimiter);
+    String algemeneInfoCut = algemeneInfoString.substring(0, lastIndex);
+    Widget algemeneInfoHtml = Html(
+      data: algemeneInfoCut,
     );
-    Widget algemeneInfoExp = Html(
-      data: algemeneInfo,
-    );
-    return ExpandablePanel(
-      header: Padding(
-        padding: EdgeInsets.only(left: 50),
-        child: Text(
-          'Algemene info',
-          style: TextStyle(fontSize: 35),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      collapsed: Padding(
-        padding: EdgeInsets.only(bottom: 8),
-        child: Card(
-          elevation: 4,
-          child: Padding(
-            padding: EdgeInsets.all(5),
-            child: algemeneInfoCol,
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 3, right: 3, bottom: 7, top: 40),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text(
+                'Algemene info',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+              ),
+              InkWell(
+                child: Text(
+                  'Toon alles',
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AlgemeneInfoPage()),
+                  );
+                },
+              ),
+            ],
           ),
         ),
-      ),
-      expanded: Padding(
-        padding: EdgeInsets.only(bottom: 8),
-        child: Card(
-          elevation: 4,
-          child: Padding(padding: EdgeInsets.all(5), child: algemeneInfoExp),
+        Padding(
+          padding: EdgeInsets.only(bottom: 8), //nodig voor shadow onder card
+          child: Card(
+            elevation: 4,
+            child: Padding(
+              padding: EdgeInsets.only(top: 5, bottom: 5),
+              child: algemeneInfoHtml,
+            ),
+          ),
         ),
-      ),
-      tapHeaderToExpand: true,
-      hasIcon: true,
+      ],
     );
   }
 }
