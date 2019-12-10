@@ -379,19 +379,21 @@ class _VandaagPageState extends State<VandaagPage> {
 
     //roomId van huidige traveller zoeken
     int travellerId = content[0]['user']['traveller_id'];
-    int roomNumber;
+    int roomId;
     for (int i = 0; i < content[0]['hotel_data'][0]['travellers'].length; i++) {
       if (content[0]['hotel_data'][0]['travellers'][i]['traveller_id'] ==
           travellerId) {
-        roomNumber = content[0]['hotel_data'][0]['travellers'][i]['room'];
-      } else {
-        roomNumber = 0;
+        roomId = content[0]['hotel_data'][0]['travellers'][i]['room'];
       }
     }
-
-    widgets.add(Text("Kamer " + (roomNumber + 1).toString(),
-        style:
-            TextStyle(fontSize: 30.0, color: Color.fromRGBO(224, 0, 73, 1.0))));
+    for(int k=0; k<content[0]['hotel_data'][0]['rooms'].length;k++) {
+      if(content[0]['hotel_data'][0]['rooms'][k]['id']==roomId)
+        {
+      widgets.add(Text("Kamer " + content[0]['hotel_data'][0]['rooms'][k]['room_number'].toString(),
+          style:
+          TextStyle(fontSize: 30.0, color: Color.fromRGBO(224, 0, 73, 1.0))));
+        }
+    }
     widgets.add(Text(""));
     widgets.add(
       Text(
@@ -406,7 +408,7 @@ class _VandaagPageState extends State<VandaagPage> {
     //travellers zoeken die in de kamer zitten
     for (int i = 0; i < content[0]['hotel_data'][0]['travellers'].length; i++) {
       if (content[0]['hotel_data'][0]['travellers'][i]['room'] ==
-          content[0]['hotel_data'][0]['rooms'][roomNumber]['id']) {
+          content[0]['hotel_data'][0]['rooms'][roomId]['id']) {
         widgets.add(
           Text(
             content[0]['hotel_data'][0]['travellers'][i]['traveller'],
