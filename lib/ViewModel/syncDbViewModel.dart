@@ -103,6 +103,7 @@ Future checkUpdate() async
       await syncDbToLocal();
     }
     else{
+      await globals.getEmergencyNumbers();
       Fluttertoast.showToast(
           msg: "App is up to date :)",
           toastLength: Toast.LENGTH_SHORT,

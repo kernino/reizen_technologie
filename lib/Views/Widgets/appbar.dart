@@ -6,7 +6,7 @@ import 'package:reizen_technologie/ViewModel/syncDbViewModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appbar {
-  static getAppbar(String title, BuildContext context, [Widget leadingWidget]) {
+  static getAppbar(String title, BuildContext context2, [Widget leadingWidget]) {
     return AppBar(
       title: Text(title, style: TextStyle(color: Colors.white)),
       backgroundColor: Color.fromRGBO(224, 0, 73, 1.0),
@@ -23,7 +23,7 @@ class Appbar {
         IconButton(
           icon: Icon(Icons.refresh),
           onPressed: () {
-            Connection connection = new Connection(context);
+            Connection connection = new Connection(context2);
             connection.checkConnectivity();
           },
         ),
