@@ -10,7 +10,7 @@ Widget makeWidget(LinkedHashMap list, int index, int max) {
   if (list['rooms'][index]['room_number'] == null) {
     widgets.add(Text("Kamer ?", style: TextStyle(fontSize: 25.0)));
   } else {
-    widgets.add(Text("Kamer " + list['rooms'][index]['room_number'],
+    widgets.add(Text("Kamer " + list['rooms'][index]['room_number'].toString(),
         style: TextStyle(fontSize: 25.0)));
   }
   widgets.add(Text(""));

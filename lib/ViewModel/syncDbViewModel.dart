@@ -175,6 +175,7 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
      for(int j=0; j< result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'].length; j++){
        Room room = Room(
          id: int.parse(result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["room_id"]),
+         room_number: result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["room_number"].toString(),
          size: result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["size"].toString(),
          hotel_id: int.parse(result.data['trip']['hotels'][i]['hotel_id'])
        );
@@ -277,7 +278,8 @@ String getAllDataToSync() {
             start_date, 
             end_date, 
             rooms {
-              room_id, 
+              room_id,
+              room_number, 
               size,
               travellers
               {
