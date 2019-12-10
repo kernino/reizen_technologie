@@ -43,9 +43,9 @@ class _VandaagPageState extends State<VandaagPage> {
       " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. \nVestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. \nNam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet."
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus consequat, mauris vitae pulvinar vulputate, enim diam pulvinar lacus, quis aliquet sapien nisi ut risus. \nVestibulum interdum interdum velit. Morbi a dui tristique, convallis risus efficitur, pulvinar ex. Nam at augue eget massa rutrum congue. Nulla ultricies nisl at condimentum pulvinar. Nunc ut turpis a magna congue fringilla vel suscipit sem. Aenean eu tortor quis orci dignissim aliquet.";
 
-  //var now = DateTime.now();
+  var now = DateTime.now();
 
-  var now = new DateFormat("yyyy-MM-dd").parse('2019-05-21'); //testdata
+  //var now = new DateFormat("yyyy-MM-dd").parse('2019-05-21'); //testdata
 
   @override
   Widget build(BuildContext context) {

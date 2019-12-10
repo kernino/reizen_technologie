@@ -145,25 +145,25 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
         month[0] = "Januari";
         break;
       case "February":
-        monthName = "Februari";
+        month[0] = "Februari";
         break;
       case "March":
-        monthName = "Maart";
+        month[0] = "Maart";
         break;
       case "May":
-        monthName = "Mei";
+        month[0] = "Mei";
         break;
       case "June":
-        monthName = "Juni";
+        month[0] = "Juni";
         break;
       case "July":
-        monthName = "Juli";
+        month[0] = "Juli";
         break;
       case "August":
-        monthName = "Augustus";
+        month[0] = "Augustus";
         break;
       case "October":
-        monthName = "Oktober";
+        month[0] = "Oktober";
         break;
     }
 

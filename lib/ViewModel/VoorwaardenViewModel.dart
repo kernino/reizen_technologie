@@ -8,6 +8,8 @@ import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:reizen_technologie/Views/Widgets/navbar.dart';
 import 'package:reizen_technologie/Views/Widgets/vandaag_widget.dart';
 
+
+
 String getAlgemeneData() {
   String data ="""
     query{
@@ -30,16 +32,16 @@ Link setConnection(){
   return link;
 }
 
-Query getData(){
-  Query a = Query(
+Query getData() {
+  return Query(
       options: QueryOptions(document: getAlgemeneData()),
       builder: (QueryResult result, {
         BoolCallback refetch,
         FetchMore fetchMore,
       }) {
         if (result.data == null) {
-          //return Text("loading...");
-          return Text(result.errors.toString());
+          return Center(child: CircularProgressIndicator());
+          //return Text(result.errors.toString());
         }
         return ListView.builder(
           itemBuilder: (BuildContext context, int index) {
@@ -49,7 +51,6 @@ Query getData(){
           scrollDirection: Axis.vertical,
         );
       });
-  return a;
 }
 
 void acceptConditions(BuildContext context) async {

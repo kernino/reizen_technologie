@@ -97,7 +97,7 @@ class _HotelsPageState extends State<HotelsPage> {
                                       text: stringStart[2] +
                                           "/" +
                                           stringStart[1]),
-                                  TextSpan(text: ' tot '),
+                                  TextSpan(text: ' - '),
                                   TextSpan(
                                       text: stringEnd[2] + "/" + stringEnd[1]),
                                 ],
