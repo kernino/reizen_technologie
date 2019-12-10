@@ -32,12 +32,13 @@ dependencies:
   scoped_model: ^1.0.1
   graphql_flutter: ^2.1.0
   queries: ^0.1.12
-  intl: ^0.15.8
+  intl: ^0.16.0
   flutter_mobile_carousel: ^1.0.2
   date_format: ^1.0.8
   expandable: ^3.0.1
   intl_translation: ^0.17.5
   flutter_html: ^0.11.0
+  calendar_strip: ^1.0.4
 
 
 

@@ -73,6 +73,8 @@ class _PlanningPageState extends State<PlanningPage> {
                             },
                             child: Center(
                               child: new Card(
+
+                                elevation: 4,
                                 child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[

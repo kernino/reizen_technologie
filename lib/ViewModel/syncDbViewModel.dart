@@ -176,6 +176,7 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
      for(int j=0; j< result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'].length; j++){
        Room room = Room(
          id: int.parse(result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["room_id"]),
+         room_number: result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["room_number"].toString(),
          size: result.data['trip']['hotels'][i]['hoteltrips'][0]['rooms'][j]["size"].toString(),
          hotel_id: int.parse(result.data['trip']['hotels'][i]['hotel_id'])
        );
@@ -206,10 +207,10 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
     for(int j = 0; j < result.data['trip']['dayplannings'][i]['activities'].length; j++){
       Activity activity = Activity(
         name: result.data['trip']['dayplannings'][i]['activities'][j]['name'],
-        location: "activityLocation",
+        location: result.data['trip']['dayplannings'][i]['activities'][j]['location'],
         start_hour: result.data['trip']['dayplannings'][i]['activities'][j]['start_hour'],
         end_hour: result.data['trip']['dayplannings'][i]['activities'][j]['end_hour'],
-        description: "activityDescription",
+        description: result.data['trip']['dayplannings'][i]['activities'][j]['description'],
       );
       await globals.dbHelper.db.insert("activities", activity.toMap());
     }
@@ -278,7 +279,8 @@ String getAllDataToSync() {
             start_date, 
             end_date, 
             rooms {
-              room_id, 
+              room_id,
+              room_number, 
               size,
               travellers
               {
@@ -298,6 +300,8 @@ String getAllDataToSync() {
             name
             start_hour
             end_hour
+            description
+            location
           }
         }
         transports {

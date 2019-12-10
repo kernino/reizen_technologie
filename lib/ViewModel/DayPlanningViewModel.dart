@@ -5,6 +5,19 @@ import 'package:reizen_technologie/main.dart';
 
 DatabaseHelper db = new DatabaseHelper();
 
+Future<List> GetAllData(int planningId) async {
+  List<Map> allData = new List();
+  List<Map> DayPlanning = await GetDayPlanningData(planningId);
+  List<Map> DayPlannings = await GetDayPlannings();
+  List<Map> Activities = await GetDayActivities();
+  List<Map> ActivitiesByDay = await GetActivitiesByDay(planningId);
+
+  allData.add({'day_planning': DayPlanning, 'day_plannings': DayPlannings, 'activities': Activities, 'activities_by_day': ActivitiesByDay });
+
+  return allData;
+}
+
+
 Future<List> GetDayPlannings() async {
   List<Map> dayPlannings = await globals.database.query("day_planning");
   if(dayPlannings != null) {
@@ -27,10 +40,21 @@ else{
 return dayPlanningData;
 }
 
+Future<List> GetDayActivities() async {
+  List<Map> activities = await globals.database.query("activities");
+  if(activities != null) {
+    print("data dayplannings ophalen gelukt: " + activities.toString());
+  }
+  else{
+    print("error data dayplannings ophalen");
+  }
+  return activities;
+}
+
 Future<List> GetActivitiesByDay(int id) async {
   List<Map> activitiesData = await globals.database.query('activities', where: '"day_planning_id" = ?', whereArgs: [id]);
-  if(activitiesData != null){
-    print("activities met id " + id.toString() + "ophalen gelukt: " + activitiesData.toString());
+  if(activitiesData != []){
+    print("activities met id " + id.toString() + " ophalen gelukt: " + activitiesData.toString());
   }
   else{
     print("data activities met id " + id.toString() + " ophalen NIET gelukt: ");
