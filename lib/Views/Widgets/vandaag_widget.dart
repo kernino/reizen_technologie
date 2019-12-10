@@ -9,26 +9,6 @@ import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:reizen_technologie/Views/Widgets/hotel_details_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/planning_details_widget.dart';
 
-/*class Vandaag extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    if (globals.connected == true) {}
-    return FutureBuilder<void>(
-        future: globals.dbHelper.Seed(),
-        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-          return MaterialApp(
-            title: 'vandaag',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primarySwatch: Colors.red,
-              //Color.fromRGBO(255, g, b, opacity),
-            ),
-            home: VandaagPage(title: 'Today'),
-          );
-        });
-  }
-}*/
-
 class VandaagPage extends StatefulWidget {
   VandaagPage({Key key, this.title}) : super(key: key);
 
