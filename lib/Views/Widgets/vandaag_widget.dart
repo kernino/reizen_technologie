@@ -363,8 +363,8 @@ class _VandaagPageState extends State<VandaagPage> {
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          border: Border.all(width: 5, color: Color.fromRGBO(224, 0, 73, 1.0)),
-          borderRadius: const BorderRadius.all(const Radius.circular(8)),
+          border: Border.all(width: 5, color: Colors.black26),
+          borderRadius: const BorderRadius.all(const Radius.circular(20)),
         ),
         child: //Text('kamertje'),
             _makeRoomWidget(content),
@@ -389,9 +389,17 @@ class _VandaagPageState extends State<VandaagPage> {
     for(int k=0; k<content[0]['hotel_data'][0]['rooms'].length;k++) {
       if(content[0]['hotel_data'][0]['rooms'][k]['id']==roomId)
         {
+          if(content[0]['hotel_data'][0]['rooms'][k]['room_number']=="null")
+            {
+              widgets.add(Text("Kamer ?",
+                  style:
+                  TextStyle(fontSize: 30.0)));
+            }
+          else{
       widgets.add(Text("Kamer " + content[0]['hotel_data'][0]['rooms'][k]['room_number'].toString(),
           style:
-          TextStyle(fontSize: 30.0, color: Color.fromRGBO(224, 0, 73, 1.0))));
+          TextStyle(fontSize: 30.0)));
+          }
         }
     }
     widgets.add(Text(""));
@@ -400,20 +408,18 @@ class _VandaagPageState extends State<VandaagPage> {
         "Leden:",
         style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 20.0,
-            color: Color.fromRGBO(224, 0, 73, 1.0)),
+            fontSize: 20.0),
       ),
     );
 
     //travellers zoeken die in de kamer zitten
     for (int i = 0; i < content[0]['hotel_data'][0]['travellers'].length; i++) {
-      if (content[0]['hotel_data'][0]['travellers'][i]['room'] ==
-          content[0]['hotel_data'][0]['rooms'][roomId]['id']) {
+      if (content[0]['hotel_data'][0]['travellers'][i]['room'] == roomId) {
         widgets.add(
           Text(
             content[0]['hotel_data'][0]['travellers'][i]['traveller'],
             style: TextStyle(
-                fontSize: 20.0, color: Color.fromRGBO(224, 0, 73, 1.0)),
+                fontSize: 20.0),
           ),
         );
       }
