@@ -65,6 +65,7 @@ class _Inlog extends State<Inlog> {
                 )),
               ],
             ),
+            Padding(padding: EdgeInsets.all(2),),
             Row(
               children: <Widget>[
                 Expanded(
