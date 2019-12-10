@@ -5,7 +5,7 @@ Future<List> GetAllData() async {
 
   //var now = DateTime.now();
   //var today = DateTime(now.year, now.month, now.day);
-  String todayString='2020-5-22'; //testData
+  String todayString='2020-5-21'; //testData
   var today = new DateFormat("yyyy-MM-dd").parse(todayString);//testdata
 
   List<Map> allData = new List();

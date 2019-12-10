@@ -9,7 +9,7 @@ import 'package:reizen_technologie/Model/globals.dart' as globals;
 import 'package:reizen_technologie/Views/Widgets/hotel_details_widget.dart';
 import 'package:reizen_technologie/Views/Widgets/planning_details_widget.dart';
 
-class Vandaag extends StatelessWidget {
+/*class Vandaag extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (globals.connected == true) {}
@@ -27,7 +27,7 @@ class Vandaag extends StatelessWidget {
           );
         });
   }
-}
+}*/
 
 class VandaagPage extends StatefulWidget {
   VandaagPage({Key key, this.title}) : super(key: key);
@@ -72,39 +72,9 @@ class _VandaagPageState extends State<VandaagPage> {
                   _buildCountDown(content),
                   _buildPlanningHeader(content),
                   _buildExpandablePlanning(content),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 3, right: 3, bottom: 7, top: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          'Hotel',
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.w500),
-                        ),
-                        InkWell(
-                          child: Text(
-                            'Toon alles',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HotelDetailsPage(
-                                      hotel: content[0]['hotels']
-                                          [content[0]['hotel_id'] - 1]['id'])),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  _buildHotelHeader(content),
                   _buildExpandableHotel(content),
+                  _buildAlgemeneInfoHeader(content),
                   _buildExpandableAlgemeneInfo(content),
                 ],
               ),
@@ -297,6 +267,41 @@ class _VandaagPageState extends State<VandaagPage> {
     }
   }
 
+  Widget _buildHotelHeader(var content) {
+    return Padding(
+      padding:
+      EdgeInsets.only(left: 3, right: 3, bottom: 7, top: 40),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            'Hotel',
+            style: TextStyle(
+                fontSize: 30, fontWeight: FontWeight.w500),
+          ),
+          InkWell(
+            child: Text(
+              'Toon alles',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => HotelDetailsPage(
+                        hotel: content[0]['hotels']
+                        [content[0]['hotel_id'] - 1]['id'])),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildExpandableHotel(var content) {
     int hotelId = content[0]['hotel_id'] - 1;
     if (content[0]['hotel_data'].isNotEmpty) {
@@ -414,6 +419,37 @@ class _VandaagPageState extends State<VandaagPage> {
     return new Column(children: widgets);
   }
 
+  Widget _buildAlgemeneInfoHeader(var content) {
+    return Padding(
+      padding: EdgeInsets.only(left: 3, right: 3, bottom: 7, top: 40),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            'Algemene info',
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+          ),
+          InkWell(
+            child: Text(
+              'Toon alles',
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AlgemeneInfoPage()),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildExpandableAlgemeneInfo(var content) {
     String algemeneInfoString = content[0]['trip_info'][0]['info'];
     String delimiter = '</ul>';
@@ -422,36 +458,7 @@ class _VandaagPageState extends State<VandaagPage> {
     Widget algemeneInfoHtml = Html(
       data: algemeneInfoCut,
     );
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(left: 3, right: 3, bottom: 7, top: 40),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(
-                'Algemene info',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
-              ),
-              InkWell(
-                child: Text(
-                  'Toon alles',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AlgemeneInfoPage()),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
+    return
         Padding(
           padding: EdgeInsets.only(bottom: 8), //nodig voor shadow onder card
           child: Card(
@@ -461,8 +468,6 @@ class _VandaagPageState extends State<VandaagPage> {
               child: algemeneInfoHtml,
             ),
           ),
-        ),
-      ],
-    );
+        );
   }
 }
