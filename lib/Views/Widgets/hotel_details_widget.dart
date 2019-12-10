@@ -7,7 +7,7 @@ import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 
 Widget makeWidget(LinkedHashMap list, int index, int max) {
   List<Widget> widgets = new List<Widget>();
-  if (list['rooms'][index]['room_number'] == null) {
+  if (list['rooms'][index]['room_number'] == "null") {
     widgets.add(Text("Kamer ?", style: TextStyle(fontSize: 25.0)));
   } else {
     widgets.add(Text("Kamer " + list['rooms'][index]['room_number'].toString(),
@@ -83,16 +83,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Appbar.getAppbar(
-        "Details",
-        context,
-        IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(
-                  context,
-                  MaterialPageRoute(builder: (context) => HotelsPage()),
-                )),
-      ),
+
       body: new FutureBuilder(
           future: GetHotelData(widget.hotel),
           builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
@@ -105,7 +96,18 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
             }
             content = snapshot.data;
             var max = getMax(content[0]);
-            return SingleChildScrollView(
+            return Scaffold(
+              appBar: Appbar.getAppbar(
+                content[0]['hotel']['name'],
+                context,
+                IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.pop(
+                      context,
+                      MaterialPageRoute(builder: (context) => HotelsPage()),
+                    )),
+              ),
+              body: SingleChildScrollView(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -161,7 +163,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                       ),
                     )
                   ]),
-            );
+            ),);
           }),
     );
   }
