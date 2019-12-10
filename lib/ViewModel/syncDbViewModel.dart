@@ -206,10 +206,10 @@ await globals.dbHelper.db.rawDelete("DELETE FROM activities");
     for(int j = 0; j < result.data['trip']['dayplannings'][i]['activities'].length; j++){
       Activity activity = Activity(
         name: result.data['trip']['dayplannings'][i]['activities'][j]['name'],
-        location: "activityLocation",
+        location: result.data['trip']['dayplannings'][i]['activities'][j]['location'],
         start_hour: result.data['trip']['dayplannings'][i]['activities'][j]['start_hour'],
         end_hour: result.data['trip']['dayplannings'][i]['activities'][j]['end_hour'],
-        description: "activityDescription",
+        description: result.data['trip']['dayplannings'][i]['activities'][j]['description'],
       );
       await globals.dbHelper.db.insert("activities", activity.toMap());
     }
@@ -299,6 +299,8 @@ String getAllDataToSync() {
             name
             start_hour
             end_hour
+            description
+            location
           }
         }
         transports {
