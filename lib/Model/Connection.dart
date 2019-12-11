@@ -36,6 +36,7 @@ class Connection
       dbSync();
     }
     else if (connection == ConnectivityResult.none) {
+      await globals.getEmergencyNumbers();
       Fluttertoast.showToast(
           msg: "no connection to data network",
           toastLength: Toast.LENGTH_SHORT,

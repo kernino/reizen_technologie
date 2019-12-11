@@ -56,7 +56,7 @@ class _CarsPageState extends State<CarsPage> {
 Widget makeWidget(LinkedHashMap map, int index)
 {
   List<Widget> widgets = new List<Widget>();
-  widgets.add(Text('Auto '+(index+1).toString(),style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)));
+  widgets.add(Icon(Icons.directions_car,color: Color.fromRGBO(224, 0, 73, 1.0),size: 50));
   widgets.add(Text(""));
   widgets.add(Text('Chauffeur:', style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20)));
   widgets.add(Text(map['chauffeur'], style: TextStyle(fontSize: 15.0),));
