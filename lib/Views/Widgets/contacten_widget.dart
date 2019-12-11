@@ -73,7 +73,9 @@ class _ContactPageState extends State<ContactPage> {
                       },
                     ),
                     Expanded(
-                      child: ListView.builder(
+                      child: ListView.separated(
+                        separatorBuilder: (content, index)=>
+                          Divider(endIndent: 30,indent: 30,color: Colors.black26),
                         padding: EdgeInsets.all(10.0),
                         itemCount: filteredUsers.length,
                         itemBuilder: (BuildContext context, int index) {
