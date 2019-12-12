@@ -62,7 +62,7 @@ class _SyncState extends State<Sync> {
 Link setConnection(){
   var bearer = globals.loggedInUser[0]["token"];
   print(bearer);
-  final HttpLink httpLink =  HttpLink(uri: "http://192.168.1.202/graphql2?query=");
+  final HttpLink httpLink =  HttpLink(uri: "http://171.25.229.102:8222/graphql2?query=");
   final AuthLink authLink = AuthLink(getToken: () async => 'Bearer ' + bearer);
   final Link link = authLink.concat(httpLink);
   return link;
