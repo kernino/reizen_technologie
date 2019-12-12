@@ -11,7 +11,7 @@ import 'package:reizen_technologie/Model/globals.dart' as globals;
 
 import '../Connection.dart';
 import 'Car.dart';
-import 'DayPlanning.dart';
+import 'Day.dart';
 import 'Emergency Number.dart';
 import 'Hotel.dart';
 import 'RoomTraveller.dart';
@@ -25,7 +25,7 @@ class DatabaseHelper {
   Future initializeDatabase(BuildContext context) async {
 
     db = await openDatabase(
-      join(await getDatabasesPath(), 'data.reizentechnogie.database'),
+      join(await getDatabasesPath(), 'data.reizentechnogie.db'),
       onCreate: (db, version) async {
         await db.execute(
             "CREATE TABLE remote_update ("
@@ -44,7 +44,7 @@ class DatabaseHelper {
         );
 
         await db.execute(
-          "CREATE TABLE day_planning ("
+          "CREATE TABLE days ("
               "id INTEGER PRIMARY KEY,"
               "date TEXT,"
               "highlight TEXT,"
@@ -55,13 +55,22 @@ class DatabaseHelper {
         await db.execute(
           "CREATE TABLE activities ("
               "id INTEGER PRIMARY KEY,"
-              "day_planning_id INTEGER,"
               "name TEXT,"
+              "description TEXT,"
+              "location TEXT)"
+        );
+
+        await db.execute(
+          "CREATE TABLE plannings("
+              "id INTEGER PRIMARY KEY,"
               "start_hour TEXT,"
               "end_hour TEXT,"
+              "day_id INTEGER,"
+              "name TEXT,"
               "description TEXT,"
               "location TEXT,"
-              "FOREIGN KEY(day_planning_id) REFERENCES day_planning(id))"
+              "activity_id INTEGER,"
+              "FOREIGN KEY(day_id) REFERENCES days(id))"
         );
 
         await db.execute(

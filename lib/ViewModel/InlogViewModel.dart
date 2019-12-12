@@ -55,7 +55,7 @@ class InlogViewModel implements InlogModel {
       showAlertDialog(context, "Geen gebruikersnaam en/of paswoord ingegeven.");
     }
     else{
-      String url = 'http://171.25.229.102:8222/api/login';
+      String url = 'http://192.168.1.202/api/login';
       Map<String, String> headers = {"Content-type": "application/json"};
       String json = '{"username":"' + username + '","password":"' + password + '"}';
       var Response = await http.post(url, headers: headers, body: json);

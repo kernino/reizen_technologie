@@ -19,7 +19,7 @@ Future<List> GetAllData(int planningId) async {
 
 
 Future<List> GetDayPlannings() async {
-  List<Map> dayPlannings = await globals.database.query("day_planning");
+  List<Map> dayPlannings = await globals.database.query("days");
   if(dayPlannings != null) {
     print("data dayplanning ophalen gelukt: " + dayPlannings.toString());
   }
@@ -30,7 +30,7 @@ return dayPlannings;
 }
 
 Future<List> GetDayPlanningData(int id) async {
-List<Map> dayPlanningData = await globals.database.query('day_planning', where: '"id" = ?', whereArgs: [id]);
+List<Map> dayPlanningData = await globals.database.query('days', where: '"id" = ?', whereArgs: [id]);
 if(dayPlanningData != null) {
   print("data day planning met id " + id.toString() + " ophalen gelukt: " + dayPlanningData.toString());
 }
@@ -41,7 +41,7 @@ return dayPlanningData;
 }
 
 Future<List> GetDayActivities() async {
-  List<Map> activities = await globals.database.query("activities");
+  List<Map> activities = await globals.database.query("plannings");
   if(activities != null) {
     print("data dayplannings ophalen gelukt: " + activities.toString());
   }
@@ -52,7 +52,7 @@ Future<List> GetDayActivities() async {
 }
 
 Future<List> GetActivitiesByDay(int id) async {
-  List<Map> activitiesData = await globals.database.query('activities', where: '"day_planning_id" = ?', whereArgs: [id]);
+  List<Map> activitiesData = await globals.database.query('plannings', where: '"day_id" = ?', whereArgs: [id]);
   if(activitiesData != []){
     print("activities met id " + id.toString() + " ophalen gelukt: " + activitiesData.toString());
   }

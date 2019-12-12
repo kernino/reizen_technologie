@@ -83,7 +83,7 @@ Future<List> GetUser() async {
 
 
 Future<List> GetDayPlannings() async {
-  List<Map> dayPlannings = await globals.database.query("day_planning");
+  List<Map> dayPlannings = await globals.database.query("days");
   if(dayPlannings != null) {
     print("data dayplanning ophalen gelukt: " + dayPlannings.toString());
   }

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:reizen_technologie/Model/Connection.dart';
 import 'package:reizen_technologie/Model/Database/Car.dart';
 import 'package:reizen_technologie/Model/Database/DatabaseTable.dart';
-import 'package:reizen_technologie/Model/Database/DayPlanning.dart';
+import 'package:reizen_technologie/Model/Database/Day.dart';
 import 'package:reizen_technologie/Model/Database/Emergency%20Number.dart';
 import 'package:reizen_technologie/Model/Database/Hotel.dart';
 import 'package:reizen_technologie/Model/Database/User.dart';
