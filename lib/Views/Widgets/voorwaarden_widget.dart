@@ -28,6 +28,8 @@ class Voorwaarden extends StatefulWidget {
 }
 
 class _VoorwaardenState extends State<Voorwaarden> {
+  bool _isButtonDisabled = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,23 +45,37 @@ class _VoorwaardenState extends State<Voorwaarden> {
             child: SingleChildScrollView(
                 child: Column(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 SizedBox(
-                    height: MediaQuery.of(context).size.height -200,
+                    height: MediaQuery.of(context).size.height - 215,
                     child: getData()),
-
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: RaisedButton(
-                    padding: const EdgeInsets.all(10.0),
-                    onPressed: () {
-                      acceptConditions(context);
-                    },
-                    color: Color.fromRGBO(224, 0, 73, 1.0),
-                    textColor: Colors.white,
-                    child:
-                        Text('Ik ga akkoord', style: TextStyle(fontSize: 20)),
-                  ),
+                Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Checkbox(
+                            value: _isButtonDisabled,
+                            onChanged: (bool newValue) {
+                              setState(
+                                  () => _isButtonDisabled = !_isButtonDisabled);
+                            }),
+                        Text('Gelezen en goedgekeurd')
+                      ],
+                    ),
+                    RaisedButton(
+                      padding: const EdgeInsets.all(10.0),
+                      onPressed: !_isButtonDisabled
+                          ? null
+                          : () {
+                              acceptConditions(context);
+                            },
+                      color: Color.fromRGBO(224, 0, 73, 1.0),
+                      textColor: Colors.white,
+                      child:
+                          Text('Ik ga akkoord', style: TextStyle(fontSize: 20)),
+                    ),
+                  ],
                 )
               ],
             )),

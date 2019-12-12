@@ -111,7 +111,7 @@ class _VandaagPageState extends State<VandaagPage> {
             padding: EdgeInsets.only(top: 40),
           ),
           Card(
-            elevation: 4,
+            elevation: 3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -180,7 +180,7 @@ class _VandaagPageState extends State<VandaagPage> {
   Widget _buildExpandablePlanning(var content) {
     if (content[0]['day_planning'] != null) {
       return Card(
-        elevation: 4,
+        elevation: 3,
         child: ExpandablePanel(
           header: Padding(
             padding: EdgeInsets.only(left: 4, right: 5, bottom: 5, top: 5),
@@ -286,7 +286,7 @@ class _VandaagPageState extends State<VandaagPage> {
     int hotelId = content[0]['hotel_id'] - 1;
     if (content[0]['hotel_data'].isNotEmpty) {
       return Card(
-        elevation: 4,
+        elevation: 3,
         //Randen foto laten overeenkomen met card:
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -450,7 +450,7 @@ class _VandaagPageState extends State<VandaagPage> {
         Padding(
           padding: EdgeInsets.only(bottom: 8), //nodig voor shadow onder card
           child: Card(
-            elevation: 4,
+            elevation: 3,
             child: Padding(
               padding: EdgeInsets.only(top: 5, bottom: 5),
               child: algemeneInfoHtml,

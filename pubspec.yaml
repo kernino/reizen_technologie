@@ -41,6 +41,7 @@ dependencies:
   calendar_strip: ^1.0.4
   flutter_launcher_icons: ^0.7.3
   flutter_svg: 0.12.1
+  geolocator: ^5.1.5
 
 dev_dependencies:
   flutter_test:

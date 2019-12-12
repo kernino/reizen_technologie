@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:reizen_technologie/Views/Widgets/hotel_details_widget.dart';
 import 'package:reizen_technologie/ViewModel/HotelViewModel.dart';
 import 'appbar.dart';
@@ -13,6 +14,18 @@ class HotelsPage extends StatefulWidget {
 }
 
 class _HotelsPageState extends State<HotelsPage> {
+  String city;
+
+  void getCity() async {
+    List<Placemark> placemark = await Geolocator().placemarkFromAddress("Gronausestraat 710, Enschede");
+    city = placemark[0].country.toString();
+
+  }
+
+  String getCityName() {
+    getCity();
+    return city;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +54,7 @@ class _HotelsPageState extends State<HotelsPage> {
                 stringStart = stringStart.split("-");
                 var stringEnd = content[index]['end_date'];
                 stringEnd = stringEnd.split("-");
+                getCity();
 
                 return InkWell(
                   onTap: () {
@@ -81,6 +95,7 @@ class _HotelsPageState extends State<HotelsPage> {
                             FittedBox(
                               fit: BoxFit.fitWidth,
                               child: Text(
+                                  //getCityName() ,
                                 content[index]['location'],
                                 style: TextStyle(
                                     fontSize: 16),

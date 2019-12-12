@@ -18,8 +18,8 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
   var content;
 
   List<DateTime> markedDates = [
-    DateFormat("yyyy-MM-dd").parse("2020-05-21"),
-    DateFormat("yyyy-MM-dd").parse("2020-05-24"),
+    //DateFormat("yyyy-MM-dd").parse("2020-05-21"),
+    //DateFormat("yyyy-MM-dd").parse("2020-05-24"),
   ];
 
   @override
@@ -64,8 +64,7 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
                         iconColor: Colors.black87,
                         monthNameWidget: _monthNameWidget,
                         markedDates: markedDates,
-                        containerDecoration:
-                            BoxDecoration(color: Colors.black12),
+                        containerDecoration: BoxDecoration(),
                       ),
                     ),
                     buildPlanning()
@@ -76,42 +75,84 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
   }
 
   Widget buildPlanning() {
+    var activitiesLength = content[0]['activities_by_day'].length;
+    //var start_hour = DateFormat("hh-mm-ss").parse(content[0]['activities_by_day'][index]['start_hour'])
     return Column(
       children: <Widget>[
+        Divider(
+          indent: 35,
+          endIndent: 35,
+        ),
         Padding(
-          padding: EdgeInsets.only(top: 5, left: 5, right: 5),
+          padding: EdgeInsets.only(top: 20, left: 5, right: 5),
           child: Text(
             content[0]['day_planning'][0]['description'],
             style: TextStyle(fontSize: 15),
           ),
         ),
-        Scrollbar(
-          child: SingleChildScrollView(
-            child:  Text(/*content[0]['activities_by_day'][0]['name']*/ ''),) /*Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: List.generate(content[0]['activities_by_day'].length, (index) {
-                return Card(child: *//*Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      ListTile(
-                        title: Text(
-                            content[0]['activities_by_day'][index+1]['name'],
-                          style: TextStyle(
-                              fontSize: 18
-                          ),
-                        ),
-                        subtitle: Text(
-                          content[0]['activities_by_day'][index+1]['description'],
-                          style: TextStyle(
-                              fontSize: 18
-                          ),
-                        ),
-                      )
-                    ])*//*Text(content[0]['activities_by_day'][0]['name']),);*/
-              //}),
-            //),
-          ///),
-        )
+        Padding(
+          padding: EdgeInsets.only(left: 4, right: 4, top: 10),
+          child: Scrollbar(
+            child: SingleChildScrollView(
+              child: /*Text(/*content[0]['activities_by_day'][0]['name']*/ ''),)*/ Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: List.generate(activitiesLength, (index) {
+                  var start_hour = DateFormat("hh:mm:ss").parse(
+                      content[0]['activities_by_day'][index]['start_hour']);
+                  var end_hour = DateFormat("hh:mm:ss").parse(
+                      content[0]['activities_by_day'][index]['end_hour']);
+                  return Card(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            title: Text(
+                              content[0]['activities_by_day'][index]['name'],
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            subtitle: Text(
+                              content[0]['activities_by_day'][index]
+                                  ['description'],
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            leading: Text(DateFormat.Hm().format(start_hour) +
+                                "\n     -\n" +
+                                DateFormat.Hm().format(end_hour)),
+                          )
+                        ]),
+                  );
+                }),
+              ),
+            ),
+          ),
+        ),
+/*        ListView(
+          padding: EdgeInsets.all(10.0),
+          children: List.generate(activitiesLength, (index) {
+            var start_hour = DateFormat("hh:mm:ss").parse(
+                content[0]['activities_by_day'][index]['start_hour']);
+            var end_hour = DateFormat("hh:mm:ss").parse(
+                content[0]['activities_by_day'][index]['end_hour']);
+            return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    title: Text(
+                      content[0]['activities_by_day'][index]['name'],
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    subtitle: Text(
+                      content[0]['activities_by_day'][index]
+                      ['description'],
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    leading: Text(DateFormat.Hm().format(start_hour) +
+                        "\n     -\n" +
+                        DateFormat.Hm().format(end_hour)),
+                  )
+                ]);
+          }),
+        ),*/
       ],
     );
   }

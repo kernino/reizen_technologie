@@ -64,7 +64,7 @@ class _AlgemeneInfoPageState extends State<AlgemeneInfoPage> {
             padding: EdgeInsets.only(top: 10, right: 5, bottom: 10),
             child: SingleChildScrollView(
                 child: Html(
-              data: algemeneInfoString + algemeneInfoString,
+              data: algemeneInfoString,
             )),
           ));
         },
