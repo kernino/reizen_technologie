@@ -306,7 +306,6 @@ String getAllDataToSync() {
             start_hour, 
             end_hour, 
             activity { 
-              activity_id, 
               name, 
               description, 
               location
