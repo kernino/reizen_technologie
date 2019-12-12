@@ -81,7 +81,7 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
       children: <Widget>[
         Divider(
           indent: 35,
-          endIndent: 35,
+          endIndent: 35,color: Colors.black26
         ),
         Padding(
           padding: EdgeInsets.only(top: 20, left: 5, right: 5),

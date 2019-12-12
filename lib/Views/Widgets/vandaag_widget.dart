@@ -293,9 +293,15 @@ class _VandaagPageState extends State<VandaagPage> {
           children: <Widget>[
             AspectRatio(
               aspectRatio: 7 / 2,
-              child: new Image(
-                image: new AssetImage(//content[index]['photoUrl']
-                    'assets/hotels/hotel' + hotelId.toString() + '.jpg'),
+              //uit lokale database:
+              /*child: new Image(
+                image: new AssetImage('assets/hotels/hotel' + hotelId.toString() + '.jpg'),
+
+                fit: BoxFit.cover,
+              ),*/
+              //met photoUrl
+              child: new Image.network(
+                content[0]['hotels'][hotelId]['photoUrl'],
                 fit: BoxFit.cover,
               ),
             ),
