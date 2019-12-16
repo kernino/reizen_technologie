@@ -4,7 +4,7 @@ import 'package:reizen_technologie/Model/Database/database_helpers.dart';
 DatabaseHelper db = new DatabaseHelper();
 
 Future<List> GetTravellers() async {
-  List<Map> travellers = await globals.database.query("travellers");
+  List<Map> travellers = await globals.database.query("travellers",orderBy: 'first_name ASC, last_name ASC');
   if(travellers != null) {
     print("data travellers ophalen gelukt: " + travellers.toString());
   }
