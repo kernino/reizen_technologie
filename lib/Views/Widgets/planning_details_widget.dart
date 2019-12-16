@@ -66,6 +66,16 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
                         markedDates: markedDates,
                         containerDecoration: BoxDecoration(),
                       ),
+                    ),Divider(
+                        indent: 35,
+                        endIndent: 35,color: Colors.black26
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, left: 5, right: 5),
+                      child: Text(
+                        content[0]['day_planning'][0]['description'],
+                        style: TextStyle(fontSize: 15),
+                      ),
                     ),
                     buildPlanning()
                   ],
@@ -77,24 +87,14 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
   Widget buildPlanning() {
     var activitiesLength = content[0]['activities_by_day'].length;
     //var start_hour = DateFormat("hh-mm-ss").parse(content[0]['activities_by_day'][index]['start_hour'])
-    return Column(
-      children: <Widget>[
-        Divider(
-          indent: 35,
-          endIndent: 35,color: Colors.black26
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 20, left: 5, right: 5),
-          child: Text(
-            content[0]['day_planning'][0]['description'],
-            style: TextStyle(fontSize: 15),
-          ),
-        ),
+    return
+    Expanded(
+      child: Scrollbar(
+        child: SingleChildScrollView(
+      child:
         Padding(
           padding: EdgeInsets.only(left: 4, right: 4, top: 10),
-          child: Scrollbar(
-            child: SingleChildScrollView(
-              child: /*Text(/*content[0]['activities_by_day'][0]['name']*/ ''),)*/ Column(
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: List.generate(activitiesLength, (index) {
                   var start_hour = DateFormat("hh:mm:ss").parse(
@@ -123,9 +123,7 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
                   );
                 }),
               ),
-            ),
           ),
-        ),
 /*        ListView(
           padding: EdgeInsets.all(10.0),
           children: List.generate(activitiesLength, (index) {
@@ -153,7 +151,8 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
                 ]);
           }),
         ),*/
-      ],
+      )
+      )
     );
   }
 
