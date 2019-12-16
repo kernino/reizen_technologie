@@ -12,7 +12,7 @@ return hotels;
 
 Future<List> GetHotelData(int id) async {
   List<Map> hotel = await globals.database.query('hotels', where: '"id" = ?', whereArgs: [id]);
-  List<Map> rooms = await globals.database.query('rooms',where: '"hotel_id" = ?',whereArgs: [id]);
+  List<Map> rooms = await globals.database.query('rooms',orderBy: "room_number ASC",where: '"hotel_id" = ?',whereArgs: [id]);
   List<Map> travellers = new List();
   if(rooms.isNotEmpty) {
     for (int i=0; i<rooms.length; i++) {
