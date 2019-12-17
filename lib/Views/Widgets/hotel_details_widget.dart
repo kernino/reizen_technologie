@@ -146,7 +146,7 @@ class _HotelDetailsPageState extends State<HotelDetailsPage> {
                       child: Container(
                         padding: new EdgeInsets.all(10.0),
                         child: Text(
-                          content[0]['hotel']['description'],
+                          content[0]['hotel']['location'],
                           //textAlign: TextAlign.justify,
                           style: TextStyle(fontSize: 15.0),
                         ),
