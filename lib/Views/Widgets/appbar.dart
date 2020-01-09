@@ -6,19 +6,20 @@ import 'package:reizen_technologie/ViewModel/syncDbViewModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Appbar {
-  static getAppbar(String title, BuildContext context2, [Widget leadingWidget]) {
+  static getAppbar(String title, BuildContext context2,
+      [Widget leadingWidget]) {
     return AppBar(
       title: Text(title, style: TextStyle(color: Colors.white)),
       backgroundColor: Color.fromRGBO(224, 0, 73, 1.0),
       automaticallyImplyLeading: true,
-        /*leading: IconButton(icon: Icon(Icons.arrow_back),
+      /*leading: IconButton(icon: Icon(Icons.arrow_back),
           onPressed: () =>
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                       builder: (context) => Hotels())),
         )),*/
-        leading: leadingWidget,
+      leading: leadingWidget,
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.refresh),
@@ -28,6 +29,7 @@ class Appbar {
           },
         ),
         PopupMenuButton<String>(
+          icon: Icon(Icons.call),
           itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
             PopupMenuItem<String>(
               value: 'Noodnummers',
@@ -46,7 +48,6 @@ class Appbar {
                 ),
               ),
           ],
-          icon: Icon(Icons.call),
         ),
       ],
     );

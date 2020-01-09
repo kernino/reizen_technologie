@@ -71,7 +71,7 @@ class _PlanningDetailsPageState extends State<PlanningDetailsPage> {
                         endIndent: 35,color: Colors.black26
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 20, left: 5, right: 5),
+                      padding: EdgeInsets.only(top: 20, left: 10, right: 10),
                       child: Text(
                         content[0]['day_planning'][0]['description'],
                         style: TextStyle(fontSize: 15),

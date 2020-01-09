@@ -207,7 +207,7 @@ class _VandaagPageState extends State<VandaagPage> {
           collapsed: Padding(
             padding: EdgeInsets.all(5),
             child: Text(
-              content[0]['day_planning']['description'] + _planningText,
+              content[0]['day_planning']['description'],
               softWrap: true,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -217,7 +217,7 @@ class _VandaagPageState extends State<VandaagPage> {
           expanded: Padding(
             padding: EdgeInsets.all(5),
             child: Text(
-              content[0]['day_planning']['description'] + _planningText,
+              content[0]['day_planning']['description'],
               softWrap: true,
               textAlign: TextAlign.justify,
             ),
